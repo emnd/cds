@@ -1,0 +1,10 @@
+{
+  "app.layout.directives.sidebar.search-bar": "Rechercher ...",
+  "app.layout.directives.sidebar.record": "Dossier",
+  "app.layout.directives.sidebar.record.create": "Créer",
+  "app.layout.directives.sidebar.record.search": "Rechercher",
+  "app.layout.directives.sidebar.record.list": "Lister",
+  "app.layout.directives.sidebar.record.control": "Contrôler",
+  "app.layout.directives.sidebar.campaign": "Campagne",
+  "app.layout.directives.sidebar.campaign.initialize": "Initier"
+}

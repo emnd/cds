@@ -1,0 +1,14 @@
+<service>
+	<id>cds-idf-res-front</id>
+	<name>Web Application POP base</name>
+	<description>Web application POP base</description>
+	<workingdirectory>%BASE%\..\</workingdirectory>
+	<logpath>%BASE%\..\logs</logpath>
+	<logmode>rotate</logmode>
+	<executable>%JRE_HOME%\java</executable>
+	<argument>-jar</argument>
+	<argument>lib\${project.artifactId}-${project.version}.${project.packaging}</argument>
+	<argument>-cp</argument>
+	<argument>lib\*</argument>
+	<argument>--spring.config.location=file:conf\cds-idf-res.properties</argument>
+</service>

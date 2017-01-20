@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<configuration>
+
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <contextListener class="com.opengroup.res.util.configuration.LoggerStartupListener"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="system" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_HOME}/system.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="application" class="ch.qos.logback.core.FileAppender">
+        <file>${LOGS_HOME}/application-${bySecond}.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="system"/>
+    </root>
+
+</configuration>
