@@ -26,7 +26,11 @@ public abstract class DomainBeanTrackable extends DomainBean implements Serializ
         this.lastUpdateUserId = lastUpdateUserId;
     }
 
-    /**
+    public DomainBeanTrackable() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * @param creationDate
      * @param lastModificationDate
      * @throws DomainException

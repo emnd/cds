@@ -6,7 +6,6 @@ import com.opengroup.res.jpa.entities.Parameter;
 import com.opengroup.res.jpa.entities.AuditState;
 import com.opengroup.res.util.AbstractDomainMapper;
 import org.springframework.stereotype.Component;
-
 import java.util.Date;
 
 /**
