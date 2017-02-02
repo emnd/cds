@@ -1,7 +1,4 @@
 package com.opengroup.res.core;
-
-import com.opengroup.res.core.domain.DomainParameter;
-import com.opengroup.res.jpa.ParameterRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +6,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestData
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.opengroup.res.core.ParameterServices;
+import com.opengroup.res.core.domain.DomainParameter;
+import com.opengroup.res.jpa.ParameterRepository;
 
 /**
  * Integration test on parameter
@@ -31,13 +32,18 @@ public class ParameterServicesIntegrationTest {
     @Test
     @Commit
     public void testCreate() throws Exception {
-        parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "CAN", "Canne à sucre", "RCH11270");
+    	parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "MNG", "MANGUE DE CASAMANCE", "RCH11270");
+ 
+    	parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "CAN", "Canne à sucre", "RCH11270");
     }
 
     @Test
     @Commit
     public void testUpdate() throws Exception {
-        parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "CAN", "Canne à sucre", "RCH11270");
+        
+        parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "MNG", "MANGUE DE CASAMANCE", "RCH11270");
+
+    	parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "CAN", "Canne à sucre", "RCH11270");
     }
 
 

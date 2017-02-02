@@ -45,13 +45,17 @@ public class Customer  implements Serializable , EntityBean {
 	private List<CustomerProject> cps = new ArrayList<CustomerProject>();
 	
 
+	
+
 	public Customer() {
-		
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(String nameCustomer) {
+	public Customer(Long idCustomer,String nameCustomer) {
 		
 		this.nameCustomer = nameCustomer;
+		this.idCustomer=idCustomer;
 		
 	}
 

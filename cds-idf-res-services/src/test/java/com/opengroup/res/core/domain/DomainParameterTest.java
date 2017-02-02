@@ -43,7 +43,8 @@ public class DomainParameterTest {
 
     }
 
-    @Test(expected = DomainException.class)
+    @SuppressWarnings("unused")
+	@Test(expected = DomainException.class)
     public void newCreatedStateInstance2() throws DomainException {
 
         DomainParameter domainParameter2 = DomainParameter.newCreatedStateInstance(null, "BA45654", "Banane", "RCH11270");

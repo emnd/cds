@@ -1,6 +1,7 @@
 package com.opengroup.res.jpa.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,10 +34,7 @@ import net.minidev.json.annotate.JsonIgnore;
 @Table(name="project", uniqueConstraints={ @UniqueConstraint(columnNames={"nameProject"})})
 @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p")
 public class Project implements Serializable, EntityBean{
-	@Column(name = "project_state", nullable = false, length = 30)
-	private String projectState;
 	private static final long serialVersionUID = 1L;
-	private AuditState auditState;
 	private Long idProject;
 	private String nameProject;
 	private Date periodStart;
@@ -45,14 +43,11 @@ public class Project implements Serializable, EntityBean{
 	private List<Authorisation> authorisations = new ArrayList<Authorisation>();
 	private List<CustomerProject> customerProject = new ArrayList<CustomerProject>();
 	
-	public Project(String nameProject) {
-		// TODO Auto-generated constructor stub
-		super();
-		this.nameProject = nameProject;
-	}
+	SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy");
+	
 	
 	public Project() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Project( Long idProject,String nameProject, Date periodStart, Date periodEnd ) {
@@ -88,7 +83,7 @@ public class Project implements Serializable, EntityBean{
 
 	@Column(name="periodStart")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getPeriodStart() {
 		return periodStart;
 	}
@@ -100,7 +95,7 @@ public class Project implements Serializable, EntityBean{
  
 	@Column(name="periodEnd")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy/MM/dd")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getPeriodEnd() {
 		return periodEnd;
 	}
@@ -142,32 +137,5 @@ public class Project implements Serializable, EntityBean{
 		this.customerProject = customerProject;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Project [idProject=" + idProject + ", nameProject=" + nameProject + ", periodStart=" + periodStart + ", periodEnd="
-//				+ periodEnd + ", version=" + version + ", authorisations=" + authorisations + ", customerProject="
-//				+ customerProject + "]";
-//	}
-
-	public AuditState getAuditState() {
-		return auditState;
-	}
-
-	public void setAuditState(AuditState auditState) {
-		this.auditState = auditState;
-	}
-
-	public String getProjectState() {
-		return projectState;
-	}
-
-	public void setProjectState(String projectState) {
-		this.projectState = projectState;
-	}
-
-	
-
-	
-	
 
 }

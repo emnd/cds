@@ -50,13 +50,8 @@ public class Authorisation {
     private boolean equipment;
     @Column(name="motive")
     private String motive;
-
-
     @Column(name="status")
     private String status;
-
-   @Column(name="bu")
-  private String bu;
 
     public Authorisation(){   }
 
@@ -72,7 +67,7 @@ public class Authorisation {
      * @param equipment     Whether the collaborator will bring his own equipment (a laptop, for example)
      * @param motive    The motive of the authorisation request
      */
-    public Authorisation(Collaborator collaborator, Request request, Date periodStart, Date periodEnd,  boolean equipment, String motive, Project project,String bu) {
+    public Authorisation(Collaborator collaborator, Request request, Date periodStart, Date periodEnd,  boolean equipment, String motive, Project project) {
         this.request = request;
         this.collaborator = collaborator;
         this.periodStart = periodStart;
@@ -81,7 +76,7 @@ public class Authorisation {
         this.equipment = equipment;
         this.motive = motive;
         this.project = project;
-       this.bu=bu;
+       
     }
 //    Getters and setters
 public Long getId() {
@@ -168,16 +163,7 @@ public Long getId() {
   	}
 
 
-    public String getBu() {
-		return bu;
-	}
-
-
-
-	public void setBu(String bu) {
-		this.bu = bu;
-	}
-
+  
 
 	@SuppressWarnings("unused")
 	private class AuthorisationPK{
