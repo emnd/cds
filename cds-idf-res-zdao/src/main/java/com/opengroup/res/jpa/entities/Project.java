@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.opengroup.res.util.EntityBean;
 
-import net.minidev.json.annotate.JsonIgnore;
+
 
 /**
  * @author MMO15271
@@ -117,7 +117,7 @@ public class Project implements Serializable, EntityBean{
 	}
 
 	
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "project")
 	public List<Authorisation> getAuthorisations() {
 		return authorisations;
@@ -127,7 +127,7 @@ public class Project implements Serializable, EntityBean{
 		this.authorisations = authorisations;
 	}
 
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "project")
 	public List<CustomerProject> getCustomerProject() {
 		return customerProject;

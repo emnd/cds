@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-import net.minidev.json.annotate.JsonIgnore;
+
 
 /**
  * @author SGU15268
@@ -65,7 +65,7 @@ public class CustomerProject implements  Serializable {
 		this.id = id;
 	}
 
-	@JsonIgnore
+
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_customer")
 	public Customer getCustomer() {
@@ -75,7 +75,7 @@ public class CustomerProject implements  Serializable {
 		this.customer = customer;
 	}
 	
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name="id_project")
 	public Project getProject() {

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import net.minidev.json.annotate.JsonIgnore;
+
 
 /**Data-model class for the authorisation required for a "collaborator" to access the CS
  *
@@ -149,7 +149,7 @@ public Long getId() {
     public boolean isEquipment() {
         return equipment;
     }
-    @JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name="id_project")
     public Project getProject() {

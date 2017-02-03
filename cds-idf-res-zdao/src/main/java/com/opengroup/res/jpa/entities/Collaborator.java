@@ -48,7 +48,7 @@ public class Collaborator implements Serializable , EntityBean{
     @Column(name="bu_open")
     private String bu;
    // private int version;
-    //@JsonIgnore
+    //
 	//@OneToMany(mappedBy = "collaborator")
     //private Authorisation authorisation;
     

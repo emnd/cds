@@ -19,7 +19,7 @@ import com.opengroup.res.enums.EquipementType;
 import com.opengroup.res.enums.StateType;
 import com.opengroup.res.util.EntityBean;
 
-import net.minidev.json.annotate.JsonIgnore;
+
 
 /**
  * @author OAI15274
@@ -197,7 +197,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.version = version;
 	}
 	
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name = "equipement_location_id")
 	public Location getLocation() {
