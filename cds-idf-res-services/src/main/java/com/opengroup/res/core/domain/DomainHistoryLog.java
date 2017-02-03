@@ -44,6 +44,7 @@ public class DomainHistoryLog extends DomainBean {
         if (domainParameter == null) {
             throw new DomainException("Domain parameter must not be null");
         }
+         
         /*
          * The rules about format the information to trace
          */
@@ -51,6 +52,25 @@ public class DomainHistoryLog extends DomainBean {
         return new DomainHistoryLog(rootContextName, domainParameter.getKey(), domainParameter.getLastUpdateUserId(), domainParameter.getState().toString());
     }
 
+    public static DomainHistoryLog newEquipementInstance(DomainEquipement domainEquipement) throws DomainException {
+        if (domainEquipement == null) {
+            throw new DomainException("Domain Equipement must not be null");
+        } 
+        
+        String rootContextName = StringUtils.capitalize(DomainHistoryLog.RootContextName.EQUIPEMENT.toString() + "-" + domainEquipement.getIdEquipement());
+        return new DomainHistoryLog(rootContextName, domainEquipement.getCommentsEquipement(), domainEquipement.getMarkEquipement(), domainEquipement.getEquipementTypeEquipement().toString());
+    }
+    
+    public static DomainHistoryLog newLocationInstance(DomainLocation domainLocation) throws DomainException {
+        if (domainLocation == null) {
+            throw new DomainException("Domain Location must not be null");
+        } 
+        
+        String rootContextName = StringUtils.capitalize(DomainHistoryLog.RootContextName.LOCATION.toString() + "-" + domainLocation.getIdLocation());
+        return new DomainHistoryLog(rootContextName, domainLocation.getBlockLocation(), domainLocation.getNameLocation(), domainLocation.getPlaceLocation().toString());
+    }
+    
+    
     /**
      * Gets creationDate.
      *
@@ -127,6 +147,6 @@ public class DomainHistoryLog extends DomainBean {
      * The inner root context enumeration
      */
     public enum RootContextName {
-        PARAMETER, REGIME, MEASURE, ASSISTANCE
+        PARAMETER, REGIME, MEASURE, ASSISTANCE, EQUIPEMENT, LOCATION
     }
 }
