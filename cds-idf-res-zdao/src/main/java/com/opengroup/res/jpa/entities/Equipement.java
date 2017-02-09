@@ -27,7 +27,7 @@ import com.opengroup.res.util.EntityBean;
  */
 
 @Entity
-@Table(name = "equipements")
+@Table(name = "equipement")
 public class Equipement implements Serializable, EntityBean {
 
 	/**
@@ -71,7 +71,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.comments = comments;
 		this.equipmentType = equipmentType;
 		this.stateType = stateType;
-		this.version = version;
+		//this.version = version;
 		this.location = location;
 	}
 

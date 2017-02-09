@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ import com.opengroup.res.util.EntityBean;
 
 
 /**
- * @author MMO15271
+ * @author Open groupe croissant
  *
  */
 
@@ -50,9 +51,9 @@ public class Project implements Serializable, EntityBean{
 		
 	}
 
-	public Project( Long idProject,String nameProject, Date periodStart, Date periodEnd ) {
+	public Project( Long id,String nameProject, Date periodStart, Date periodEnd ) {
 		super();
-		this.idProject = idProject;
+		this.idProject = id;
 		this.nameProject = nameProject.toUpperCase();
 		this.periodStart = periodStart;
 		this.periodEnd = periodEnd;
@@ -67,8 +68,8 @@ public class Project implements Serializable, EntityBean{
 	}
 
 
-	public void setIdProject(Long idProject) {
-		this.idProject = idProject;
+	public void setIdProject(Long id) {
+		this.idProject = id;
 	}
 	
 	@Column(name="nameProject")
@@ -118,7 +119,7 @@ public class Project implements Serializable, EntityBean{
 
 	
 
-	@OneToMany(mappedBy = "project")
+	@OneToMany(mappedBy = "project",cascade=CascadeType.ALL, orphanRemoval=true) // cascade=CascadeType.ALL, orphanRemoval=true pour la suppression en cascade (le 07 FEV 2017))
 	public List<Authorisation> getAuthorisations() {
 		return authorisations;
 	}
@@ -136,6 +137,8 @@ public class Project implements Serializable, EntityBean{
 	public void setCustomerProject(List<CustomerProject> customerProject) {
 		this.customerProject = customerProject;
 	}
+
+	
 
 
 }

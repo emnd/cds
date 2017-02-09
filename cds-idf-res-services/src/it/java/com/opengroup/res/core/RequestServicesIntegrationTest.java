@@ -1,7 +1,7 @@
 package com.opengroup.res.core;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,42 +11,49 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.opengroup.res.core.RequestServices;
+
 /**
- * Integration test on parameter
+ * Integration test on request
  *
  * @author Open groupe
- * @since 1.0.0
+ * @since 3.0.0
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class RequestServicesIntegrationTest {
+	
+	@Autowired
+    private RequestServices requestServices;
 
-public class ProjectServicesIntegrationTest {
+//    @Autowired
+//    private CollaboratorRepository collaboratorRepository;
+    
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    @Autowired
-    private ProjectServices projectServices;
-
-
+	
   /*  @Test
     @Commit
     public void testCreate() throws Exception {
-    	projectServices.createProject("PROJET 1", new Date(), new Date());
-    	projectServices.createProject("PROJET 2", sdf.parse("07/02/2017"), sdf.parse("25/02/2018"));
-    	projectServices.createProject("PROJET 3", sdf.parse("20/12/2016"), sdf.parse("31/07/2017"));
-    	projectServices.createProject("PROJET 4", sdf.parse("24/12/2016"), sdf.parse("24/02/2018"));
+    	requestServices.createRequest("String applicant 3", "String decider 3", sdf.parse("07/02/2037"), sdf.parse("32/02/2037"));
+ 
+    	requestServices.createRequest("String applicant 4", "String decider 4",sdf.parse("07/02/2037"), sdf.parse("34/02/2037"));
     } */
 
- /*  @Test    
+   /* @Test
     @Commit
     public void testUpdate() throws Exception {
-    	projectServices.updateProject(54L,"Croissant", sdf.parse("27/12/2016"), sdf.parse("27/02/2017"));
-    }
-*/
-   
- /*   @Test
+        
+        requestServices.updateRequest(2L,"philippe", "Sartre", sdf.parse("06/02/2017"), sdf.parse("06/02/2039"));
+
+    } */
+
+
+    @Test
     @Commit
     public void testDelete() throws Exception {
-    	projectServices.deleteProject(56L,"PROJET 3", sdf.parse("20/12/2016"), sdf.parse("31/07/2017"));
-    } */
+        requestServices.deleteRequest(4L,"String applicant 4", "String decider 4",sdf.parse("07/02/2037"), sdf.parse("34/02/2037"));
+    }
+
 
 }

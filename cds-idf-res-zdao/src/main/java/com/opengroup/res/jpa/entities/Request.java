@@ -1,11 +1,12 @@
 package com.opengroup.res.jpa.entities;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ import javax.persistence.TemporalType;
 import com.opengroup.res.util.EntityBean;
 
 /**
- * Created by EXT_LHA88 on 13/10/2016.
+ * Created by open groupe croissant.
  *
  * Model class for a request to the manager of the Centre de Service for the access authorisation for one or mode
  * "collaborators" - Open staff or external contractors
@@ -60,8 +61,8 @@ public class Request implements Serializable , EntityBean{
      * List of the Authorisations which are included (ie their FK points to) in this Request
      */
 
-    @OneToMany (mappedBy = "request", fetch = FetchType.LAZY)
-    private List<Authorisation> authorisations;
+    @OneToMany (mappedBy = "request",cascade=CascadeType.ALL, orphanRemoval=true) // cascade=CascadeType.ALL, orphanRemoval=true pour la suppression en cascade (le 07 FEV 2017))
+    private List<Authorisation> authorisations = new ArrayList<Authorisation>();
 
 
     public Request() {}
@@ -93,9 +94,9 @@ public class Request implements Serializable , EntityBean{
         return id;
     }
 
-    /*    public void setRequestId(Long requestId) {
-        id = requestId;
-    }*/
+     public void setId(Long id) {
+        this.id = id;
+    }
 
 
 
@@ -152,4 +153,6 @@ public class Request implements Serializable , EntityBean{
                 ", authorisations=" + authorisations +
                 '}';
     }
+
+	
 }

@@ -12,8 +12,8 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
 
 	
 	Project findProjectByNameProject(String  nameProject);
-	Project findOne(Long  idProject);
-	boolean exists(Long idProject);
+	Project findOne(Long  id);
+	boolean exists(Long id);
 
 	//same search with JPQL
     @Query("SELECT p FROM Project p WHERE " +

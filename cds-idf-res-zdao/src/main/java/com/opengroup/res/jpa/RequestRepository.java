@@ -14,7 +14,7 @@ import com.opengroup.res.jpa.entities.Request;
  */
 public interface RequestRepository extends CrudRepository<Request, Long> {
 
-    List <Request> findByRequestDate(Date requestDate1);
+    List <Request> findByRequestDate(Date requestDate);
 
     @Query ("SELECT decider, requestDate, replyDate FROM Request r WHERE r.applicant = ?1")
     List<Request> searchInApplicant(String decider, Date requestDate, Date replyDate);

@@ -50,7 +50,7 @@ public class LocationServicesImpl implements LocationServices {
         Date now = new Date();
         DomainLocation domainLocation = DomainLocation.newCreatedStateInstance(nameLocation,  blockLocation, placeLocation);
         locationRepository.save(locationMapper.toOneEntity(domainLocation));
-        logTrackLocation(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newLocationInstance(domainLocation));
+       // logTrackLocation(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newLocationInstance(domainLocation));
     }
 
 
@@ -71,7 +71,7 @@ public class LocationServicesImpl implements LocationServices {
 		
 	//	Equipement.setLocation(locationMapper.toOneEntity(domainEquipement.getdomainLocation()));
         
-        logTrackLocation(now,  "DEFAULT UPDATE MESSAGE", DomainHistoryLog.newLocationInstance(domainLocation));
+       // logTrackLocation(now,  "DEFAULT UPDATE MESSAGE", DomainHistoryLog.newLocationInstance(domainLocation));
         locationRepository.save(Location);
     }
 

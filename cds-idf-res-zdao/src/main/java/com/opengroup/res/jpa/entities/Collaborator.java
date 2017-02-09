@@ -1,11 +1,14 @@
 package com.opengroup.res.jpa.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 /**Data-model class for a "collaborator", a person whose presence inside the Centre de Services will be authorised
  * if the request is approved
+ * Created by open groupe croissant.
  *
- * Created by EXT_IDA43 on 12/10/2016.
  */
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import com.opengroup.res.util.EntityBean;
 
@@ -47,10 +52,12 @@ public class Collaborator implements Serializable , EntityBean{
     private String emailOpen;
     @Column(name="bu_open")
     private String bu;
-   // private int version;
-    //
-	//@OneToMany(mappedBy = "collaborator")
-    //private Authorisation authorisation;
+    @Version
+    @Column(name="version")
+    private int version;
+    
+	@OneToMany(mappedBy = "collaborator",cascade=CascadeType.ALL, orphanRemoval=true) // cascade=CascadeType.ALL, orphanRemoval=true pour la suppression en cascade (le 07 FEV 2017)
+    private List<Authorisation> authorisations = new ArrayList<Authorisation>();
     
     public Collaborator() {
     }
@@ -130,23 +137,22 @@ public class Collaborator implements Serializable , EntityBean{
 		this.id = id;
 	}
 
-//	@Version
-//    @Column(name="version")
-//	public int getVersion() {
-//		return version;
-//	}
-//
-//	public void setVersion(int version) {
-//		this.version = version;
-//	}
+	
+	public int getVersion() {
+		return version;
+	}
 
-//    public Authorisation getAuthorisation() {
-//		return authorisation;
-//	}
-//
-//	public void setAuthorisation(Authorisation authorisation) {
-//		this.authorisation = authorisation;
-//	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public List<Authorisation> getAuthorisations() {
+        return authorisations;
+    }
+
+    public void setAuthorisations(List<Authorisation> authorisations) {
+        this.authorisations = authorisations;
+    }
 
 	
 	

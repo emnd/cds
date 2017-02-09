@@ -52,7 +52,7 @@ public class EquipementServicesImpl implements EquipementServices {
         Date now = new Date();
         DomainEquipement domainEquipement = DomainEquipement.newCreatedStateInstance(stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement, commentsEquipement,  equipementTypeEquipement,  stateTypeEquipement);
         EquipementRepository.save(EquipementMapper.toOneEntity(domainEquipement));
-        logTrackEquipement(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newEquipementInstance(domainEquipement));
+        //logTrackEquipement(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newEquipementInstance(domainEquipement));
     }
 
     @Override
@@ -81,7 +81,7 @@ public class EquipementServicesImpl implements EquipementServices {
 		
 		Equipement.setLocation(locationMapper.toOneEntity(domainEquipement.getdomainLocation()));
         
-        logTrackEquipement(now,  "DEFAULT UPDATE MESSAGE", DomainHistoryLog.newEquipementInstance(domainEquipement));
+        //logTrackEquipement(now,  "DEFAULT UPDATE MESSAGE", DomainHistoryLog.newEquipementInstance(domainEquipement));
         EquipementRepository.save(Equipement);
     }
 
@@ -97,7 +97,7 @@ public class EquipementServicesImpl implements EquipementServices {
         if (existingEquipement == null) {
             throw new DomainException("This Equipement has not be found");
         } else {
-            logTrackEquipement(now, "DEFAULT DELETE MESSAGE", DomainHistoryLog.newEquipementInstance(domainEquipement));
+           // logTrackEquipement(now, "DEFAULT DELETE MESSAGE", DomainHistoryLog.newEquipementInstance(domainEquipement));
             EquipementRepository.delete(existingEquipement);
         }
     }

@@ -1,5 +1,6 @@
 package com.opengroup.res.jpa.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.opengroup.res.util.EntityBean;
+
 
 
 /**Data-model class for the authorisation required for a "collaborator" to access the CS
@@ -24,20 +27,24 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="authorisation")
-public class Authorisation {
+public class Authorisation implements Serializable , EntityBean{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * The id of the row in the table. Cannot be set or known before reading from the table.
      */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id; // Separate id; too complicated to implement a composite PK
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idRequest")
     private Request request;    // Since it references the pk of another table, it is not nullable (at least at the moment of writing in the DB)
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idCollaborator")
     private Collaborator collaborator;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idProject")
     private Project project;
     @Column(name="periodStart")
@@ -83,6 +90,7 @@ public Long getId() {
     return id;
 }
 
+public void setId(Long id) {this.id = id;}
 
     public Request getRequest() {
         return request;
