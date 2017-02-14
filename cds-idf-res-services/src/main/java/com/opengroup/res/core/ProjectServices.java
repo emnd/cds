@@ -48,6 +48,11 @@ public interface ProjectServices {
      * @throws DomainException
      */
     Set<DomainProject> listAll() throws DomainException;
+    
+    
+    public DomainProject findProject(Long id) throws DomainException ;
+    
+    public DomainProject findProject(String projectName,Date periodStart, Date periodEnd) throws DomainException;
 
     /**
      * A generic creation api method

@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.opengroup.res.jpa.entities.Request;
 
 /**
- * Created by EXT_LHA88 on 13/10/2016.
+ * Created by open groupe.
  */
 public interface RequestRepository extends CrudRepository<Request, Long> {
 
@@ -20,5 +20,9 @@ public interface RequestRepository extends CrudRepository<Request, Long> {
     List<Request> searchInApplicant(String decider, Date requestDate, Date replyDate);
 
     List <Request> findAll();
+    
+    @Query ("SELECT applicant,decider, requestDate, replyDate FROM Request r WHERE r.applicant = ?1 and r.requestDate = ?2 ")
+    Request findByApplicantAndRequestDate(String applicant,Date requestDate);
+    
 
 }

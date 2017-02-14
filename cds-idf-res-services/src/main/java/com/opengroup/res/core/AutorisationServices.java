@@ -67,6 +67,8 @@ public interface AutorisationServices {
      * @throws DomainException
      */
     Set<DomainAutorisation> listAll() throws DomainException;
+    
+    public DomainAutorisation findAutorisation(Long id) throws DomainException;
 
     /**
      * A generic creation api method

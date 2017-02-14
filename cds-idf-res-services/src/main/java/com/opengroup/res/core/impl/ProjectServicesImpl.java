@@ -78,6 +78,27 @@ public class ProjectServicesImpl implements ProjectServices {
             projectRepository.delete(existingProject);
         }
     }
+    
+    
+    @Transactional
+    public DomainProject findProject(Long id) throws DomainException {  
+		Project project = new Project();
+		project = projectRepository.findOne(id);
+
+		DomainProject domainProject = new DomainProject(project.getNameProject(), project.getPeriodStart(),project.getPeriodEnd(), project.getIdProject());
+		domainProject = projectMapper.toOneDomain(project);
+		return domainProject;
+	}
+    
+    @Transactional
+    public DomainProject findProject(String projectName,Date periodStart,Date periodEnd) throws DomainException {  
+		Project project = new Project();
+		project = projectRepository.findByNameProjectAndPeriodStartAndPeriodEnd(projectName,periodStart,periodEnd);
+
+		DomainProject domainProject = new DomainProject(project.getNameProject(), project.getPeriodStart(),project.getPeriodEnd(), project.getIdProject());
+		domainProject = projectMapper.toOneDomain(project);
+		return domainProject;
+	}
 
     /**
      * Track an history log - Can be provide as an internal transactional service

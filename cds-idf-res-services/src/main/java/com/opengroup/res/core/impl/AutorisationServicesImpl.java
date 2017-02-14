@@ -9,13 +9,18 @@ import com.opengroup.res.core.impl.mappers.CollaboratorMapper;
 import com.opengroup.res.core.impl.mappers.ProjectMapper;
 import com.opengroup.res.core.impl.mappers.RequestMapper;
 import com.opengroup.res.jpa.HistoryLogRepository;
+import com.opengroup.res.jpa.ProjectRepository;
+import com.opengroup.res.jpa.RequestRepository;
 import com.opengroup.res.jpa.AuthorisationRepository;
+import com.opengroup.res.jpa.CollaboratorRepository;
 import com.opengroup.res.jpa.entities.Authorisation;
+import com.opengroup.res.jpa.entities.Collaborator;
 import com.opengroup.res.jpa.entities.HistoryLog;
+import com.opengroup.res.jpa.entities.Project;
+import com.opengroup.res.jpa.entities.Request;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -53,16 +58,48 @@ public class AutorisationServicesImpl implements AutorisationServices {
 
     @Autowired
     private RequestMapper requestMapper;
+    
+    @Autowired
+    private RequestRepository requestRepository;
+    
+    @Autowired
+    private CollaboratorRepository collaboratorRepository;
+    
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Override
     @Transactional
     public void createAutorisation(DomainCollaborator domainCollaborator, DomainRequest domainRequest, Date periodStart, Date periodEnd, boolean equipement, String motive,String status, DomainProject domainProject) throws DomainException {
     	Long id = 1L;
+    	Request request = requestMapper.toOneEntity(domainRequest);
+    	if(domainRequest.getId()== null)
+    	{
+    		requestRepository.save(request);   // creation de la request s'il n'existe pas
+    	}
+    	
+    	Collaborator collaborator = collaboratorMapper.toOneEntity(domainCollaborator);
+    	
+    	if(domainCollaborator.getId()== null)
+    	{
+    		collaboratorRepository.save(collaborator);   // creation du collaborator s'il n'existe pas
+    	}
+    	
+    	Project project = projectMapper.toOneEntity(domainProject);
+    	
+    	if(domainProject.getId()== null)
+    	{
+    		projectRepository.save(project);   // creation du project s'il n'existe pas
+    	}
+    	
+    	domainCollaborator = collaboratorMapper.toOneDomain(collaborator); // transformation du collaborator crée en domainCollaborator
+    	domainRequest = requestMapper.toOneDomain(request);  // transformation de la request créée en domainRequest
+    	domainProject = projectMapper.toOneDomain(project);  // transformation du project crée en domainProject
+    	
     	DomainAutorisation domainAutorisation = DomainAutorisation.newInstance(domainCollaborator, domainRequest, periodStart, periodEnd, domainProject, equipement, motive, status,id);
         domainAutorisation.setStatus("Attente"); // initialisation du statut en attente lors de la création
-        domainAutorisation.setMotive(motive);
-       // domainAutorisation.setDomainCollaborator(domainCollaborator);
-        authorisationRepository.save(autorisationMapper.toOneEntity(domainAutorisation));
+        Authorisation oneEntity = autorisationMapper.toOneEntity(domainAutorisation);
+		authorisationRepository.save(oneEntity);
         //logTrackParameter(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
     }
 
@@ -114,6 +151,27 @@ public class AutorisationServicesImpl implements AutorisationServices {
         }
     }
 
+    
+    @Transactional
+    public DomainAutorisation findAutorisation(Long id) throws DomainException {  
+		Authorisation authorisation = new Authorisation();
+		authorisation = authorisationRepository.findOne(id);
+
+		DomainAutorisation domainAutorisation = new DomainAutorisation(collaboratorMapper.toOneDomain(authorisation.getCollaborator()), 
+				requestMapper.toOneDomain(authorisation.getRequest()),
+				authorisation.getPeriodStart(), 
+				authorisation.getPeriodEnd(), 
+				projectMapper.toOneDomain(authorisation.getProject()), 
+				authorisation.isEquipment(),
+				authorisation.getMotive(),
+				authorisation.getStatus(),
+				authorisation.getId()
+				);
+		domainAutorisation = autorisationMapper.toOneDomain(authorisation);
+		return domainAutorisation;
+	}
+
+    
     /**
      * Track an history log - Can be provide as an internal transactional service
      * @param now

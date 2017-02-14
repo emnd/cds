@@ -1,5 +1,6 @@
 package com.opengroup.res.jpa;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -24,11 +25,11 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
     List<Project> findAll();
 
     //JPQL does not have a LIMIT 1 option, so we have to return a list
-    @Query("SELECT p FROM Project p WHERE "
-            + "LOWER(p.nameProject) = LOWER(?1) "
-            
-        )
-    Project findNameProject( String nameProject);
+//    @Query("SELECT p FROM Project p WHERE "
+//            + "LOWER(p.nameProject) = LOWER(?1) "
+//            
+//        )
+    Project findByNameProjectAndPeriodStartAndPeriodEnd(String nameProject,Date periodStart,Date periodEnd);
 	
 
 	

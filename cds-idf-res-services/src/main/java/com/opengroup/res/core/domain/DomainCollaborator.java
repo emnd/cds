@@ -244,4 +244,12 @@ public class DomainCollaborator extends DomainBeanTrackable implements Serializa
     public void setAutorisationList(List<DomainAutorisation> domainAuthorisationList) {
         this.domainAuthorisationList = domainAuthorisationList;
     }
+
+	@Override
+	public String toString() {
+		return "DomainCollaborator [id=" + id + ", loginOpen=" + loginOpen + ", lastName=" + lastName + ", firstName="
+				+ firstName + ", emailOpen=" + emailOpen + ", buOpen=" + buOpen + "]";
+	}
+    
+    
 }

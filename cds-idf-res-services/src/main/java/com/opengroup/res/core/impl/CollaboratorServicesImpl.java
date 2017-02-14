@@ -91,6 +91,38 @@ public class CollaboratorServicesImpl implements CollaboratorServices {
             collaboratorRepository.delete(existingCollaborator);
         }
     }
+    
+    @Transactional
+    public DomainCollaborator findCollaborator(Long id) throws DomainException {  
+		Collaborator collaborator = new Collaborator();
+		collaborator = collaboratorRepository.findOne(id);
+
+		DomainCollaborator domainCollaborator = new DomainCollaborator(collaborator.getLoginOpen(), 
+				collaborator.getLastName(),
+				collaborator.getFirstName(), 
+				collaborator.getEmailOpen(), 
+				collaborator.getBu(), 
+				collaborator.getId()
+				);
+		domainCollaborator = collaboratorMapper.toOneDomain(collaborator);
+		return domainCollaborator;
+	}
+    
+    @Transactional
+    public DomainCollaborator findCollaborator(String loginOpen,String emailOpen) throws DomainException {  
+		Collaborator collaborator = new Collaborator();
+		collaborator = collaboratorRepository.findByLoginOpenAndEmailOpen(loginOpen,emailOpen);
+
+		DomainCollaborator domainCollaborator = new DomainCollaborator(collaborator.getLoginOpen(), 
+				collaborator.getLastName(),
+				collaborator.getFirstName(), 
+				collaborator.getEmailOpen(), 
+				collaborator.getBu(), 
+				collaborator.getId()
+				);
+		domainCollaborator = collaboratorMapper.toOneDomain(collaborator);
+		return domainCollaborator;
+	}
 
     /**
      * Track an history log - Can be provide as an internal transactional service

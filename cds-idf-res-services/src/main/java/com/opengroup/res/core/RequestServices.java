@@ -51,6 +51,9 @@ public interface RequestServices {
      * @throws DomainException
      */
     Set<DomainRequest> listAll() throws DomainException;
+    
+    public DomainRequest findRequest(Long id) throws DomainException;
+    public DomainRequest findRequest(String applicant,Date requestDate) throws DomainException;
 
     /**
      * A generic creation api method

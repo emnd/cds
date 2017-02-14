@@ -38,5 +38,8 @@ public interface CollaboratorRepository  extends CrudRepository<Collaborator, Lo
             + "AND LOWER(c.lastName) = LOWER(?2) "
         )
     List<Collaborator> findByName( String firstName, String lastName);
+    
+    
+    Collaborator findByLoginOpenAndEmailOpen(String loginOpen, String emailOpen);
 }
 

@@ -95,4 +95,12 @@ public class DomainRequest extends DomainBeanTrackable implements Serializable {
     public void setDecider(String decider) { this.decider = decider; }
     public void setApplicant(String applicant) { this.applicant = applicant; }
     public void setDomainAuthorisationList(List<DomainAutorisation> domainAuthorisationList) {     this.domainAuthorisationList = domainAuthorisationList;    }
+
+	@Override
+	public String toString() {
+		return "DomainRequest [id=" + id + ", requestDate=" + requestDate + ", replyDate=" + replyDate + ", applicant="
+				+ applicant + ", decider=" + decider + "]";
+	}
+
+    
 }

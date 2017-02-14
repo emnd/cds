@@ -84,6 +84,37 @@ public class RequestServicesImpl implements RequestServices {
             requestRepository.delete(existingRequest);
         }
     }
+    
+    @Transactional
+    public DomainRequest findRequest(Long id) throws DomainException {  
+		Request request = new Request();
+		request = requestRepository.findOne(id);
+
+		DomainRequest domainRequest = new DomainRequest(request.getApplicant(), 
+				request.getDecider(),
+				request.getRequestDate(), 
+				request.getReplyDate(), 
+				request.getId()
+				);
+		domainRequest = requestMapper.toOneDomain(request);
+		return domainRequest;
+	}
+    
+    @Transactional
+    public DomainRequest findRequest(String applicant,Date requestDate) throws DomainException {  
+		Request request = new Request();
+		request = requestRepository.findByApplicantAndRequestDate(applicant,requestDate);
+		System.out.println(request.toString());
+
+		DomainRequest domainRequest = new DomainRequest(request.getApplicant(), 
+				request.getDecider(),
+				request.getRequestDate(), 
+				request.getReplyDate(), 
+				request.getId()
+				);
+		domainRequest = requestMapper.toOneDomain(request);
+		return domainRequest;
+	}
 
     /**
      * Track an history log - Can be provide as an internal transactional service

@@ -64,6 +64,9 @@ public class DomainAutorisation extends DomainBeanTrackable implements Serializa
         this.domainProject = domainProject;
         this.domainRequest = domainRequest;
         this.id = id;
+        this.equipement = equipement;
+        this.status = status;
+        this.motive = motive;
     }
 
 
@@ -107,4 +110,14 @@ public class DomainAutorisation extends DomainBeanTrackable implements Serializa
     public void setEquipement(boolean equipement) {this.equipement = equipement;}
     public void setMotive(String motive) {this.motive = motive;}
     public void setStatus(String status) {        this.status = status;    }
+
+
+	@Override
+	public String toString() {
+		return "DomainAutorisation [id=" + id + ", domainCollaborator=" + domainCollaborator.toString() + ", domainRequest="
+				+ domainRequest.toString() + ", periodStart=" + periodStart + ", periodEnd=" + periodEnd + ", domainProject="
+				+ domainProject.toString() + ", equipement=" + equipement + ", motive=" + motive + ", status=" + status + "]";
+	}
+    
+    
 }

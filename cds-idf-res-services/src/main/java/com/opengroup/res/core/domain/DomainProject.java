@@ -70,7 +70,7 @@ public class DomainProject extends DomainBeanTrackable implements Serializable {
      /*
     * GETTERS
     * */
-     public long getId() { return id; }
+     public Long getId() { return id; }
     public Date getPeriodStart() {return periodStart;}
     public Date getPeriodEnd() {return periodEnd;}
     public String getProjectName() {
@@ -88,4 +88,14 @@ public class DomainProject extends DomainBeanTrackable implements Serializable {
     public void setProjectName(String projectName) {        this.projectName = projectName;    }
     //public void  setDomainCustomerProjectList(List<DomainCustomerProject> domainCustomerProjectList) { this.domainCustomerProjectList = domainCustomerProjectList;}
     public void  setDomainAutorisationList(List<DomainAutorisation> domainAutorisationList) { this.domainAutorisationList = domainAutorisationList;}
+
+
+	@Override
+	public String toString() {
+		return "DomainProject [id=" + id + ", periodStart=" + periodStart + ", periodEnd=" + periodEnd
+				+ ", projectName=" + projectName + "]";
+	}
+
+
+    
 }

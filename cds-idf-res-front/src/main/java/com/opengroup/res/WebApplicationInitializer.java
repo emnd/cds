@@ -40,8 +40,11 @@ public class WebApplicationInitializer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and().httpBasic();
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf().disable()   // à rajouter pour le post
+                .httpBasic();
     }
 
     /**

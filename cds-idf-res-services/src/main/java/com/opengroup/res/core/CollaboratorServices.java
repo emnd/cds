@@ -53,6 +53,9 @@ public interface CollaboratorServices {
      * @throws DomainException
      */
     Set<DomainCollaborator> listAll() throws DomainException;
+    
+    public DomainCollaborator findCollaborator(Long id) throws DomainException;
+    public DomainCollaborator findCollaborator(String loginOpen,String emailOpen) throws DomainException;
 
     /**
      * A generic creation api method
@@ -77,4 +80,6 @@ public interface CollaboratorServices {
      * @throws DomainException
      */
     <T extends DomainCollaborator> void deleteCollaborator(T typedCollaborator) throws DomainException;
+    
+    
 }
