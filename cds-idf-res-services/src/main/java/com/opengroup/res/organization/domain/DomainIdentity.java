@@ -12,12 +12,17 @@ import org.springframework.util.StringUtils;
  */
 public final class DomainIdentity extends DomainBean {
 
-    private String identifier;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String identifier;
     private String commonName;
     private String surname;
     private String givenName;
+    private String mail;   // le 15 fev 2017
 
-    private DomainIdentity(String identifier, String commonName, String surname, String givenName) throws DomainException {
+    private DomainIdentity(String identifier, String commonName, String surname, String givenName,String mail) throws DomainException {
 
         if (StringUtils.isEmpty(identifier)) {
             constraintsErrors.add("User can't be create without an identifier");
@@ -35,11 +40,15 @@ public final class DomainIdentity extends DomainBean {
             constraintsErrors.add("User can't be create without a given name");
         }
 
+        if (StringUtils.isEmpty(mail)) {
+            constraintsErrors.add("User can't be create without a given email");
+        }
         checkIfValid();
         this.identifier = identifier;
         this.commonName = commonName;
         this.surname = surname;
         this.givenName = givenName;
+        this.mail = mail; // le 15 fev 2017
     }
 
     /**
@@ -52,8 +61,8 @@ public final class DomainIdentity extends DomainBean {
      * @return
      * @throws DomainException
      */
-    public static DomainIdentity newInstance(String identifier, String commonName, String surname, String givenName) throws DomainException {
-        return new DomainIdentity(identifier, commonName, surname, givenName);
+    public static DomainIdentity newInstance(String identifier, String commonName, String surname, String givenName, String mail) throws DomainException {
+        return new DomainIdentity(identifier, commonName, surname, givenName,mail);
     }
 
     /**
@@ -90,5 +99,10 @@ public final class DomainIdentity extends DomainBean {
      */
     public String getIdentifier() {
         return identifier;
+    }
+    
+    public String getMail()
+    {
+    	return mail;
     }
 }

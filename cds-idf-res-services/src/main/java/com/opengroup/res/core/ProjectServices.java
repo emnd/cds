@@ -1,6 +1,7 @@
 package com.opengroup.res.core;
 
 import com.opengroup.res.core.domain.DomainProject;
+import com.opengroup.res.jpa.entities.Project;
 import com.opengroup.res.core.domain.DomainException;
 
 import java.util.Set;
@@ -52,7 +53,7 @@ public interface ProjectServices {
     
     public DomainProject findProject(Long id) throws DomainException ;
     
-    public DomainProject findProject(String projectName,Date periodStart, Date periodEnd) throws DomainException;
+    public Project findProject(String projectName,Date periodStart, Date periodEnd) throws DomainException;
 
     /**
      * A generic creation api method

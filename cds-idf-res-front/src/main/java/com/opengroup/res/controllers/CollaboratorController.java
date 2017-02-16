@@ -107,4 +107,64 @@ public class CollaboratorController {
 		}
 	}
     
+    @RequestMapping(value = "/collaborator/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<CollaboratorRepresentation> delete(@PathVariable("id") Long id) throws DomainException {
+		CollaboratorRepresentation collaboratorRepresentation = 
+				collaboratorRepresentationMapper.toOneRepresentation(collaboratorServices.findCollaborator(id));
+		if (collaboratorRepresentation.getId() == null) {
+			return new ResponseEntity<CollaboratorRepresentation>(HttpStatus.NOT_FOUND);
+		}
+		DomainCollaborator domainCollaborator = DomainCollaborator.newInstance(
+				collaboratorRepresentation.getLoginOpen(), 
+				collaboratorRepresentation.getFirstName(), 
+				collaboratorRepresentation.getLastName(), 
+				collaboratorRepresentation.getEmailOpen(), 
+				collaboratorRepresentation.getBuOpen(), 
+				collaboratorRepresentation.getId()
+				);
+		System.out.println(domainCollaborator.toString());
+		collaboratorServices.deleteCollaborator(
+				collaboratorRepresentation.getId(),
+				collaboratorRepresentation.getLoginOpen(), 
+				collaboratorRepresentation.getFirstName(), 
+				collaboratorRepresentation.getLastName(), 
+				collaboratorRepresentation.getEmailOpen(), 
+				collaboratorRepresentation.getBuOpen()
+							);
+		return new ResponseEntity<CollaboratorRepresentation>(HttpStatus.NO_CONTENT);
+	}
+    
+    @RequestMapping(value = "/collaborator/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<CollaboratorRepresentation> update(@PathVariable("id") Long id, @RequestBody CollaboratorRepresentation collaboratorRepresentation) throws DomainException {
+		CollaboratorRepresentation currentCollaboratorRepresentation = 
+				collaboratorRepresentationMapper.toOneRepresentation(collaboratorServices.findCollaborator(id));
+
+		if (currentCollaboratorRepresentation.getId() == null) {
+			return new ResponseEntity<CollaboratorRepresentation>(HttpStatus.NOT_FOUND);
+		} 
+		else 
+		{
+			DomainCollaborator domainCollaborator = DomainCollaborator.newInstance(
+					collaboratorRepresentation.getLoginOpen(), 
+					collaboratorRepresentation.getFirstName(), 
+					collaboratorRepresentation.getLastName(), 
+					collaboratorRepresentation.getEmailOpen(), 
+					collaboratorRepresentation.getBuOpen(), 
+					collaboratorRepresentation.getId()
+					);
+			System.out.println(domainCollaborator.toString());
+			collaboratorServices.updateCollaborator(
+					collaboratorRepresentation.getId(),
+					collaboratorRepresentation.getLoginOpen(), 
+					collaboratorRepresentation.getFirstName(), 
+					collaboratorRepresentation.getLastName(), 
+					collaboratorRepresentation.getEmailOpen(), 
+					collaboratorRepresentation.getBuOpen()
+						);
+			currentCollaboratorRepresentation = 
+					collaboratorRepresentationMapper.toOneRepresentation(collaboratorServices.findCollaborator(currentCollaboratorRepresentation.getId()));
+			return new ResponseEntity<CollaboratorRepresentation>(currentCollaboratorRepresentation, HttpStatus.OK);
+		}
+	}
+    
 }

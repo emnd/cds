@@ -89,4 +89,60 @@ public class RequestController {
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		}
 	}
+    
+    @RequestMapping(value = "/request/{id}", method = RequestMethod.DELETE)
+   	public ResponseEntity<RequestRepresentation> delete(@PathVariable("id") Long id) throws DomainException {
+   		RequestRepresentation requestRepresentation = 
+   				requestRepresentationMapper.toOneRepresentation(requestServices.findRequest(id));
+   		if (requestRepresentation.getId() == null) {
+   			return new ResponseEntity<RequestRepresentation>(HttpStatus.NOT_FOUND);
+   		}
+   		DomainRequest domainRequest = DomainRequest.newInstance(
+   				requestRepresentation.getApplicant(), 
+   				requestRepresentation.getDecider(), 
+   				requestRepresentation.getRequestDate(), 
+   				requestRepresentation.getReplyDate(),
+   				requestRepresentation.getId()
+   				);
+   		System.out.println(domainRequest.toString());
+   		requestServices.deleteRequest(
+   				requestRepresentation.getId(),
+   				requestRepresentation.getApplicant(), 
+   				requestRepresentation.getDecider(), 
+   				requestRepresentation.getRequestDate(), 
+   				requestRepresentation.getReplyDate()
+   				);
+   		return new ResponseEntity<RequestRepresentation>(HttpStatus.NO_CONTENT);
+   	}
+    
+    @RequestMapping(value = "/request/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<RequestRepresentation> update(@PathVariable("id") Long id, @RequestBody RequestRepresentation requestRepresentation) throws DomainException {
+		RequestRepresentation currentRequestRepresentation = 
+				requestRepresentationMapper.toOneRepresentation(requestServices.findRequest(id));
+
+		if (currentRequestRepresentation.getId() == null) {
+			return new ResponseEntity<RequestRepresentation>(HttpStatus.NOT_FOUND);
+		} 
+		else 
+		{
+			DomainRequest domainRequest = DomainRequest.newInstance(
+					requestRepresentation.getApplicant(), 
+	   				requestRepresentation.getDecider(), 
+	   				requestRepresentation.getRequestDate(), 
+	   				requestRepresentation.getReplyDate(),
+	   				requestRepresentation.getId()
+					);
+			System.out.println(domainRequest.toString());
+			requestServices.updateRequest(
+					requestRepresentation.getId(),
+	   				requestRepresentation.getApplicant(), 
+	   				requestRepresentation.getDecider(), 
+	   				requestRepresentation.getRequestDate(), 
+	   				requestRepresentation.getReplyDate()
+						);
+			currentRequestRepresentation = 
+					requestRepresentationMapper.toOneRepresentation(requestServices.findRequest(currentRequestRepresentation.getId()));
+			return new ResponseEntity<RequestRepresentation>(currentRequestRepresentation, HttpStatus.OK);
+		}
+	}
 }

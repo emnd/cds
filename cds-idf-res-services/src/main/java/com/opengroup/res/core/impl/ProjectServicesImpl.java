@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,9 +43,21 @@ public class ProjectServicesImpl implements ProjectServices {
     @Transactional
     public void createProject(String projectName, Date periodStart, Date periodEnd) throws DomainException {
         Long id = 1L;
-        DomainProject domainProject = DomainProject.newInstance(projectName, periodStart, periodEnd,id);
-        projectRepository.save(projectMapper.toOneEntity(domainProject));
-        //logTrackParameter(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
+        Project existingProject = findProject(projectName,periodStart,periodEnd); // verification si le projet existe
+        try{
+        	if(existingProject.getIdProject() == null)
+            {
+            	DomainProject domainProject = DomainProject.newInstance(projectName, periodStart, periodEnd,id);
+                projectRepository.save(projectMapper.toOneEntity(domainProject));
+                //logTrackParameter(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
+            }
+        }
+        
+        catch(DomainException d){
+        	//throw new DomainException("This project  exist");
+        	System.out.println("This project exist "+d);
+        }
+        
     }
 
     @Override
@@ -91,13 +104,14 @@ public class ProjectServicesImpl implements ProjectServices {
 	}
     
     @Transactional
-    public DomainProject findProject(String projectName,Date periodStart,Date periodEnd) throws DomainException {  
+    public Project findProject(String projectName,Date periodStart,Date periodEnd) throws DomainException {  
 		Project project = new Project();
-		project = projectRepository.findByNameProjectAndPeriodStartAndPeriodEnd(projectName,periodStart,periodEnd);
-
-		DomainProject domainProject = new DomainProject(project.getNameProject(), project.getPeriodStart(),project.getPeriodEnd(), project.getIdProject());
-		domainProject = projectMapper.toOneDomain(project);
-		return domainProject;
+		List<Project> projectList = projectRepository.findByNameProjectAndPeriodStartAndPeriodEnd(projectName,periodStart,periodEnd);
+		for(Project proj : projectList)
+		{
+			project = proj;
+		}
+		return project;
 	}
 
     /**

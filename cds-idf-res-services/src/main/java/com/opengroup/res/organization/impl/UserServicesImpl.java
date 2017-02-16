@@ -78,7 +78,7 @@ public class UserServicesImpl implements UserServices {
         //Build a valid user
         try {
             Person person = ldapUser.getPerson(principal.getName());
-            DomainIdentity identity = DomainIdentity.newInstance(currentUser.getUsername(), person.getCommonName(), person.getName(), person.getGivenName());
+            DomainIdentity identity = DomainIdentity.newInstance(currentUser.getUsername(), person.getCommonName(), person.getName(), person.getGivenName(), person.getEmail());
             DomainJob job = DomainJob.newInstance("Manager", "Direction");
             DomainCoordinate coordinate = DomainCoordinate.newInstance(person.getEmail(), "0125698745");
             return DomainUser.newInstance(identity, job, coordinate, roles);
@@ -91,7 +91,7 @@ public class UserServicesImpl implements UserServices {
     public DomainEmployee get(String uid) throws DomainException {
         try {
             Person person = ldapUser.getPerson(uid);
-            DomainIdentity identity = DomainIdentity.newInstance(person.getUid(), person.getCommonName(), person.getName(), person.getGivenName());
+            DomainIdentity identity = DomainIdentity.newInstance(person.getUid(), person.getCommonName(), person.getName(), person.getGivenName(),person.getEmail());
             DomainJob job = DomainJob.newInstance("Manager", "Direction");
             DomainCoordinate coordinate = DomainCoordinate.newInstance(person.getEmail(), "0125698745");
             return DomainEmployee.newInstance(identity, job, coordinate);

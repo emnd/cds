@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,9 +42,20 @@ public class CollaboratorServicesImpl implements CollaboratorServices {
     @Transactional
     public void createCollaborator(String loginOpen, String firstName, String lastName, String emailOpen, String bu) throws DomainException {
         Long id = null;
-    	DomainCollaborator domainCollaborator = DomainCollaborator.newInstance(loginOpen, firstName, lastName, emailOpen, bu,id);
-        collaboratorRepository.save(collaboratorMapper.toOneEntity(domainCollaborator));
-        //logTrackParameter(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
+        Collaborator existingCollaborator = findCollaborator(loginOpen, emailOpen);
+        try{
+        	if(existingCollaborator.getId() == null)
+            {
+            	DomainCollaborator domainCollaborator = DomainCollaborator.newInstance(loginOpen, firstName, lastName, emailOpen, bu,id);
+            	collaboratorRepository.save(collaboratorMapper.toOneEntity(domainCollaborator));
+            }
+            //logTrackParameter(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
+        }
+        
+        catch(DomainException d){
+        	//throw new DomainException("This collaborator  exist");
+        	System.out.println("This collaborator  exist"+d);
+        }
     }
 
     @Override
@@ -55,17 +67,11 @@ public class CollaboratorServicesImpl implements CollaboratorServices {
             throw new DomainException("This collaborator does not exist");
 
         }
-        collaborator.setId(id);
-       // collaborator.setId(domainCollaborator.getId());
+        collaborator.setId(domainCollaborator.getId());
         collaborator.setLoginOpen(domainCollaborator.getLoginOpen());
-       // collaborator.setLoginOpen(loginOpen);
         collaborator.setFirstName(domainCollaborator.getFirstName());
-        //collaborator.setFirstName(firstName);
         collaborator.setLastName(domainCollaborator.getLastName());
-        // collaborator.setLastName(lastName);
-        //collaborator.setEmailOpen(emailOpen);
         collaborator.setEmailOpen(domainCollaborator.getEmailOpen());
-        //collaborator.setBu(bu);
         collaborator.setBu(domainCollaborator.getBuOpen());
         //logTrackParameter(now,  "DEFAULT UPDATE MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
         collaboratorRepository.save(collaborator);
@@ -108,20 +114,17 @@ public class CollaboratorServicesImpl implements CollaboratorServices {
 		return domainCollaborator;
 	}
     
-    @Transactional
-    public DomainCollaborator findCollaborator(String loginOpen,String emailOpen) throws DomainException {  
+	@Transactional
+    public Collaborator findCollaborator(String loginOpen,String emailOpen) throws DomainException {  
 		Collaborator collaborator = new Collaborator();
-		collaborator = collaboratorRepository.findByLoginOpenAndEmailOpen(loginOpen,emailOpen);
+		List<Collaborator>	collaboratorList = collaboratorRepository.findByLoginOpenOrEmailOpen(loginOpen,emailOpen);
+		for(Collaborator colb : collaboratorList)
+		{
+			collaborator = colb;
+		}
 
-		DomainCollaborator domainCollaborator = new DomainCollaborator(collaborator.getLoginOpen(), 
-				collaborator.getLastName(),
-				collaborator.getFirstName(), 
-				collaborator.getEmailOpen(), 
-				collaborator.getBu(), 
-				collaborator.getId()
-				);
-		domainCollaborator = collaboratorMapper.toOneDomain(collaborator);
-		return domainCollaborator;
+			return collaborator;
+		
 	}
 
     /**

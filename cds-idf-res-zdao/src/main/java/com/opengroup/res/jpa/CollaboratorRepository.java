@@ -39,7 +39,10 @@ public interface CollaboratorRepository  extends CrudRepository<Collaborator, Lo
         )
     List<Collaborator> findByName( String firstName, String lastName);
     
-    
-    Collaborator findByLoginOpenAndEmailOpen(String loginOpen, String emailOpen);
+//    @Query("SELECT c FROM Collaborator c WHERE "
+//            + "LOWER(c.loginOpen) = LOWER(?1) "
+//            + "AND LOWER(c.emailOpen) = LOWER(?2) "
+//        )
+    List<Collaborator> findByLoginOpenOrEmailOpen(String loginOpen,String emailOpen);
 }
 

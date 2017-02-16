@@ -29,7 +29,7 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
 //            + "LOWER(p.nameProject) = LOWER(?1) "
 //            
 //        )
-    Project findByNameProjectAndPeriodStartAndPeriodEnd(String nameProject,Date periodStart,Date periodEnd);
+    List<Project> findByNameProjectAndPeriodStartAndPeriodEnd(String nameProject,Date periodStart,Date periodEnd);
 	
 
 	

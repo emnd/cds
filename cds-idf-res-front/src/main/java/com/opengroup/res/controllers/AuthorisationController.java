@@ -156,4 +156,95 @@ public class AuthorisationController {
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		}
 	}
+    
+    @RequestMapping(value = "/authorisation/{id}", method = RequestMethod.DELETE)
+   	public ResponseEntity<AuthorisationRepresentation> delete(@PathVariable("id") Long id) throws DomainException {
+   		AuthorisationRepresentation authorisationRepresentation = 
+   				authorisationRepresentationMapper.toOneRepresentation(autorisationServices.findAutorisation(id));
+   		if (authorisationRepresentation.getId() == null) {
+   			return new ResponseEntity<AuthorisationRepresentation>(HttpStatus.NOT_FOUND);
+   		}
+   		
+   		DomainCollaborator domainCollaborator= collaboratorRepresentationMapper.toOneDomain(authorisationRepresentation.getCollaborator());
+		DomainProject domainProject = projectRepresentationMapper.toOneDomain(authorisationRepresentation.getProject());
+		DomainRequest domainRequest = requestRepresentationMapper.toOneDomain(authorisationRepresentation.getRequest());
+		Date periodStart = authorisationRepresentation.getPeriodStart();
+		Date periodEnd = authorisationRepresentation.getPeriodEnd();
+		String motive = authorisationRepresentation.getMotive();
+		String status = authorisationRepresentation.getStatus();
+		boolean equipement = authorisationRepresentation.isEquipment();
+		id = authorisationRepresentation.getId();
+		
+		DomainAutorisation domainAutorisation = DomainAutorisation.newInstance(domainCollaborator,
+				domainRequest,
+				periodStart, 
+				periodEnd, 
+				domainProject, 
+				equipement,
+				motive, 
+				status, 
+				id);
+   		System.out.println(domainAutorisation.toString());
+   		autorisationServices.deleteAutorisation(
+   				id,
+   				domainCollaborator,
+				domainRequest,
+				periodStart, 
+				periodEnd, 
+				equipement,
+				motive, 
+				status,
+				domainProject
+   				);
+   		return new ResponseEntity<AuthorisationRepresentation>(HttpStatus.NO_CONTENT);
+    }
+    
+    @RequestMapping(value = "/authorisation/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<AuthorisationRepresentation> update(@PathVariable("id") Long id, @RequestBody AuthorisationRepresentation authorisationRepresentation) throws DomainException {
+		AuthorisationRepresentation currentAuthorisationRepresentation = 
+				authorisationRepresentationMapper.toOneRepresentation(autorisationServices.findAutorisation(id));
+
+		if (currentAuthorisationRepresentation.getId() == null) {
+			return new ResponseEntity<AuthorisationRepresentation>(HttpStatus.NOT_FOUND);
+		} 
+		else 
+		{
+			DomainCollaborator domainCollaborator= collaboratorRepresentationMapper.toOneDomain(authorisationRepresentation.getCollaborator());
+			DomainProject domainProject = projectRepresentationMapper.toOneDomain(authorisationRepresentation.getProject());
+			DomainRequest domainRequest = requestRepresentationMapper.toOneDomain(authorisationRepresentation.getRequest());
+			Date periodStart = authorisationRepresentation.getPeriodStart();
+			Date periodEnd = authorisationRepresentation.getPeriodEnd();
+			String motive = authorisationRepresentation.getMotive();
+			String status = authorisationRepresentation.getStatus();
+			boolean equipement = authorisationRepresentation.isEquipment();
+			id = authorisationRepresentation.getId();
+			
+			DomainAutorisation domainAutorisation = DomainAutorisation.newInstance(domainCollaborator,
+					domainRequest,
+					periodStart, 
+					periodEnd, 
+					domainProject, 
+					equipement,
+					motive, 
+					status, 
+					id);
+			System.out.println(domainAutorisation.toString());
+   		autorisationServices.updateAutorisation(
+   				id,
+   				domainCollaborator,
+				domainRequest,
+				periodStart, 
+				periodEnd, 
+				equipement,
+				motive, 
+				status,
+				domainProject
+   				);
+			currentAuthorisationRepresentation = 
+					authorisationRepresentationMapper.toOneRepresentation(autorisationServices.findAutorisation(currentAuthorisationRepresentation.getId()));
+			return new ResponseEntity<AuthorisationRepresentation>(currentAuthorisationRepresentation, HttpStatus.OK);
+			
+			
+		}
+	}
 }

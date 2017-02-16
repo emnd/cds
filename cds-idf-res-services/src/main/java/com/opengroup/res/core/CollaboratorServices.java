@@ -2,6 +2,7 @@ package com.opengroup.res.core;
 
 //import com.opengroup.res.core.domain.DomainParameter;
 import com.opengroup.res.core.domain.DomainException;
+import com.opengroup.res.jpa.entities.Collaborator;
 
 import java.util.Set;
 import com.opengroup.res.core.domain.DomainCollaborator;
@@ -55,7 +56,7 @@ public interface CollaboratorServices {
     Set<DomainCollaborator> listAll() throws DomainException;
     
     public DomainCollaborator findCollaborator(Long id) throws DomainException;
-    public DomainCollaborator findCollaborator(String loginOpen,String emailOpen) throws DomainException;
+    public Collaborator findCollaborator(String loginOpen,String emailOpen) throws DomainException;
 
     /**
      * A generic creation api method

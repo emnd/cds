@@ -86,7 +86,7 @@ public class DomainAutorisation extends DomainBeanTrackable implements Serializa
     * GETTERS
     * */
 
-    public long getId() { return id; }
+    public Long getId() { return id; }
     public DomainCollaborator getDomainCollaborator() {     return domainCollaborator;    }
     public DomainRequest getDomainRequest() {        return domainRequest;    }
     public Date getPeriodStart() {return periodStart;}

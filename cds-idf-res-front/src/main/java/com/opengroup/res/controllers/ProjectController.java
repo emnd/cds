@@ -1,8 +1,8 @@
 package com.opengroup.res.controllers;
 
 import com.opengroup.res.core.ProjectServices;
-import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.core.domain.DomainProject;
+import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.mappers.ProjectRepresentationMapper;
 import com.opengroup.res.model.ProjectRepresentation;
 import com.opengroup.res.util.FrontException;
@@ -86,6 +86,58 @@ public class ProjectController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucBuilder.path("/project/{id}").buildAndExpand(projectRepresentation.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		}
+	}
+    
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.DELETE)
+   	public ResponseEntity<ProjectRepresentation> delete(@PathVariable("id") Long id) throws DomainException {
+   		ProjectRepresentation projectRepresentation = 
+   				projectRepresentationMapper.toOneRepresentation(projectServices.findProject(id));
+   		if (projectRepresentation.getId() == null) {
+   			return new ResponseEntity<ProjectRepresentation>(HttpStatus.NOT_FOUND);
+   		}
+   		DomainProject domainProject = DomainProject.newInstance(
+   				projectRepresentation.getProjectName(), 
+   				projectRepresentation.getPeriodStart(), 
+   				projectRepresentation.getPeriodEnd(), 
+   				projectRepresentation.getId()
+   				);
+   		System.out.println(domainProject.toString());
+   		projectServices.deleteProject(
+   				projectRepresentation.getId(),
+   				projectRepresentation.getProjectName(), 
+   				projectRepresentation.getPeriodStart(), 
+   				projectRepresentation.getPeriodEnd()
+   				);
+   		return new ResponseEntity<ProjectRepresentation>(HttpStatus.NO_CONTENT);
+   	}
+    
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<ProjectRepresentation> update(@PathVariable("id") Long id, @RequestBody ProjectRepresentation projectRepresentation) throws DomainException {
+		ProjectRepresentation currentProjectRepresentation = 
+				projectRepresentationMapper.toOneRepresentation(projectServices.findProject(id));
+
+		if (currentProjectRepresentation.getId() == null) {
+			return new ResponseEntity<ProjectRepresentation>(HttpStatus.NOT_FOUND);
+		} 
+		else 
+		{
+			DomainProject domainProject = DomainProject.newInstance(
+   				projectRepresentation.getProjectName(), 
+   				projectRepresentation.getPeriodStart(), 
+   				projectRepresentation.getPeriodEnd(), 
+   				projectRepresentation.getId()
+   				);
+   		System.out.println(domainProject.toString());
+   		projectServices.updateProject(
+   				projectRepresentation.getId(),
+   				projectRepresentation.getProjectName(), 
+   				projectRepresentation.getPeriodStart(), 
+   				projectRepresentation.getPeriodEnd()
+   				);
+			currentProjectRepresentation = 
+					projectRepresentationMapper.toOneRepresentation(projectServices.findProject(currentProjectRepresentation.getId()));
+			return new ResponseEntity<ProjectRepresentation>(currentProjectRepresentation, HttpStatus.OK);
 		}
 	}
 }

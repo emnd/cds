@@ -12,7 +12,12 @@ import org.springframework.util.StringUtils;
  */
 public final class DomainCoordinate extends DomainBean {
 
-    private String email;
+    /**
+     * 
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;  // le 15 fev 2017
+	private String email;
     private String phoneNumber;
 
     /**

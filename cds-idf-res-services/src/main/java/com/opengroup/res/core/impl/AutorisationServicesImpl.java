@@ -1,6 +1,9 @@
 package com.opengroup.res.core.impl;
 
 import com.opengroup.res.core.AutorisationServices;
+import com.opengroup.res.core.CollaboratorServices;
+import com.opengroup.res.core.ProjectServices;
+import com.opengroup.res.core.RequestServices;
 import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.core.domain.DomainHistoryLog;
 import com.opengroup.res.core.domain.DomainAutorisation;
@@ -18,6 +21,8 @@ import com.opengroup.res.jpa.entities.Collaborator;
 import com.opengroup.res.jpa.entities.HistoryLog;
 import com.opengroup.res.jpa.entities.Project;
 import com.opengroup.res.jpa.entities.Request;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +72,15 @@ public class AutorisationServicesImpl implements AutorisationServices {
     
     @Autowired
     private ProjectRepository projectRepository;
+    
+    @Autowired
+    private ProjectServices projectServices;
+    
+    @Autowired
+    private CollaboratorServices collaboratorServices;
+    
+    @Autowired
+    private RequestServices requestServices;
 
     @Override
     @Transactional
@@ -77,21 +91,49 @@ public class AutorisationServicesImpl implements AutorisationServices {
     	{
     		requestRepository.save(request);   // creation de la request s'il n'existe pas
     	}
+    	Collaborator collaborator = new Collaborator();
+    	Collaborator existingCollaborator = collaboratorServices.findCollaborator(domainCollaborator.getLoginOpen(), domainCollaborator.getEmailOpen()); // recherche du collaborateur en base sinon l'inserer
+//    	System.out.println("Collaborator existant :"+existingDomainCollaborator);
+//    	if(existingCollaborator.getId() != null){
+//    		System.out.println("*************Existing Id***************");
+//
+//    		System.out.println(existingCollaborator.getId());
+//    		collaborator = existingCollaborator;
+//    	}
+//    	
+//    	else
+//    	{ 
+//    		collaborator = collaboratorMapper.toOneEntity(domainCollaborator);
+//    		System.out.println("collaborator saisie "+collaborator);
+//    		collaboratorRepository.save(collaborator);
+//    	}
+    	collaborator = (existingCollaborator.getId() != null) ? existingCollaborator : collaboratorMapper.toOneEntity(domainCollaborator);
     	
-    	Collaborator collaborator = collaboratorMapper.toOneEntity(domainCollaborator);
-    	
-    	if(domainCollaborator.getId()== null)
+    	if(collaborator.getId()== null)
     	{
     		collaboratorRepository.save(collaborator);   // creation du collaborator s'il n'existe pas
     	}
     	
-    	Project project = projectMapper.toOneEntity(domainProject);
+    	Project project = new Project();
+    	Project existingProject = 
+    			projectServices.findProject(domainProject.getProjectName(), domainProject.getPeriodStart(), domainProject.getPeriodEnd()); // verification si le projet existe
+//    	if(existingProject.getIdProject() != null)
+//    	{
+//    		project = existingProject;
+//    	}
+//    	else
+//    	{
+//    		project = projectMapper.toOneEntity(domainProject);
+//    		projectRepository.save(project);   // creation du project s'il n'existe pas
+//    	}
+ 
+    	project = (existingProject.getIdProject() != null) ? existingProject : projectMapper.toOneEntity(domainProject);
     	
-    	if(domainProject.getId()== null)
+    	if(project.getIdProject()== null)
     	{
-    		projectRepository.save(project);   // creation du project s'il n'existe pas
+    		projectRepository.save(project);   // creation du collaborator s'il n'existe pas
     	}
-    	
+
     	domainCollaborator = collaboratorMapper.toOneDomain(collaborator); // transformation du collaborator crée en domainCollaborator
     	domainRequest = requestMapper.toOneDomain(request);  // transformation de la request créée en domainRequest
     	domainProject = projectMapper.toOneDomain(project);  // transformation du project crée en domainProject
@@ -104,7 +146,7 @@ public class AutorisationServicesImpl implements AutorisationServices {
     }
 
     @Override
-    @Transactional/*(isolation = Isolation.READ_COMMITTED)*/
+    @Transactional
     public void updateAutorisation(Long id, DomainCollaborator domainCollaborator, DomainRequest domainRequest, Date periodStart, Date periodEnd, boolean equipement, String motive,String status, DomainProject domainProject) throws DomainException {
         DomainAutorisation domainAutorisation = DomainAutorisation.updateInstance(domainCollaborator, domainRequest, periodStart, periodEnd, domainProject, equipement, motive, status, id);
         Authorisation authorisation = authorisationRepository.findOne(id);
@@ -113,15 +155,40 @@ public class AutorisationServicesImpl implements AutorisationServices {
       
         }
         authorisation.setId(domainAutorisation.getId());
-        //authorisation.setCollaborator(collaboratorMapper.toOneEntity(domainAutorisation.getDomainCollaborator()));
-        //authorisation.setProject(projectMapper.toOneEntity(domainAutorisation.getDomainProject());
-        //authorisation.setRequest(requestMapper.toOneEntity(domainAutorisation.getDomainRequest()));
-       // authorisation.setMotive(domainAutorisation.getMotive());
-        authorisation.setMotive(motive);
-        authorisation.setEquipment(equipement);
-       // authorisation.setPeriodStart(domainAutorisation.getPeriodStart());
-       // authorisation.setPeriodEnd(domainAutorisation.getPeriodEnd());
-        authorisation.setStatus(status);
+        Collaborator collaborator = collaboratorMapper.toOneEntity(domainAutorisation.getDomainCollaborator());
+        collaboratorServices.updateCollaborator(
+        		domainAutorisation.getDomainCollaborator().getId(),
+        		domainAutorisation.getDomainCollaborator().getLoginOpen(),
+        		domainAutorisation.getDomainCollaborator().getFirstName(),
+        		domainAutorisation.getDomainCollaborator().getLastName(),
+        		domainAutorisation.getDomainCollaborator().getEmailOpen(),
+        		domainAutorisation.getDomainCollaborator().getBuOpen()
+        		);
+        authorisation.setCollaborator(collaborator);
+        
+        Project project = projectMapper.toOneEntity(domainAutorisation.getDomainProject());
+        projectServices.updateProject(
+        		domainAutorisation.getDomainProject().getId(), 
+        		domainAutorisation.getDomainProject().getProjectName(), 
+        		domainAutorisation.getDomainProject().getPeriodStart(), 
+        		domainAutorisation.getDomainProject().getPeriodEnd()
+        		);
+        authorisation.setProject(project);
+        
+        Request request = requestMapper.toOneEntity(domainAutorisation.getDomainRequest());
+        requestServices.updateRequest(
+        		domainAutorisation.getDomainRequest().getId(), 
+        		domainAutorisation.getDomainRequest().getApplicant(), 
+        		domainAutorisation.getDomainRequest().getDecider(), 
+        		domainAutorisation.getDomainRequest().getRequestDate(),
+        		domainAutorisation.getDomainRequest().getReplyDate()
+        		);
+        authorisation.setRequest(request);
+        authorisation.setMotive(domainAutorisation.getMotive());
+        authorisation.setEquipment(domainAutorisation.isEquipement());
+        authorisation.setPeriodStart(domainAutorisation.getPeriodStart());
+        authorisation.setPeriodEnd(domainAutorisation.getPeriodEnd());
+        authorisation.setStatus(domainAutorisation.getStatus());
         
         //authorisationRepository.save(authorisation);   // si on l'active , il fait un delete donc les set suffisent le 08 fevrier 2017
     }

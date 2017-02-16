@@ -12,7 +12,13 @@ import com.opengroup.res.core.domain.DomainException;
  */
 public class DomainEmployee extends DomainBean {
 
-    private DomainIdentity identity;
+	// le 15 fev 2017
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private DomainIdentity identity;
 
     private DomainJob job;
 

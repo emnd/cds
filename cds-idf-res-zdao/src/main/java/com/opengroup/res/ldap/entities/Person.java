@@ -16,7 +16,12 @@ import java.io.Serializable;
 @Entry(objectClasses = {"top", "person", "organizationalPerson", "inetOrgPerson"})
 public final class Person implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private Name distinguishName;
 
     @Attribute(name = "cn")
