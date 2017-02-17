@@ -29,16 +29,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.http.HttpHeaders;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -90,6 +94,7 @@ public class AuthorisationController {
      * @return
      * @throws DomainException
      */
+   // @Secured("ROLE_CDSMANAGER")
     @RequestMapping(value = "/authorisations", method = RequestMethod.GET)
     public Set<AuthorisationRepresentation> list() throws FrontException {
         Set<AuthorisationRepresentation> authorisations;
@@ -247,4 +252,40 @@ public class AuthorisationController {
 			
 		}
 	}
+    
+    @RequestMapping(value="/requestList/{applicant}", method = RequestMethod.GET)
+    public List<AuthorisationRepresentation> getRequestList(@PathVariable String applicant) throws DomainException, FrontException {  //TODO Catch the exception and change the response status
+        List<DomainAutorisation> authorisations = autorisationServices.authorisationHistory(applicant);
+        return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisations);
+    }
+    
+    //@Secured("ROLE_CDSMANAGER")
+    @RequestMapping(value="/todayActive", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AuthorisationRepresentation> todayActive() throws DomainException,FrontException {
+        List<DomainAutorisation> authorisationsToday = autorisationServices.activeAuthorisations(new Date());
+        return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisationsToday);
+    }
+    
+    @RequestMapping(value = "/EnAttente", method = RequestMethod.PUT)
+	public void updateStatusEnAttente(@RequestParam Long id) throws DomainException,FrontException {
+		autorisationServices.updateStatus(id, "Attente");
+	}
+    
+    
+    @RequestMapping(value = "/acceptee", method = RequestMethod.PUT)
+	public void updateStatusAccepter(@RequestParam Long id) throws DomainException,FrontException {
+		autorisationServices.updateStatus(id, "Acceptée");
+	}
+    
+    @RequestMapping(value = "/refusee", method = RequestMethod.PUT)
+	public void updateStatusRefuser(@RequestParam Long id)throws DomainException,FrontException {
+		autorisationServices.updateStatus(id, "Refusée");	
+	}
+    
+    @RequestMapping("/authorization")
+    public String myAutorization() throws DomainException,FrontException {
+    	autorisationServices.updateStatus(178L, "Refusée");
+         return "authorization modifié";
+     }
 }

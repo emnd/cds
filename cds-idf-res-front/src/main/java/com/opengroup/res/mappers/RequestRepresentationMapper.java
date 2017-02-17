@@ -52,4 +52,38 @@ public class RequestRepresentationMapper extends AbstractFrontMapper<DomainReque
 		}
     	return representationList;
     }
+    
+    public List<DomainRequest> convertListRepresentationToListDomainList(List<RequestRepresentation> representationList) throws DomainException
+    {
+    	if (representationList == null) {
+
+			return null;
+		}
+
+		List<DomainRequest> listDomain = new ArrayList<DomainRequest>();
+
+		for (RequestRepresentation RequestRepresentation : representationList) {
+
+			listDomain.add(toOneDomain(RequestRepresentation));
+		}
+
+		return listDomain;
+    }
+    
+    public List<RequestRepresentation> convertListDomainListToListRepresentation(List<DomainRequest> domainList) throws DomainException
+    {
+    	if (domainList == null) {
+
+			return null;
+		}
+
+		List<RequestRepresentation> listRepresentation = new ArrayList<RequestRepresentation>();
+
+		for (DomainRequest domainRequest : domainList) {
+
+			listRepresentation.add(toOneRepresentation(domainRequest));
+		}
+
+		return listRepresentation;
+    }
 }

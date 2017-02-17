@@ -2,10 +2,12 @@ package com.opengroup.res.mappers;
 
 import com.opengroup.res.core.domain.DomainAutorisation;
 import com.opengroup.res.core.domain.DomainException;
-//import com.opengroup.res.util.FrontException;
+
 import com.opengroup.res.util.mappers.AbstractFrontMapper;
 import com.opengroup.res.model.AuthorisationRepresentation;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -53,5 +55,39 @@ public class AuthorisationRepresentationMapper extends AbstractFrontMapper<Domai
         authorisationRepresentation.setEquipment(domain.isEquipement());
         
         return authorisationRepresentation;
+    }
+    
+    public List<DomainAutorisation> convertListRepresentationToListDomainList(List<AuthorisationRepresentation> representationList) throws DomainException
+    {
+    	if (representationList == null) {
+
+			return null;
+		}
+
+		List<DomainAutorisation> listDomain = new ArrayList<DomainAutorisation>();
+
+		for (AuthorisationRepresentation authorisationRepresentation : representationList) {
+
+			listDomain.add(toOneDomain(authorisationRepresentation));
+		}
+
+		return listDomain;
+    }
+    
+    public List<AuthorisationRepresentation> convertListDomainListToListRepresentation(List<DomainAutorisation> domainList) throws DomainException
+    {
+    	if (domainList == null) {
+
+			return null;
+		}
+
+		List<AuthorisationRepresentation> listRepresentation = new ArrayList<AuthorisationRepresentation>();
+
+		for (DomainAutorisation domainAutorisation : domainList) {
+
+			listRepresentation.add(toOneRepresentation(domainAutorisation));
+		}
+
+		return listRepresentation;
     }
 }

@@ -8,6 +8,7 @@ import com.opengroup.res.core.domain.DomainRequest;
 import com.opengroup.res.core.domain.DomainProject;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -69,7 +70,10 @@ public interface AutorisationServices {
     Set<DomainAutorisation> listAll() throws DomainException;
     
     public DomainAutorisation findAutorisation(Long id) throws DomainException;
-
+    public List<DomainAutorisation> authorisationHistory() throws DomainException;  // liste des authorisations
+    public List<DomainAutorisation> authorisationHistory(String applicantLogin) throws DomainException; // Liste des authorisations 
+    public void updateStatus(Long id, String decision) throws DomainException;
+    public List<DomainAutorisation> activeAuthorisations(Date date) throws DomainException;
     /**
      * A generic creation api method
      * @param typedAutorisation

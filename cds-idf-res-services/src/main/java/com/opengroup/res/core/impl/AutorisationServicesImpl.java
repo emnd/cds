@@ -28,8 +28,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.opengroup.res.core.domain.DomainCollaborator;
@@ -93,20 +95,7 @@ public class AutorisationServicesImpl implements AutorisationServices {
     	}
     	Collaborator collaborator = new Collaborator();
     	Collaborator existingCollaborator = collaboratorServices.findCollaborator(domainCollaborator.getLoginOpen(), domainCollaborator.getEmailOpen()); // recherche du collaborateur en base sinon l'inserer
-//    	System.out.println("Collaborator existant :"+existingDomainCollaborator);
-//    	if(existingCollaborator.getId() != null){
-//    		System.out.println("*************Existing Id***************");
-//
-//    		System.out.println(existingCollaborator.getId());
-//    		collaborator = existingCollaborator;
-//    	}
-//    	
-//    	else
-//    	{ 
-//    		collaborator = collaboratorMapper.toOneEntity(domainCollaborator);
-//    		System.out.println("collaborator saisie "+collaborator);
-//    		collaboratorRepository.save(collaborator);
-//    	}
+
     	collaborator = (existingCollaborator.getId() != null) ? existingCollaborator : collaboratorMapper.toOneEntity(domainCollaborator);
     	
     	if(collaborator.getId()== null)
@@ -117,15 +106,6 @@ public class AutorisationServicesImpl implements AutorisationServices {
     	Project project = new Project();
     	Project existingProject = 
     			projectServices.findProject(domainProject.getProjectName(), domainProject.getPeriodStart(), domainProject.getPeriodEnd()); // verification si le projet existe
-//    	if(existingProject.getIdProject() != null)
-//    	{
-//    		project = existingProject;
-//    	}
-//    	else
-//    	{
-//    		project = projectMapper.toOneEntity(domainProject);
-//    		projectRepository.save(project);   // creation du project s'il n'existe pas
-//    	}
  
     	project = (existingProject.getIdProject() != null) ? existingProject : projectMapper.toOneEntity(domainProject);
     	
@@ -218,7 +198,7 @@ public class AutorisationServicesImpl implements AutorisationServices {
         }
     }
 
-    
+    @Override
     @Transactional
     public DomainAutorisation findAutorisation(Long id) throws DomainException {  
 		Authorisation authorisation = new Authorisation();
@@ -238,6 +218,47 @@ public class AutorisationServicesImpl implements AutorisationServices {
 		return domainAutorisation;
 	}
 
+    @Override
+    @Transactional
+    public List<DomainAutorisation> authorisationHistory() throws DomainException {
+        List<Authorisation> authorisations = authorisationRepository.findAll();
+        return autorisationMapper.convertEntityListToDomainList(authorisations);
+    }
+
+    @Override
+    @Transactional
+    public List<DomainAutorisation> authorisationHistory(String applicantLogin) throws DomainException {
+        List<Authorisation> authorisations = authorisationRepository.findByApplicant(applicantLogin);
+        List<DomainAutorisation> domainList = autorisationMapper.convertEntityListToDomainList(authorisations);
+        return domainList;
+    }
+    
+    @Override
+    @Transactional
+    public void updateStatus(Long id, String decision) throws DomainException{
+    	
+        Authorisation authorisation = authorisationRepository.findOne(id);
+        Request request = authorisation.getRequest();
+        request.setApplicant("applicant");
+        request.setReplyDate(new Date()); //today
+        authorisation.setStatus(decision);
+        
+        requestRepository.save(request);
+        authorisationRepository.save(authorisation);
+        
+    }
+
+    @Override
+    @Transactional
+    public List<DomainAutorisation> activeAuthorisations(Date date) throws DomainException {
+        List<DomainAutorisation> result = new ArrayList<DomainAutorisation>();
+        List<Authorisation> query = authorisationRepository.activeAuthorisations(date);
+
+        for (Authorisation authorisation : query) {
+            result.add(autorisationMapper.toOneDomain(authorisation));
+        }
+        return result;
+    }
     
     /**
      * Track an history log - Can be provide as an internal transactional service

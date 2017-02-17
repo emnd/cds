@@ -50,4 +50,38 @@ public class ProjectRepresentationMapper extends AbstractFrontMapper<DomainProje
 		}
     	return representationList;
     }
+    
+    public List<DomainProject> convertListRepresentationToListDomainList(List<ProjectRepresentation> representationList) throws DomainException
+    {
+    	if (representationList == null) {
+
+			return null;
+		}
+
+		List<DomainProject> listDomain = new ArrayList<DomainProject>();
+
+		for (ProjectRepresentation ProjectRepresentation : representationList) {
+
+			listDomain.add(toOneDomain(ProjectRepresentation));
+		}
+
+		return listDomain;
+    }
+    
+    public List<ProjectRepresentation> convertListDomainListToListRepresentation(List<DomainProject> domainList) throws DomainException
+    {
+    	if (domainList == null) {
+
+			return null;
+		}
+
+		List<ProjectRepresentation> listRepresentation = new ArrayList<ProjectRepresentation>();
+
+		for (DomainProject domainProject : domainList) {
+
+			listRepresentation.add(toOneRepresentation(domainProject));
+		}
+
+		return listRepresentation;
+    }
 }

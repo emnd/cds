@@ -30,7 +30,7 @@ public interface AuthorisationRepository extends CrudRepository<Authorisation, L
 
     @Query("SELECT a FROM Authorisation a " +
             "                      WHERE ?1 BETWEEN a.periodStart AND a.periodEnd" +
-            "                       AND a.status = 'Acceptée'"               //TODO: change this to the value or key from Parameter Table
+            "                       AND a.status = 'Acceptee'"               //TODO: change this to the value or key from Parameter Table
         )
       public List<Authorisation> activeAuthorisations (Date date);
 

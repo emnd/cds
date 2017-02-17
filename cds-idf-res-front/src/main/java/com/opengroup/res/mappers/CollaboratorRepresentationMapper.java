@@ -51,4 +51,38 @@ public class CollaboratorRepresentationMapper extends AbstractFrontMapper<Domain
 		}
     	return representationList;
     }
+    
+    public List<DomainCollaborator> convertListRepresentationToListDomainList(List<CollaboratorRepresentation> representationList) throws DomainException
+    {
+    	if (representationList == null) {
+
+			return null;
+		}
+
+		List<DomainCollaborator> listDomain = new ArrayList<DomainCollaborator>();
+
+		for (CollaboratorRepresentation CollaboratorRepresentation : representationList) {
+
+			listDomain.add(toOneDomain(CollaboratorRepresentation));
+		}
+
+		return listDomain;
+    }
+    
+    public List<CollaboratorRepresentation> convertListDomainListToListRepresentation(List<DomainCollaborator> domainList) throws DomainException
+    {
+    	if (domainList == null) {
+
+			return null;
+		}
+
+		List<CollaboratorRepresentation> listRepresentation = new ArrayList<CollaboratorRepresentation>();
+
+		for (DomainCollaborator domainCollaborator : domainList) {
+
+			listRepresentation.add(toOneRepresentation(domainCollaborator));
+		}
+
+		return listRepresentation;
+    }
 }
