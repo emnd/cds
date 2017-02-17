@@ -3,13 +3,6 @@ package com.opengroup.res.core.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.opengroup.res.enums.EquipementType;
-import com.opengroup.res.enums.StateType;
-
-
-
-
-
 /**
  * @author OAI15274
  *date début:22/12/2016
@@ -19,7 +12,7 @@ public class DomainEquipement implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
-	private Long idEquipement;
+	private Long id;
 	private String stationNameEquipement;
 	private String serialNumberEquipement;
 	private String markEquipement;
@@ -29,12 +22,48 @@ public class DomainEquipement implements Serializable{
 	private Date purchaseDateEquipement;
 	private Date expectedDateEquipement;
 	private String commentsEquipement;
-
-	private EquipementType equipementTypeEquipement;
-	private StateType stateTypeEquipement;
-
+	
+	private EquipementType equipementType;
+	private StateType stateType;
+	
+	
 	private DomainLocation domainLocation;
 	
+	
+	/*
+	 private EquipementType equipmentType;
+		private StateType stateType;*/
+
+		   public enum EquipementType{
+			   Laptop("Laptop"), Desktop("Desktop");
+			   private final String label;
+
+				private EquipementType(String label) {
+					this.label = label;
+
+				}
+
+				public String getLabel() {
+					return label;
+				}
+		    }
+
+		    public enum StateType{
+		    	Available("Available"), Loaned("Loaned");
+		    	private final String label;
+
+				private StateType(String label) {
+					this.label = label;
+
+				}
+
+				public String getLabel() {
+					return label;
+				}
+		    }
+		    
+		   
+		
 	/*public DomainEquipement() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -44,7 +73,14 @@ public class DomainEquipement implements Serializable{
 			super();
 		}
 
-	  protected DomainEquipement( String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException {
+	  
+
+
+
+	public DomainEquipement( String stationNameEquipement, String serialNumberEquipement, String markEquipement, 
+			String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, 
+			Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType,
+			StateType stateType,DomainLocation domainLocation, Long id) throws DomainException {
 		
 		  
 				this.stationNameEquipement = stationNameEquipement;
@@ -64,37 +100,68 @@ public class DomainEquipement implements Serializable{
 				this.expectedDateEquipement = expectedDateEquipement;
 		
 				this.commentsEquipement = commentsEquipement;
-		
-				this.equipementTypeEquipement = equipementTypeEquipement;
-		
-				this.stateTypeEquipement = stateTypeEquipement;
+		        this.equipementType= equipementType;
+		        this.stateType = stateType;
+				
+				this.domainLocation = domainLocation;
+				this.id=id;
 
 	    }
 	  
 	
 
-	public static DomainEquipement newCreatedStateInstance(String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException {
-	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement, commentsEquipement,  equipementTypeEquipement,  stateTypeEquipement );
+	public DomainEquipement(Long id) {
+		this.id = id;
+	}
+
+
+	public static DomainEquipement newCreatedStateInstance(String stationNameEquipement, String serialNumberEquipement, 
+			String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, 
+			Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, 
+			EquipementType equipementType, StateType stateType,DomainLocation domainLocation, Long id) throws DomainException {
+	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement,
+	        		attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement,
+	        		commentsEquipement,  equipementType,  stateType, domainLocation,id);
 	    }
 
-	    public static DomainEquipement newModifiedStateInstance(String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement)throws DomainException {
-	        return new DomainEquipement( stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement, commentsEquipement,  equipementTypeEquipement,  stateTypeEquipement );
+	    public static DomainEquipement newModifiedStateInstance(String stationNameEquipement, 
+	    		String serialNumberEquipement, String markEquipement, String modelEquipement, 
+	    		Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
+	    		Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType,
+	    		StateType stateType, DomainLocation domainLocation, long id)throws DomainException {
+	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement, 
+	        		modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement,
+	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType, domainLocation, id);
 	    }
 
-	    public static DomainEquipement newSuppressedStateInstance(String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException {
-	        return new DomainEquipement( stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement, commentsEquipement,  equipementTypeEquipement,  stateTypeEquipement );
+	    public static DomainEquipement newSuppressedStateInstance(String stationNameEquipement, 
+	    		String serialNumberEquipement, String markEquipement, String modelEquipement,
+	    		Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
+	    		Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType, StateType stateType,
+	    		DomainLocation domainLocation, Long id) throws DomainException {
+	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement,
+	        		modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement,
+	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType,
+	        		domainLocation, id );
 	    }
 
-	    public static DomainEquipement newValidatedStateInstance(String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException {
-	        return new DomainEquipement( stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement, commentsEquipement,  equipementTypeEquipement,  stateTypeEquipement );
+	    public static DomainEquipement newValidatedStateInstance(String stationNameEquipement,
+	    		String serialNumberEquipement, String markEquipement, String modelEquipement, 
+	    		Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
+	    		Date expectedDateEquipement, String commentsEquipement,EquipementType equipementType, StateType stateType,
+	    		DomainLocation domainLocation, Long id) throws DomainException {
+	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement,
+	        		modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, 
+	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType,
+	        		domainLocation, id );
 	    }
 
 	    
 	
 	
 	
-	public Long getIdEquipement() {
-		return idEquipement;
+	public Long getId() {
+		return id;
 	}
 
 	
@@ -136,18 +203,12 @@ public class DomainEquipement implements Serializable{
 		return commentsEquipement;
 	}
 
-	public EquipementType getEquipementTypeEquipement() {
-		return equipementTypeEquipement;
-	}
-
-	public StateType getStateTypeEquipement() {
-		return stateTypeEquipement;
-	}	
+	
 	
 
 	
-	public void setIdEquipement(Long idEquipement) {
-		this.idEquipement = idEquipement;
+	public void setId(Long idEquipement) {
+		this.id = idEquipement;
 	}
 
 
@@ -206,15 +267,31 @@ public class DomainEquipement implements Serializable{
 
 
 
-	public void setEquipementTypeEquipement(EquipementType equipementTypeEquipement) {
-		this.equipementTypeEquipement = equipementTypeEquipement;
+
+
+
+
+	public EquipementType getEquipementType() {
+		return equipementType;
 	}
 
 
 
-	public void setStateTypeEquipement(StateType stateTypeEquipement) {
-		this.stateTypeEquipement = stateTypeEquipement;
+
+
+	public StateType getStateType() {
+		return stateType;
 	}
+
+
+
+
+
+	public DomainLocation getDomainLocation() {
+		return domainLocation;
+	}
+
+
 
 
 
@@ -224,23 +301,17 @@ public class DomainEquipement implements Serializable{
 
 
 
-	public DomainLocation getdomainLocation() {
-		return domainLocation;
-	}
 
-	public void setdomainLocation(DomainLocation domainLocation) {
-		this.domainLocation = domainLocation;
-	}
 
 	@Override
 	public String toString() {
-		return "DomainEquipement [idEquipement=" + idEquipement + ", stationNameEquipement=" + stationNameEquipement
+		return "DomainEquipement [idEquipement=" + id + ", stationNameEquipement=" + stationNameEquipement
 				+ ", serialNumberEquipement=" + serialNumberEquipement + ", markEquipement=" + markEquipement
 				+ ", modelEquipement=" + modelEquipement + ", attributionDateEquipement=" + attributionDateEquipement
 				+ ", returnDateEquipement=" + returnDateEquipement + ", purchaseDateEquipement="
 				+ purchaseDateEquipement + ", expectedDateEquipement=" + expectedDateEquipement
 				+ ", commentsEquipement=" + commentsEquipement + ", equipementTypeEquipement="
-				+ equipementTypeEquipement + ", stateTypeEquipement=" + stateTypeEquipement +",domainLocation "+domainLocation.toString()+ "]";
+				+ equipementType + ", stateTypeEquipement=" + stateType +",domainLocation "+domainLocation.toString()+ "]";
 	}
 	
 }

@@ -2,12 +2,10 @@ package com.opengroup.res.core;
 
 import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
-import com.opengroup.res.enums.EquipementType;
-import com.opengroup.res.enums.StateType;
+import com.opengroup.res.core.domain.DomainLocation;
 
 import java.util.Date;
 import java.util.Set;
-
 /**
  * Define the API to manipulate Equipement
  *
@@ -15,7 +13,6 @@ import java.util.Set;
  * @since 1.0.0
  */
 public interface EquipementServices {
-
     /**
      * Create and store a new Equipement in the system, with the initial state and the owner of the creation step
      *
@@ -25,7 +22,7 @@ public interface EquipementServices {
      * @param userId
      * @throws DomainException
      */
-    void createEquipement(String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException;
+    void createEquipement(String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, DomainEquipement.EquipementType equipementTypeEquipement, DomainEquipement.StateType stateTypeEquipement,DomainLocation domainLocation) throws DomainException;
 
     /**
      * @param context
@@ -34,7 +31,7 @@ public interface EquipementServices {
      * @param userId
      * @throws DomainException
      */
-    void updateEquipement(Long idEquipement, String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException;
+    void updateEquipement(Long id, String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, DomainEquipement.EquipementType equipementTypeEquipement, DomainEquipement.StateType stateTypeEquipement, DomainLocation domainLocation) throws DomainException;
 
 
     /**
@@ -43,7 +40,7 @@ public interface EquipementServices {
      * @param userId
      * @throws DomainException
      */
-    void deleteEquipement(Long idEquipement, String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, EquipementType equipementTypeEquipement, StateType stateTypeEquipement) throws DomainException;
+    void deleteEquipement(Long id) throws DomainException;
 
     /**
      * List all Equipements of the system
@@ -69,6 +66,7 @@ public interface EquipementServices {
      */
     <T extends DomainEquipement> void updateEquipement(T typedEquipement) throws DomainException;
 
+    
     /**
      * A generic delete api method
      * @param typedEquipement
@@ -76,4 +74,9 @@ public interface EquipementServices {
      * @throws DomainException
      */
     <T extends DomainEquipement> void deleteEquipement(T typedEquipement) throws DomainException;
+
+	DomainEquipement findOne(Long id) throws DomainException;
+	public DomainEquipement findEquipement(Long id) throws DomainException;
+
+
 }

@@ -12,39 +12,32 @@ import com.opengroup.res.core.domain.DomainParameter;
 import com.opengroup.res.jpa.entities.Location;
 import com.opengroup.res.jpa.entities.Parameter;
 import com.opengroup.res.util.AbstractDomainMapper;
-
 /**
+ * 
  * A parameter mapper
  */
 @Component
 public class LocationMapper {
-
+	
 public DomainLocation toOneDomain(Location location) throws DomainException {
         
     	if(location == null){
 			return null;
 		}
 		
-    	DomainLocation domainLocation= new DomainLocation();
-   	 domainLocation.setIdLocation(location.getId());
-    	 domainLocation.setBlockLocation(location.getBlock());
- 		domainLocation.setNameLocation(location.getName());
- 		domainLocation.setPlaceLocation(location.getPlace());
- 	
- 	
-    	
- 		return  domainLocation;
+    	DomainLocation domainLocation= new DomainLocation(location.getBlock(),location.getName(),location.getPlace(),location.getId());
+        return  domainLocation;
     	
     }
 
   
     public Location toOneEntity(DomainLocation domainLocation) {
-        Date now = new Date();
+       // Date now = new Date();
         
         Location location = new Location();
         
         		
-        location.setId(domainLocation.getIdLocation());
+        location.setId(domainLocation.getId());
             
        location.setBlock(domainLocation.getBlockLocation());
         location.setName(domainLocation.getNameLocation());

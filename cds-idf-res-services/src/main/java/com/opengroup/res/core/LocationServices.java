@@ -1,10 +1,10 @@
 package com.opengroup.res.core;
 
 import com.opengroup.res.core.domain.DomainLocation;
+import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 
 import java.util.Set;
-
 /**
  * Define the API to manipulate parameter
  *
@@ -12,7 +12,7 @@ import java.util.Set;
  * @since 1.0.0
  */
 public interface LocationServices {
-
+	
     /**
      * Create and store a new parameter in the system, with the initial state and the owner of the creation step
      *
@@ -31,7 +31,7 @@ public interface LocationServices {
      * @param userId
      * @throws DomainException
      */
-    void updateLocation(Long idLocation, String nameLocation, String blockLocation, String placeLocation) throws DomainException;
+    void updateLocation( String nameLocation, String blockLocation, String placeLocation,Long id) throws DomainException;
 
 
     /**
@@ -42,6 +42,8 @@ public interface LocationServices {
      */
     void deleteLocation(Long id) throws DomainException;
 
+    
+    public DomainLocation findLocation(Long id) throws DomainException;
     /**
      * List all parameters of the system
      *
@@ -73,4 +75,7 @@ public interface LocationServices {
      * @throws DomainException
      */
     <T extends DomainLocation> void deleteLocation(T typedLocation) throws DomainException;
+    
+    
+	DomainLocation findOne(Long id) throws DomainException;
 }
