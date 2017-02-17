@@ -1,7 +1,6 @@
 package com.opengroup.res.core.domain;
 
 import java.io.Serializable;
-
 /**
  * @author KAI15273
  *

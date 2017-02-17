@@ -5,7 +5,6 @@ import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 
 import java.util.Set;
-
 /**
  * Define the API to manipulate parameter
  *

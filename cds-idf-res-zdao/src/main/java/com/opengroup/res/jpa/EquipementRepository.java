@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import com.opengroup.res.jpa.entities.Equipement;
 
 
-
 /**
  * @author OAI15274
  *date début:22/12/2016

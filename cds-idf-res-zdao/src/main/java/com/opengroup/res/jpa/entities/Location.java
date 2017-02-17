@@ -15,9 +15,6 @@ import javax.persistence.Version;
 import com.opengroup.res.util.EntityBean;
 
 
-
-
-
 /**
  * Data-model class for a "Location", the location where the "equipement" and "collaborator" are present
  * 

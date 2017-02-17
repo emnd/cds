@@ -18,8 +18,7 @@ import com.opengroup.res.model.LocationRepresentation;
 @Component
 public class LocationRepresentationMapper  {
 
- 
-    public DomainLocation toOneDomain(LocationRepresentation representation) throws DomainException {
+     public DomainLocation toOneDomain(LocationRepresentation representation) throws DomainException {
     
         return new DomainLocation(representation.getNameLocation(),representation.getBlockLocation(),representation.getPlaceLocation(),representation.getId());
     }

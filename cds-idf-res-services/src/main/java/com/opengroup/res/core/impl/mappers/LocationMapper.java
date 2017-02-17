@@ -12,7 +12,6 @@ import com.opengroup.res.core.domain.DomainParameter;
 import com.opengroup.res.jpa.entities.Location;
 import com.opengroup.res.jpa.entities.Parameter;
 import com.opengroup.res.util.AbstractDomainMapper;
-
 /**
  * 
  * A parameter mapper

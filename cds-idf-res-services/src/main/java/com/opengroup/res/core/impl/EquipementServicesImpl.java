@@ -22,7 +22,6 @@ import com.opengroup.res.jpa.LocationRepository;
 import com.opengroup.res.jpa.entities.Equipement;
 import com.opengroup.res.jpa.entities.HistoryLog;
 import com.opengroup.res.jpa.entities.Location;
-
 /**
  * Implementation to manage Equipement service
  *

@@ -6,7 +6,6 @@ import com.opengroup.res.core.domain.DomainEquipement.EquipementType;
 import com.opengroup.res.core.domain.DomainEquipement.StateType;
 //import com.opengroup.res.core.domain.DomainLocation;
 import com.opengroup.res.util.RepresentationBean;
-
 /**
  * Parameter representation
  *

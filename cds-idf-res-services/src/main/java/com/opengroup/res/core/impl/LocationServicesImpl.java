@@ -18,7 +18,6 @@ import com.opengroup.res.jpa.HistoryLogRepository;
 import com.opengroup.res.jpa.LocationRepository;
 import com.opengroup.res.jpa.entities.Equipement;
 import com.opengroup.res.jpa.entities.Location;
-
 /**
  * Implementation to manage Parameter service
  *

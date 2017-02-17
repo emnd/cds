@@ -6,7 +6,6 @@ import com.opengroup.res.core.domain.DomainLocation;
 
 import java.util.Date;
 import java.util.Set;
-
 /**
  * Define the API to manipulate Equipement
  *

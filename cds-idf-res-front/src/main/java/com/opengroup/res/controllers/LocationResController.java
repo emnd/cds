@@ -22,7 +22,6 @@ import com.opengroup.res.core.impl.mappers.LocationMapper;
 import com.opengroup.res.jpa.LocationRepository;
 import com.opengroup.res.mappers.LocationRepresentationMapper;
 import com.opengroup.res.model.LocationRepresentation;
-
 /**
  * A REST Controller which provides API to manage application parameters
  *

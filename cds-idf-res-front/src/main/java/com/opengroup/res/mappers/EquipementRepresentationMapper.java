@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.model.EquipementRepresentation;
-
 /**
  * Parameter representation mapper
  *

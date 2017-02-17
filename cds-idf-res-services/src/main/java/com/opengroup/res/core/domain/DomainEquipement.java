@@ -4,11 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-
-
-
-
-
 /**
  * @author OAI15274
  *date début:22/12/2016
