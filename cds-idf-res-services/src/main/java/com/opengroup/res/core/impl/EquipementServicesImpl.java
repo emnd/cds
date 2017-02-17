@@ -154,6 +154,7 @@ public class EquipementServicesImpl implements EquipementServices {
         return new HashSet<>(equipementMapper.toDomains(equipementRepository.findAll()));
     }
 
+    
 	@Override
 	public <T extends DomainEquipement> void createEquipement(T typedEquipement) throws DomainException {
 		// TODO Auto-generated method stub

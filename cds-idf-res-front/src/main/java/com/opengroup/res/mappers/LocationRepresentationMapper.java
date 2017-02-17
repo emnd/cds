@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.core.domain.DomainLocation;
 import com.opengroup.res.model.LocationRepresentation;
-
 /**
  * Parameter representation mapper
  *

@@ -139,6 +139,7 @@ public ResponseEntity<Void> create(@RequestBody EquipementRepresentation equipem
 	
 
 
+
   //methose put
     @RequestMapping(value = "/services/equipement/{id}", method = RequestMethod.PUT)
     public ResponseEntity<EquipementRepresentation> update(@PathVariable("id") Long id, @RequestBody EquipementRepresentation equipementRepresentation) throws DomainException {

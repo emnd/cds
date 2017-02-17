@@ -33,8 +33,6 @@ public class EquipementRepresentation implements RepresentationBean {
 	private LocationRepresentation locationRepresentation;
 
 
-
-
 	public Long getId() {
 			return id;
 		}

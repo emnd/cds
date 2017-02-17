@@ -68,6 +68,7 @@ public interface EquipementServices {
      */
     <T extends DomainEquipement> void updateEquipement(T typedEquipement) throws DomainException;
 
+    
     /**
      * A generic delete api method
      * @param typedEquipement

@@ -188,8 +188,10 @@ public class Equipement implements Serializable, EntityBean {
 		return version;
 	}
 	
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+		
 	}
 
 	public void setVersion(int version) {

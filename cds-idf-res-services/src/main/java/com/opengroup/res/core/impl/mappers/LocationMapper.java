@@ -14,11 +14,13 @@ import com.opengroup.res.jpa.entities.Parameter;
 import com.opengroup.res.util.AbstractDomainMapper;
 
 /**
+ * 
  * A parameter mapper
  */
 @Component
 public class LocationMapper {
 
+	
 public DomainLocation toOneDomain(Location location) throws DomainException {
         
     	if(location == null){

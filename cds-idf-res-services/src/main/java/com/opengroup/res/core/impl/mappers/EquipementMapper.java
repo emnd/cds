@@ -49,7 +49,9 @@ public class EquipementMapper {
 		return domainEquipement;
 
 	}
+	
 
+	
 	public Equipement toOneEntity(DomainEquipement domainEquipement) {
 		//Date now = new Date();
 

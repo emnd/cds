@@ -61,9 +61,6 @@ public class EquipementRepresentationMapper  {
         return equipementRepresentation;
     }
 
-
-	
-
 	
 	public List<DomainEquipement> toDomains(Collection<EquipementRepresentation> equipementRepresentations) throws DomainException{
         List<DomainEquipement> domains = new ArrayList<>();

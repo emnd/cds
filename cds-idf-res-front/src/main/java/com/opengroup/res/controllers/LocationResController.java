@@ -47,7 +47,6 @@ public class LocationResController {
     @Autowired
     private  LocationRepository locationRepository;
     
-
     /**
      *
      * @return

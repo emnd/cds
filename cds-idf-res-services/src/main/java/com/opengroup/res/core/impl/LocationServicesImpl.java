@@ -142,6 +142,8 @@ public class LocationServicesImpl implements LocationServices {
 		
 	}
 
+	
+	
 	@Override
 	public <T extends DomainLocation> void updateLocation(T typedLocation) throws DomainException {
 		// TODO Auto-generated method stub
