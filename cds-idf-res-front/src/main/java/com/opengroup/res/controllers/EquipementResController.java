@@ -25,7 +25,6 @@ import com.opengroup.res.mappers.EquipementRepresentationMapper;
 import com.opengroup.res.mappers.LocationRepresentationMapper;
 import com.opengroup.res.model.EquipementRepresentation;
 import com.opengroup.res.model.LocationRepresentation;
-
 /**
  * A REST Controller which provides API to manage application parameters
  *

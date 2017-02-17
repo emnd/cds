@@ -18,7 +18,6 @@ import com.opengroup.res.jpa.entities.Equipement;
  */
 @Component
 public class EquipementMapper {
-
 	@Autowired
 	private LocationMapper locationMapper;
 

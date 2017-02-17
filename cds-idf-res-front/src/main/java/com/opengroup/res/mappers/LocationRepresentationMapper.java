@@ -23,7 +23,6 @@ public class LocationRepresentationMapper  {
         return new DomainLocation(representation.getNameLocation(),representation.getBlockLocation(),representation.getPlaceLocation(),representation.getId());
     }
 
-
     public LocationRepresentation toOneRepresentation(DomainLocation domain){
     	LocationRepresentation locationRepresentation = new LocationRepresentation();
     	locationRepresentation.setId(domain.getId());

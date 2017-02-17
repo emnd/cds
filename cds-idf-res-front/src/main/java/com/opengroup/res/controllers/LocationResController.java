@@ -1,4 +1,4 @@
-package com.opengroup.res.controllers;
+ackage com.opengroup.res.controllers;
 
 import java.util.List;
 
@@ -30,7 +30,6 @@ import com.opengroup.res.model.LocationRepresentation;
  */
 @RestController
 public class LocationResController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(LocationResController.class);
 
     @Autowired

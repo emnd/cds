@@ -20,7 +20,6 @@ import com.opengroup.res.util.EntityBean;
  * 
  * @author KAI15273.
  */
-
 @Entity
 @Table(name="location")
 public class Location implements Serializable, EntityBean {

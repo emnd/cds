@@ -21,7 +21,6 @@ import com.opengroup.res.util.EntityBean;
  * @author OAI15274
  *date début:22/12/2016
  */
-
 @Entity
 @Table(name = "equipement")
 

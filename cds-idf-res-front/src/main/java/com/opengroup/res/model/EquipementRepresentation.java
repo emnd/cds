@@ -13,7 +13,6 @@ import com.opengroup.res.util.RepresentationBean;
  * @since 1.0.0
  */
 public class EquipementRepresentation implements RepresentationBean {
-
 	//private static final long serialVersionUID = 1L;
 	private Long id;
 	private String stationNameEquipement;

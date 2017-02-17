@@ -30,7 +30,6 @@ import com.opengroup.res.jpa.entities.Location;
  */
 @Service
 public class EquipementServicesImpl implements EquipementServices {
-
     @Autowired
     private HistoryLogRepository historyLogRepository;
 

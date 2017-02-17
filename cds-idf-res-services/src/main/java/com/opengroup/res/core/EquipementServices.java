@@ -13,7 +13,6 @@ import java.util.Set;
  * @since 1.0.0
  */
 public interface EquipementServices {
-
     /**
      * Create and store a new Equipement in the system, with the initial state and the owner of the creation step
      *

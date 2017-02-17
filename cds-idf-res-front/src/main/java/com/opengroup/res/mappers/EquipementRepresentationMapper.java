@@ -18,7 +18,6 @@ import com.opengroup.res.model.EquipementRepresentation;
  */
 @Component
 public class EquipementRepresentationMapper  {
-
 	@Autowired 
 	private LocationRepresentationMapper locationRepresentationMapper;
   

@@ -12,7 +12,6 @@ import java.util.Set;
  * @since 1.0.0
  */
 public interface LocationServices {
-
 	
     /**
      * Create and store a new parameter in the system, with the initial state and the owner of the creation step

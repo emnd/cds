@@ -18,7 +18,6 @@ import com.opengroup.res.util.AbstractDomainMapper;
  */
 @Component
 public class LocationMapper {
-
 	
 public DomainLocation toOneDomain(Location location) throws DomainException {
         

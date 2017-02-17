@@ -26,7 +26,6 @@ import com.opengroup.res.jpa.entities.Location;
  */
 @Service
 public class LocationServicesImpl implements LocationServices {
-
     @Autowired
     private HistoryLogRepository historyLogRepository;
 

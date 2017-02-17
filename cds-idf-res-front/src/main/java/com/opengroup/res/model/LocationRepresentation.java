@@ -1,7 +1,6 @@
 package com.opengroup.res.model;
 
 import com.opengroup.res.util.RepresentationBean;
-
 /**
  * Parameter representation
  *

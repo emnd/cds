@@ -5,7 +5,6 @@ import java.io.Serializable;
  * @author KAI15273
  *
  */
-
 public class DomainLocation implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
