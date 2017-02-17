@@ -42,7 +42,7 @@ public class Project implements Serializable, EntityBean{
 	private Date periodEnd;
 	private int version;
 	private List<Authorisation> authorisations = new ArrayList<Authorisation>();
-	private List<CustomerProject> customerProject = new ArrayList<CustomerProject>();
+	//private List<CustomerProject> customerProject = new ArrayList<CustomerProject>();
 	
 	SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy");
 	
@@ -129,14 +129,14 @@ public class Project implements Serializable, EntityBean{
 	}
 
 
-	@OneToMany(mappedBy = "project")
-	public List<CustomerProject> getCustomerProject() {
-		return customerProject;
-	}
-
-	public void setCustomerProject(List<CustomerProject> customerProject) {
-		this.customerProject = customerProject;
-	}
+//	@OneToMany(mappedBy = "project")
+//	public List<CustomerProject> getCustomerProject() {
+//		return customerProject;
+//	}
+//
+//	public void setCustomerProject(List<CustomerProject> customerProject) {
+//		this.customerProject = customerProject;
+//	}
 
 	
 

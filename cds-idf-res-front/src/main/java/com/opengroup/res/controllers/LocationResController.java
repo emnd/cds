@@ -1,4 +1,4 @@
-ackage com.opengroup.res.controllers;
+package com.opengroup.res.controllers;
 
 import java.util.List;
 
