@@ -30,6 +30,7 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
 //            
 //        )
     List<Project> findByNameProjectAndPeriodStartAndPeriodEnd(String nameProject,Date periodStart,Date periodEnd);
+    List<Project> findByNameProject(String nameProject);
 	
 
 	

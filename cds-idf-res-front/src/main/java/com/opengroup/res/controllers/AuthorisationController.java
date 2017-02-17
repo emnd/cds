@@ -283,9 +283,16 @@ public class AuthorisationController {
 		autorisationServices.updateStatus(id, "Refusée");	
 	}
     
-    @RequestMapping("/authorization")
-    public String myAutorization() throws DomainException,FrontException {
-    	autorisationServices.updateStatus(178L, "Refusée");
-         return "authorization modifié";
-     }
+    
+    @RequestMapping(value="/requestListCollaborator/{loginOpen}:{emailOpen}", method = RequestMethod.GET) // Liste des demandes ou des autorisation pour le collaborator de loginOpen et emailOpen
+    public List<AuthorisationRepresentation> getRequestListCollaborator(@PathVariable String loginOpen, @PathVariable String emailOpen) throws DomainException, FrontException {  //TODO Catch the exception and change the response status
+        List<DomainAutorisation> authorisations = autorisationServices.findAuthorisationByCollaborator(loginOpen, emailOpen);
+        return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisations);
+    }
+    
+    @RequestMapping(value="/requestListProject/{projectName}", method = RequestMethod.GET) // Liste des demandes ou des autorisation pour un projet de nom projectName en parametre
+    public List<AuthorisationRepresentation> extendProject(@PathVariable String projectName) throws DomainException, FrontException {  //TODO Catch the exception and change the response status
+        List<DomainAutorisation> authorisations = autorisationServices.findAuthorisationByProject(projectName);
+        return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisations);
+    }
 }

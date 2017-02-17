@@ -74,6 +74,8 @@ public interface AutorisationServices {
     public List<DomainAutorisation> authorisationHistory(String applicantLogin) throws DomainException; // Liste des authorisations 
     public void updateStatus(Long id, String decision) throws DomainException;
     public List<DomainAutorisation> activeAuthorisations(Date date) throws DomainException;
+    public List<DomainAutorisation> findAuthorisationByProject(String projectName) throws DomainException;
+    public List<DomainAutorisation> findAuthorisationByCollaborator(String loginOpen, String emailOpen) throws DomainException;
     /**
      * A generic creation api method
      * @param typedAutorisation

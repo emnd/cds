@@ -260,6 +260,51 @@ public class AutorisationServicesImpl implements AutorisationServices {
         return result;
     }
     
+    @Override
+    @Transactional
+    public List<DomainAutorisation> findAuthorisationByProject(String projectName) throws DomainException
+    {
+    	List<Project> projectSearchList = projectRepository.findByNameProject(projectName);
+    	Project projectSearch = new Project();
+    	if(projectSearchList.size() > 0)
+    	{
+    		for(Project p : projectSearchList)
+    		{
+    			projectSearch = p;
+    		}
+    		
+    		List<Authorisation> autorisationList = authorisationRepository.searchByProject(projectSearch);
+    		List<DomainAutorisation> domainAutorisationList = autorisationMapper.convertEntityListToDomainList(autorisationList);
+    		return domainAutorisationList;
+    	}
+    	else {
+    		return null;
+    	}
+    	
+    }
+    
+    @Override
+    @Transactional
+    public List<DomainAutorisation> findAuthorisationByCollaborator(String loginOpen, String emailOpen) throws DomainException
+    {
+    	List<Collaborator> collaboratorSearchList = collaboratorRepository.findByLoginOpenOrEmailOpen(loginOpen, emailOpen);
+    	Collaborator collaboratorSearch = new Collaborator();
+    	if(collaboratorSearchList.size() > 0)
+    	{
+    		for(Collaborator c : collaboratorSearchList)
+    		{
+    			collaboratorSearch = c;
+    		}
+    		List<Authorisation> autorisationList = authorisationRepository.getByCollaborator(collaboratorSearch);
+    		List<DomainAutorisation> domainAutorisationList = autorisationMapper.convertEntityListToDomainList(autorisationList);
+    		return domainAutorisationList;
+    	}
+    	else {
+    		return null;
+    	}
+    	
+    }
+    
     /**
      * Track an history log - Can be provide as an internal transactional service
      * @param now
