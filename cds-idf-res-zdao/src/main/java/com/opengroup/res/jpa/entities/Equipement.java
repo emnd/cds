@@ -5,8 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,8 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.opengroup.res.enums.EquipementType;
-import com.opengroup.res.enums.StateType;
+
 import com.opengroup.res.util.EntityBean;
 
 
@@ -27,7 +25,8 @@ import com.opengroup.res.util.EntityBean;
  */
 
 @Entity
-@Table(name = "equipements")
+@Table(name = "equipement")
+
 public class Equipement implements Serializable, EntityBean {
 
 	/**
@@ -44,9 +43,10 @@ public class Equipement implements Serializable, EntityBean {
 	private Date purchaseDate;
 	private Date expectedDate;
 	private String comments;
-	private EquipementType equipmentType;
-	private StateType stateType;
+    private String equipmentType;
+	private String stateType;
 
+	
 	private int version;
 
 	private Location location;
@@ -57,8 +57,8 @@ public class Equipement implements Serializable, EntityBean {
 	}
 
 	public Equipement(String stationName, String serialNumber, String mark, String model, Date attributionDate,
-			Date returnDate, Date purchaseDate, Date expectedDate, String comments, EquipementType equipmentType,
-			StateType stateType, int version, Location location) {
+			Date returnDate, Date purchaseDate, Date expectedDate, String comments, String equipmentType,
+			String stateType, Location location) {
 		super();
 		this.stationName = stationName;
 		this.serialNumber = serialNumber;
@@ -71,7 +71,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.comments = comments;
 		this.equipmentType = equipmentType;
 		this.stateType = stateType;
-		this.version = version;
+	
 		this.location = location;
 	}
 
@@ -88,16 +88,6 @@ public class Equipement implements Serializable, EntityBean {
 		this.id = id;
 	}
 
-	// @ManyToOne
-	// @JoinColumn(name = "idOpenSpace")
-	//
-	// public OpenSpace getOpenSpace() {
-	// return openSpace;
-	// }
-	//
-	// public void setOpenSpace(OpenSpace openSpace) {
-	// this.openSpace = openSpace;
-	// }
 
 	public String getStationName() {
 		return stationName;
@@ -173,31 +163,40 @@ public class Equipement implements Serializable, EntityBean {
 		this.comments = comments;
 	}
 
-	@Enumerated(EnumType.STRING)
-	public EquipementType getEquipmentType() {
+
+	
+	
+
+
+	public String getEquipmentType() {
 		return equipmentType;
 	}
 
-	public void setEquipmentType(EquipementType equipmentType) {
+	public void setEquipmentType(String equipmentType) {
 		this.equipmentType = equipmentType;
 	}
-	@Enumerated(EnumType.STRING)
-	public StateType getStateType() {
+
+	public String getStateType() {
 		return stateType;
 	}
 
-	public void setStateType(StateType stateType) {
+	public void setStateType(String stateType) {
 		this.stateType = stateType;
 	}
 
 	public int getVersion() {
 		return version;
 	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public void setVersion(int version) {
 		this.version = version;
 	}
 	
-
+	
 	@ManyToOne
 	@JoinColumn(name = "equipement_location_id")
 	public Location getLocation() {

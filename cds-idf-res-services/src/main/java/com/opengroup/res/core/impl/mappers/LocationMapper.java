@@ -25,26 +25,19 @@ public DomainLocation toOneDomain(Location location) throws DomainException {
 			return null;
 		}
 		
-    	DomainLocation domainLocation= new DomainLocation();
-   	 domainLocation.setIdLocation(location.getId());
-    	 domainLocation.setBlockLocation(location.getBlock());
- 		domainLocation.setNameLocation(location.getName());
- 		domainLocation.setPlaceLocation(location.getPlace());
- 	
- 	
-    	
- 		return  domainLocation;
+    	DomainLocation domainLocation= new DomainLocation(location.getBlock(),location.getName(),location.getPlace(),location.getId());
+        return  domainLocation;
     	
     }
 
   
     public Location toOneEntity(DomainLocation domainLocation) {
-        Date now = new Date();
+       // Date now = new Date();
         
         Location location = new Location();
         
         		
-        location.setId(domainLocation.getIdLocation());
+        location.setId(domainLocation.getId());
             
        location.setBlock(domainLocation.getBlockLocation());
         location.setName(domainLocation.getNameLocation());
