@@ -2,7 +2,7 @@ package com.opengroup.res.util.mappers;
 
 import com.opengroup.res.core.domain.DomainBean;
 import com.opengroup.res.core.domain.DomainException;
-import com.opengroup.res.util.FrontException;
+//import com.opengroup.res.util.FrontException;
 import com.opengroup.res.util.RepresentationBean;
 
 /**

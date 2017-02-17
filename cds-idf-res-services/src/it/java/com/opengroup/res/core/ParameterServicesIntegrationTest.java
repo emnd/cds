@@ -25,32 +25,32 @@ public class ParameterServicesIntegrationTest {
     @Autowired
     private ParameterServices parameterServices;
 
-    @Autowired
-    private ParameterRepository parameterRepository;
+//    @Autowired
+//    private ParameterRepository parameterRepository;
 
 
     @Test
     @Commit
     public void testCreate() throws Exception {
-    	parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "MNG", "MANGUE DE CASAMANCE", "RCH11270");
+    	parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "MNGUE", "MANGUE DU MAROC", "RCH11270");
  
-    	parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "CAN", "Canne à sucre", "RCH11270");
+    	parameterServices.createParameter(DomainParameter.ParameterContext.PRODUCT, "SOJ", "SOJA", "RCH11270");
     }
 
     @Test
     @Commit
     public void testUpdate() throws Exception {
         
-        parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "MNG", "MANGUE DE CASAMANCE", "RCH11270");
+        parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "MNGUE", "MANGUE DU MAROC", "RCH11270");
 
-    	parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "CAN", "Canne à sucre", "RCH11270");
+    	parameterServices.updateParameter(DomainParameter.ParameterContext.PRODUCT, "SOJ", "SOJA", "RCH11270");
     }
 
 
     @Test
     @Commit
     public void testDelete() throws Exception {
-        parameterServices.deleteParameter(DomainParameter.ParameterContext.PRODUCT, "CAN","RCH11270");
+        parameterServices.deleteParameter(DomainParameter.ParameterContext.PRODUCT, "SOJ","RCH11270");
     }
 
 }

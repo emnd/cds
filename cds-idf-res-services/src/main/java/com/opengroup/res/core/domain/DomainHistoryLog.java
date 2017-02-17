@@ -52,7 +52,8 @@ public class DomainHistoryLog extends DomainBean {
         return new DomainHistoryLog(rootContextName, domainParameter.getKey(), domainParameter.getLastUpdateUserId(), domainParameter.getState().toString());
     }
 
-  
+   
+    
     
     /**
      * Gets creationDate.

@@ -12,7 +12,12 @@ import org.springframework.util.StringUtils;
  */
 public final class DomainJob extends DomainBean {
 
-    protected String function;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L; // le 15 fev 2017
+
+	protected String function;
 
     protected String department;
 

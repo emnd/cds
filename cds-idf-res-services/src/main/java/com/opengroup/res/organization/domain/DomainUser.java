@@ -19,7 +19,12 @@ import java.util.Set;
  */
 public final class DomainUser extends DomainEmployee {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DomainUser.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DomainUser.class);
 
     private Set<DomainRole> roles;
 
@@ -46,7 +51,21 @@ public final class DomainUser extends DomainEmployee {
         if (!this.roles.contains(DomainRole.ROLE_APPLICATION)) {
             constraintsErrors.add("No roles on application for user");
         }
-
+        if (!this.roles.contains(DomainRole.ROLE_ADMIN)) {
+            constraintsErrors.add("No roles on application for user");
+        }
+        if (!this.roles.contains(DomainRole.ROLE_CDSMANAGER)) {
+            constraintsErrors.add("No roles on application for user");
+        }
+        if (!this.roles.contains(DomainRole.ROLE_DP)) {
+            constraintsErrors.add("No roles on application for user");
+        }
+        if (!this.roles.contains(DomainRole.ROLE_ATTRIBUTE)) {
+            constraintsErrors.add("No roles on application for user");
+        }
+        if (!this.roles.contains(DomainRole.ROLE_USER)) {
+            constraintsErrors.add("No roles on application for user");
+        }
         checkIfValid();
     }
 
