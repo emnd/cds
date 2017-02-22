@@ -1,15 +1,19 @@
 package com.opengroup.res.mappers;
 
 import java.util.ArrayList;
-import java.util.Collection;
+//import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+//import com.opengroup.res.core.domain.DomainAutorisation;
+import com.opengroup.res.core.domain.DomainCollaborator;
 import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
+//import com.opengroup.res.model.AuthorisationRepresentation;
 import com.opengroup.res.model.EquipementRepresentation;
+import com.opengroup.res.util.mappers.AbstractFrontMapper;
 /**
  * Parameter representation mapper
  *
@@ -17,12 +21,16 @@ import com.opengroup.res.model.EquipementRepresentation;
  * @since 1.0.0
  */
 @Component
-public class EquipementRepresentationMapper  {
+public class EquipementRepresentationMapper extends AbstractFrontMapper<DomainEquipement, EquipementRepresentation> {
 	@Autowired 
 	private LocationRepresentationMapper locationRepresentationMapper;
+	
+	@Autowired 
+	private CollaboratorRepresentationMapper collaboratorRepresentationMapper;
   
     public DomainEquipement toOneDomain(EquipementRepresentation representation) throws DomainException {
     	
+    	DomainCollaborator domainCollaborator = representation.getCollaboratorRepresentation() != null ? collaboratorRepresentationMapper.toOneDomain(representation.getCollaboratorRepresentation()) : null;
 		return new DomainEquipement(representation.getStationNameEquipement(),
     			representation.getSerialNumberEquipement(),
     			representation.getMarkEquipement(),
@@ -35,6 +43,7 @@ public class EquipementRepresentationMapper  {
     	    	representation.getEquipementType(),
     	    	representation.getStateType(),
     	    	locationRepresentationMapper.toOneDomain(representation.getLocationRepresentation()),
+    	    	domainCollaborator,
     			representation.getId()
     			);
     }
@@ -55,33 +64,48 @@ public class EquipementRepresentationMapper  {
         equipementRepresentation.setCommentsEquipement(domain.getCommentsEquipement());
         equipementRepresentation.setEquipementType(domain.getEquipementType());
         equipementRepresentation.setStateType(domain.getStateType());
-        equipementRepresentation.setLocationRepresenation(locationRepresentationMapper.toOneRepresentation(domain.getDomainLocation()));
+        equipementRepresentation.setLocationRepresentation(locationRepresentationMapper.toOneRepresentation(domain.getDomainLocation()));
+        DomainCollaborator domainCollaborator = (domain.getDomainCollaborator() != null) ? domain.getDomainCollaborator() : null;
+        equipementRepresentation.setCollaboratorRepresentation(collaboratorRepresentationMapper.toOneRepresentation(domainCollaborator));
         return equipementRepresentation;
     }
 
 	
-	public List<DomainEquipement> toDomains(Collection<EquipementRepresentation> equipementRepresentations) throws DomainException{
-        List<DomainEquipement> domains = new ArrayList<>();
-        if(equipementRepresentations != null){
-            for(EquipementRepresentation rep : equipementRepresentations){
-                domains.add(toOneDomain(rep));
-            }
-        }
-        return domains;
-    }
 
+    public List<DomainEquipement> convertListRepresentationToListDomainList(List<EquipementRepresentation> representationList) throws DomainException
+    {
+    	//System.out.println("Je suis dans la liste representation pour domain");
+    	if (representationList == null) {
+
+			return null;
+		}
+
+		List<DomainEquipement> listDomain = new ArrayList<DomainEquipement>();
+
+		for (EquipementRepresentation equipementRepresentation : representationList) {
+
+			listDomain.add(toOneDomain(equipementRepresentation));
+		}
+
+		return listDomain;
+    }
     
-	
-	
-    public List<EquipementRepresentation> toRepresentations(Collection<DomainEquipement> domains) {
-        List<EquipementRepresentation> equipementRepresentations = new ArrayList<>();
-        if(domains != null){
-            for(DomainEquipement domain : domains){
-            	equipementRepresentations.add(toOneRepresentation(domain));
-            }
-        }
-        return equipementRepresentations ;
-    }
+    public List<EquipementRepresentation> convertListDomainListToListRepresentation(List<DomainEquipement> domainList) throws DomainException
+    {
+    	//System.out.println("Je suis dans la liste Domain pour representation");
+    	if (domainList == null) {
 
+			return null;
+		}
+
+		List<EquipementRepresentation> listRepresentation = new ArrayList<EquipementRepresentation>();
+
+		for (DomainEquipement domainEquipement : domainList) {
+
+			listRepresentation.add(toOneRepresentation(domainEquipement));
+		}
+
+		return listRepresentation;
+    }
 
 }

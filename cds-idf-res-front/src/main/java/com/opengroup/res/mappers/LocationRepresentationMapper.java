@@ -6,9 +6,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.opengroup.res.core.domain.DomainAutorisation;
+import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.core.domain.DomainLocation;
+import com.opengroup.res.model.AuthorisationRepresentation;
+import com.opengroup.res.model.EquipementRepresentation;
 import com.opengroup.res.model.LocationRepresentation;
+import com.opengroup.res.util.mappers.AbstractFrontMapper;
 /**
  * Parameter representation mapper
  *
@@ -16,7 +21,7 @@ import com.opengroup.res.model.LocationRepresentation;
  * @since 1.0.0
  */
 @Component
-public class LocationRepresentationMapper  {
+public class LocationRepresentationMapper extends AbstractFrontMapper<DomainLocation, LocationRepresentation> {
 
      public DomainLocation toOneDomain(LocationRepresentation representation) throws DomainException {
     
@@ -32,30 +37,40 @@ public class LocationRepresentationMapper  {
         return locationRepresentation;
     }
     
+   
+    public List<DomainLocation> convertListRepresentationToListDomainList(List<LocationRepresentation> representationList) throws DomainException
+    {
+    	if (representationList == null) {
 
-	public List<DomainLocation> toDomains(Collection<LocationRepresentation> locationRepresentations) throws DomainException{
-        List<DomainLocation> domains = new ArrayList<>();
-        if(locationRepresentations != null){
-            for(LocationRepresentation rep : locationRepresentations){
-                domains.add(toOneDomain(rep));
-            }
-        }
-        return domains;
+			return null;
+		}
+
+		List<DomainLocation> listDomain = new ArrayList<DomainLocation>();
+
+		for (LocationRepresentation locationRepresentation : representationList) {
+
+			listDomain.add(toOneDomain(locationRepresentation));
+		}
+
+		return listDomain;
+    }
+    
+    public List<LocationRepresentation> convertListDomainListToListRepresentation(List<DomainLocation> domainList) throws DomainException
+    {
+    	if (domainList == null) {
+
+			return null;
+		}
+
+		List<LocationRepresentation> listRepresentation = new ArrayList<LocationRepresentation>();
+
+		for (DomainLocation domainLocation : domainList) {
+
+			listRepresentation.add(toOneRepresentation(domainLocation));
+		}
+
+		return listRepresentation;
     }
 
-    
-	
-	
-    public List<LocationRepresentation> toRepresentations(Collection<DomainLocation> domains) {
-        List<LocationRepresentation> locationRepresentations = new ArrayList<>();
-        if(domains != null){
-            for(DomainLocation domain : domains){
-            	locationRepresentations.add(toOneRepresentation(domain));
-            }
-        }
-        return locationRepresentations ;
-    } 
-    
-    
     
 }

@@ -6,9 +6,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.opengroup.res.core.domain.DomainCollaborator;
+import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.core.domain.DomainLocation;
 import com.opengroup.res.core.domain.DomainParameter;
+import com.opengroup.res.jpa.entities.Collaborator;
+import com.opengroup.res.jpa.entities.Equipement;
 import com.opengroup.res.jpa.entities.Location;
 import com.opengroup.res.jpa.entities.Parameter;
 import com.opengroup.res.util.AbstractDomainMapper;
@@ -17,7 +21,7 @@ import com.opengroup.res.util.AbstractDomainMapper;
  * A parameter mapper
  */
 @Component
-public class LocationMapper {
+public class LocationMapper extends AbstractDomainMapper<DomainLocation, Location> {
 	
 public DomainLocation toOneDomain(Location location) throws DomainException {
         
@@ -48,18 +52,40 @@ public DomainLocation toOneDomain(Location location) throws DomainException {
     }
 
 
-	
-    
-	 public List<DomainLocation> toDomains(Iterable<Location> iterable) throws DomainException{
-	        List<DomainLocation> domains = new ArrayList<>();
-	        if(iterable != null){
-	            for(Location bean : iterable){
-	                domains.add(toOneDomain(bean));
-	            }
-	        }
-	        return domains;
-	    }
     
 	 
+	public List<Location> convertDomainListToEntityList(List<DomainLocation> listDomain) {
+
+		if (listDomain == null) {
+
+			return null;
+		}
+
+		List<Location> listEntity = new ArrayList<Location>();
+
+		for (DomainLocation domainLocation : listDomain) {
+
+			listEntity.add(toOneEntity(domainLocation));
+		}
+
+		return listEntity;
+	}
     
+    
+    public List<DomainLocation> convertEntityListToDomainList(List<Location> listEntity) throws DomainException {
+
+		if (listEntity == null) {
+
+			return null;
+		}
+
+		List<DomainLocation> listDomain = new ArrayList<DomainLocation>();
+
+		for (Location Location : listEntity) {
+
+			listDomain.add(toOneDomain(Location));
+		}
+
+		return listDomain;
+	}
 }

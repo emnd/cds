@@ -29,6 +29,7 @@ public class EquipementRepresentation implements RepresentationBean {
 	private StateType stateType;
 	
 	private LocationRepresentation locationRepresentation;
+	private CollaboratorRepresentation collaboratorRepresentation;
 
 
 	public Long getId() {
@@ -135,8 +136,16 @@ public class EquipementRepresentation implements RepresentationBean {
 		return locationRepresentation;
 	}
 
-	public void setLocationRepresenation(LocationRepresentation locationRepresentation) {
+	public void setLocationRepresentation(LocationRepresentation locationRepresentation) {
 		this.locationRepresentation = locationRepresentation;
+	}
+
+	public CollaboratorRepresentation getCollaboratorRepresentation() {
+		return collaboratorRepresentation;
+	}
+
+	public void setCollaboratorRepresentation(CollaboratorRepresentation collaboratorRepresentation) {
+		this.collaboratorRepresentation = collaboratorRepresentation;
 	}
 
 	

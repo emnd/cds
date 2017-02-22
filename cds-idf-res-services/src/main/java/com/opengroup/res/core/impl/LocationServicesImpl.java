@@ -1,7 +1,9 @@
 package com.opengroup.res.core.impl;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.opengroup.res.core.LocationServices;
 import com.opengroup.res.core.domain.DomainEquipement;
+//import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
-import com.opengroup.res.core.domain.DomainHistoryLog;
+//import com.opengroup.res.core.domain.DomainHistoryLog;
 import com.opengroup.res.core.domain.DomainLocation;
 import com.opengroup.res.core.impl.mappers.LocationMapper;
 import com.opengroup.res.jpa.HistoryLogRepository;
 import com.opengroup.res.jpa.LocationRepository;
+import com.opengroup.res.jpa.entities.Collaborator;
 import com.opengroup.res.jpa.entities.Equipement;
 import com.opengroup.res.jpa.entities.Location;
 /**
@@ -106,6 +110,20 @@ public class LocationServicesImpl implements LocationServices {
     	
     	return domainLocation;
     }
+    
+    @Override
+    @Transactional
+    public Location findLocation(String name,String block, String place) throws DomainException {  
+		Location location = new Location();
+		List<Location>	locationList = locationRepository.findByNameAndBlockAndPlace(name,block, place);
+		for(Location loc : locationList)
+		{
+			location = loc;
+		}
+
+			return location;
+		
+	}
 
     /**
      * Track an history log - Can be provide as an internal transactional service
@@ -131,7 +149,13 @@ public class LocationServicesImpl implements LocationServices {
         return new HashSet<>(locationMapper.toDomains(locationRepository.findAll()));
     }
 
-    
+    @Override
+    @Transactional
+    public List<DomainLocation> fullListAll() throws DomainException {
+    	List<Location> locations = locationRepository.findAll();
+    	List<DomainLocation> domainLocations = locationMapper.convertEntityListToDomainList(locations);
+        return domainLocations;
+    }
 	
 
 	@Override

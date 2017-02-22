@@ -1,9 +1,11 @@
 package com.opengroup.res.core;
 
 import com.opengroup.res.core.domain.DomainLocation;
+import com.opengroup.res.jpa.entities.Location;
 import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 
+import java.util.List;
 import java.util.Set;
 /**
  * Define the API to manipulate parameter
@@ -78,4 +80,7 @@ public interface LocationServices {
     
     
 	DomainLocation findOne(Long id) throws DomainException;
+
+	Location findLocation(String name, String block, String place) throws DomainException;
+	public List<DomainLocation> fullListAll() throws DomainException;
 }

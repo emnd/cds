@@ -59,6 +59,8 @@ public class Collaborator implements Serializable , EntityBean{
 	@OneToMany(mappedBy = "collaborator",cascade=CascadeType.ALL, orphanRemoval=true) // cascade=CascadeType.ALL, orphanRemoval=true pour la suppression en cascade (le 07 FEV 2017)
     private List<Authorisation> authorisations = new ArrayList<Authorisation>();
     
+	@OneToMany(mappedBy = "collaborator",cascade=CascadeType.ALL, orphanRemoval=true) // cascade=CascadeType.ALL, orphanRemoval=true pour la suppression en cascade (le 07 FEV 2017)
+    private List<Equipement> equipements = new ArrayList<Equipement>();
     public Collaborator() {
     }
 
@@ -155,7 +157,13 @@ public class Collaborator implements Serializable , EntityBean{
     }
 
 	
-	
+    public List<Equipement> getEquipements() {
+        return equipements;
+    }
+
+    public void setEquipements(List<Equipement> equipements) {
+        this.equipements = equipements;
+    }
 
 	@Override
     /**

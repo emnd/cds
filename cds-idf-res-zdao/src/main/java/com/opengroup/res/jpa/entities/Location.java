@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -22,6 +23,7 @@ import com.opengroup.res.util.EntityBean;
  */
 @Entity
 @Table(name="location")
+@NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
 public class Location implements Serializable, EntityBean {
 
 	/**

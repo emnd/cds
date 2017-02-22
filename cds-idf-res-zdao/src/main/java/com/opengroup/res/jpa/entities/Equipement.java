@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,7 +24,7 @@ import com.opengroup.res.util.EntityBean;
  */
 @Entity
 @Table(name = "equipement")
-
+@NamedQuery(name = "Equipement.findAll", query = "SELECT e FROM Equipement e")
 public class Equipement implements Serializable, EntityBean {
 
 	/**
@@ -47,6 +48,8 @@ public class Equipement implements Serializable, EntityBean {
 	private int version;
 
 	private Location location;
+	
+	private Collaborator collaborator;
 
 	public Equipement() {
 		super();
@@ -55,7 +58,7 @@ public class Equipement implements Serializable, EntityBean {
 
 	public Equipement(String stationName, String serialNumber, String mark, String model, Date attributionDate,
 			Date returnDate, Date purchaseDate, Date expectedDate, String comments, String equipmentType,
-			String stateType, Location location) {
+			String stateType, Location location,Collaborator collaborator) {
 		super();
 		this.stationName = stationName;
 		this.serialNumber = serialNumber;
@@ -70,6 +73,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.stateType = stateType;
 	
 		this.location = location;
+		this.collaborator = collaborator;
 	}
 
 
@@ -205,13 +209,23 @@ public class Equipement implements Serializable, EntityBean {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "equipement_collaborator_id")
+	public Collaborator getCollaborator() {
+		return collaborator;
+	}
+
+	public void setCollaborator(Collaborator collaborator) {
+		this.collaborator = collaborator;
+	}
 
 	@Override
 	public String toString() {
 		return "Equipement [id=" + id + ", stationName=" + stationName + ", serialNumber=" + serialNumber + ", mark="
 				+ mark + ", model=" + model + ", attributionDate=" + attributionDate + ", returnDate=" + returnDate
 				+ ", purchaseDate=" + purchaseDate + ", expectedDate=" + expectedDate + ", comments=" + comments
-				+ ", equipmentType=" + equipmentType + ", stateType=" + stateType +",location= "+location.toString()+ "]";
+				+ ", equipmentType=" + equipmentType + ", stateType=" + stateType +",location= "+location.toString()+ ",collaborator= "+collaborator.toString()+"]";
 	}
 	
 }

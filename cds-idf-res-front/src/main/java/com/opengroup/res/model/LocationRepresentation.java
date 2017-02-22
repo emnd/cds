@@ -1,5 +1,8 @@
 package com.opengroup.res.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.opengroup.res.util.RepresentationBean;
 /**
  * Parameter representation
@@ -13,6 +16,7 @@ public class LocationRepresentation implements RepresentationBean {
 	private String nameLocation;
 	private String blockLocation;
 	private String placeLocation;
+	private List<EquipementRepresentation> equipementRepresentationList = new ArrayList<EquipementRepresentation>();
 	public Long getId() {
 		return id;
 	}
@@ -42,7 +46,13 @@ public class LocationRepresentation implements RepresentationBean {
 	}
 	
 	
-	
+	public List<EquipementRepresentation> getEquipementRepresentationList() {
+		return equipementRepresentationList;
+	}
+
+	public void setEquipementRepresentationList(List<EquipementRepresentation> equipementRepresentationList) {
+		this.equipementRepresentationList = equipementRepresentationList;
+	}
 	
 	
 

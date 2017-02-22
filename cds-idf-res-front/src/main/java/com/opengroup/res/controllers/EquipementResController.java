@@ -1,5 +1,7 @@
 package com.opengroup.res.controllers;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,16 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.opengroup.res.core.EquipementServices;
+import com.opengroup.res.core.domain.DomainCollaborator;
 import com.opengroup.res.core.domain.DomainEquipement;
 import com.opengroup.res.core.domain.DomainException;
 import com.opengroup.res.core.domain.DomainLocation;
+import com.opengroup.res.core.impl.mappers.CollaboratorMapper;
 import com.opengroup.res.core.impl.mappers.EquipementMapper;
 import com.opengroup.res.core.impl.mappers.LocationMapper;
 import com.opengroup.res.jpa.EquipementRepository;
+import com.opengroup.res.jpa.entities.Equipement;
+import com.opengroup.res.mappers.CollaboratorRepresentationMapper;
 import com.opengroup.res.mappers.EquipementRepresentationMapper;
 import com.opengroup.res.mappers.LocationRepresentationMapper;
+import com.opengroup.res.model.AuthorisationRepresentation;
 import com.opengroup.res.model.EquipementRepresentation;
 import com.opengroup.res.model.LocationRepresentation;
+import com.opengroup.res.util.FrontException;
 /**
  * A REST Controller which provides API to manage application parameters
  *
@@ -54,24 +62,39 @@ public class EquipementResController {
     
     @Autowired
     private LocationRepresentationMapper locationRepresentationMapper;
+    
+    @Autowired
+    private CollaboratorMapper collaboratorMapper;
+    
+    @Autowired
+    private CollaboratorRepresentationMapper collaboratorRepresentationMapper;
 
     /**
      *
      * @return
      * @throws DomainException
      */
+    @RequestMapping(value = "/services/list/", method = RequestMethod.GET)
+    public List<EquipementRepresentation> test() throws DomainException
+    {
+    	List<DomainEquipement> domainEquipements =  equipementServices.fullListAll();
+    	List<EquipementRepresentation> equipementList = equipementRepresentationMapper.convertListDomainListToListRepresentation(domainEquipements);
+    	
+    	return equipementList;
+    }
   //methode get
-    @RequestMapping(value = "/services/equipement/", method = RequestMethod.GET)
-    public ResponseEntity<List<EquipementRepresentation>> listAll() throws DomainException {
-    
-    List<EquipementRepresentation> equipementRepresentation = equipementRepresentationMapper.toRepresentations(equipementServices.listAll());
-    if (equipementRepresentation == null) {
-    return new ResponseEntity<List<EquipementRepresentation>>(HttpStatus.NO_CONTENT);
-    } else {
-    return new ResponseEntity<List<EquipementRepresentation>>(equipementRepresentation, HttpStatus.OK);
+    @RequestMapping(value = "/services/equipement", method = RequestMethod.GET)
+    public Set<EquipementRepresentation> list() throws FrontException {
+        Set<EquipementRepresentation> equipements;
+        try {
+            equipements = new HashSet<>(equipementRepresentationMapper.toRepresentations(equipementServices.listAll()));
+        } catch (DomainException e) {
+            String message = "Internal error : "+ e.getMessage();
+            LOGGER.error(message, e);
+            throw new FrontException(message, e);
+        }
+        return equipements;
     }
-    }
-
    //methode get by id 
     @RequestMapping(value = "/services/equipement/{id}", method = RequestMethod.GET)
     public ResponseEntity<EquipementRepresentation> get(@PathVariable("id") Long id) throws DomainException {
@@ -110,13 +133,14 @@ public ResponseEntity<Void> create(@RequestBody EquipementRepresentation equipem
 
 		LocationRepresentation locationRepresentation = equipementRepresentation.getLocationRepresentation();
 		DomainLocation domainLocation = locationRepresentationMapper.toOneDomain(locationRepresentation);
+		DomainCollaborator domainCollaborator = collaboratorRepresentationMapper.toOneDomain(equipementRepresentation.getCollaboratorRepresentation());
 		// System.out.println("domainLocation :"+domainLocation.toString());
 	    DomainEquipement domainEquipement = DomainEquipement.newCreatedStateInstance(equipementRepresentation.getStationNameEquipement(),equipementRepresentation.getSerialNumberEquipement(),
 	    		equipementRepresentation.getMarkEquipement(),equipementRepresentation.getModelEquipement(), 
 	    		equipementRepresentation.getAttributionDateEquipement(), equipementRepresentation.getReturnDateEquipement(),
 	    		equipementRepresentation.getPurchaseDateEquipement(),equipementRepresentation.getExpectedDateEquipement(), 
 	    		equipementRepresentation.getCommentsEquipement(), equipementRepresentation.getEquipementType(), 
-	    		 equipementRepresentation.getStateType(), domainLocation ,equipementRepresentation.getId());
+	    		 equipementRepresentation.getStateType(), domainLocation,domainCollaborator ,equipementRepresentation.getId());
 		
 	//	 System.out.println("domainLocation :"+domainLocation.toString());
 	//	 System.out.println("domainequipement :"+domainEquipement.toString());
@@ -126,7 +150,7 @@ public ResponseEntity<Void> create(@RequestBody EquipementRepresentation equipem
 		    		equipementRepresentation.getAttributionDateEquipement(), equipementRepresentation.getReturnDateEquipement(),
 		    		equipementRepresentation.getPurchaseDateEquipement(),equipementRepresentation.getExpectedDateEquipement(), 
 		    		equipementRepresentation.getCommentsEquipement(), equipementRepresentation.getEquipementType(), 
-		    		 equipementRepresentation.getStateType(), domainLocation 
+		    		 equipementRepresentation.getStateType(), domainLocation, domainCollaborator
 		    		 );
 
 	}
@@ -148,12 +172,13 @@ public ResponseEntity<Void> create(@RequestBody EquipementRepresentation equipem
 
     	LocationRepresentation locationRepresentation = equipementRepresentation.getLocationRepresentation();
 		DomainLocation domainLocation = locationRepresentationMapper.toOneDomain(locationRepresentation);
+		DomainCollaborator domainCollaborator = collaboratorRepresentationMapper.toOneDomain(equipementRepresentation.getCollaboratorRepresentation());
     equipementServices.updateEquipement(equipementRepresentation.getId(), equipementRepresentation.getStationNameEquipement(),equipementRepresentation.getSerialNumberEquipement(),
     		equipementRepresentation.getMarkEquipement(),equipementRepresentation.getModelEquipement(), 
     		equipementRepresentation.getAttributionDateEquipement(), equipementRepresentation.getReturnDateEquipement(),
     		equipementRepresentation.getPurchaseDateEquipement(),equipementRepresentation.getExpectedDateEquipement(), 
     		equipementRepresentation.getCommentsEquipement(),  equipementRepresentation.getEquipementType(), 
-    		equipementRepresentation.getStateType(),domainLocation);
+    		equipementRepresentation.getStateType(),domainLocation,domainCollaborator);
     return new ResponseEntity<EquipementRepresentation>(HttpStatus.OK);
     }
     }

@@ -26,6 +26,7 @@ public class CollaboratorRepresentation implements RepresentationBean {
     private String buOpen;  // collaborator buniness unit
     
     private List<AuthorisationRepresentation> authorisationRepresentationList = new ArrayList<AuthorisationRepresentation>();
+    private List<EquipementRepresentation> equipementRepresentationList = new ArrayList<EquipementRepresentation>();
 
  // les getters et setters
     
@@ -83,6 +84,14 @@ public class CollaboratorRepresentation implements RepresentationBean {
 
 	public void setAuthorisationRepresentationList(List<AuthorisationRepresentation> authorisationRepresentationList) {
 		this.authorisationRepresentationList = authorisationRepresentationList;
+	}
+
+	public List<EquipementRepresentation> getEquipementRepresentationList() {
+		return equipementRepresentationList;
+	}
+
+	public void setEquipementRepresentationList(List<EquipementRepresentation> equipementRepresentationList) {
+		this.equipementRepresentationList = equipementRepresentationList;
 	}
 
     

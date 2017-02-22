@@ -8,7 +8,7 @@ import java.util.Date;
  *date début:22/12/2016
  */
 
-public class DomainEquipement implements Serializable{
+public class DomainEquipement extends DomainBeanTrackable implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class DomainEquipement implements Serializable{
 	
 	private DomainLocation domainLocation;
 	
-	
+	private DomainCollaborator domainCollaborator;
 	/*
 	 private EquipementType equipmentType;
 		private StateType stateType;*/
@@ -80,7 +80,7 @@ public class DomainEquipement implements Serializable{
 	public DomainEquipement( String stationNameEquipement, String serialNumberEquipement, String markEquipement, 
 			String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, 
 			Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType,
-			StateType stateType,DomainLocation domainLocation, Long id) throws DomainException {
+			StateType stateType,DomainLocation domainLocation,DomainCollaborator domainCollaborator ,Long id) throws DomainException {
 		
 		  
 				this.stationNameEquipement = stationNameEquipement;
@@ -104,6 +104,7 @@ public class DomainEquipement implements Serializable{
 		        this.stateType = stateType;
 				
 				this.domainLocation = domainLocation;
+				this.domainCollaborator = domainCollaborator;
 				this.id=id;
 
 	    }
@@ -118,42 +119,42 @@ public class DomainEquipement implements Serializable{
 	public static DomainEquipement newCreatedStateInstance(String stationNameEquipement, String serialNumberEquipement, 
 			String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, 
 			Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, 
-			EquipementType equipementType, StateType stateType,DomainLocation domainLocation, Long id) throws DomainException {
+			EquipementType equipementType, StateType stateType,DomainLocation domainLocation,DomainCollaborator domainCollaborator ,Long id) throws DomainException {
 	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement, modelEquipement,
 	        		attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, expectedDateEquipement,
-	        		commentsEquipement,  equipementType,  stateType, domainLocation,id);
+	        		commentsEquipement,  equipementType,  stateType, domainLocation,domainCollaborator,id);
 	    }
 
 	    public static DomainEquipement newModifiedStateInstance(String stationNameEquipement, 
 	    		String serialNumberEquipement, String markEquipement, String modelEquipement, 
 	    		Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
 	    		Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType,
-	    		StateType stateType, DomainLocation domainLocation, long id)throws DomainException {
+	    		StateType stateType, DomainLocation domainLocation,DomainCollaborator domainCollaborator ,Long id)throws DomainException {
 	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement, 
 	        		modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement,
-	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType, domainLocation, id);
+	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType, domainLocation,domainCollaborator, id);
 	    }
 
 	    public static DomainEquipement newSuppressedStateInstance(String stationNameEquipement, 
 	    		String serialNumberEquipement, String markEquipement, String modelEquipement,
 	    		Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
 	    		Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType, StateType stateType,
-	    		DomainLocation domainLocation, Long id) throws DomainException {
+	    		DomainLocation domainLocation,DomainCollaborator domainCollaborator, Long id) throws DomainException {
 	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement,
 	        		modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement,
 	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType,
-	        		domainLocation, id );
+	        		domainLocation,domainCollaborator,id );
 	    }
 
 	    public static DomainEquipement newValidatedStateInstance(String stationNameEquipement,
 	    		String serialNumberEquipement, String markEquipement, String modelEquipement, 
 	    		Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
 	    		Date expectedDateEquipement, String commentsEquipement,EquipementType equipementType, StateType stateType,
-	    		DomainLocation domainLocation, Long id) throws DomainException {
+	    		DomainLocation domainLocation,DomainCollaborator domainCollaborator, Long id) throws DomainException {
 	        return new DomainEquipement(stationNameEquipement,serialNumberEquipement,markEquipement,
 	        		modelEquipement, attributionDateEquipement, returnDateEquipement, purchaseDateEquipement, 
 	        		expectedDateEquipement, commentsEquipement,  equipementType,  stateType,
-	        		domainLocation, id );
+	        		domainLocation,domainCollaborator,id );
 	    }
 
 	    
@@ -303,6 +304,22 @@ public class DomainEquipement implements Serializable{
 
 
 
+	public DomainCollaborator getDomainCollaborator() {
+		return domainCollaborator;
+	}
+
+
+
+
+
+	public void setDomainCollaborator(DomainCollaborator domainCollaborator) {
+		this.domainCollaborator = domainCollaborator;
+	}
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "DomainEquipement [idEquipement=" + id + ", stationNameEquipement=" + stationNameEquipement
@@ -311,7 +328,7 @@ public class DomainEquipement implements Serializable{
 				+ ", returnDateEquipement=" + returnDateEquipement + ", purchaseDateEquipement="
 				+ purchaseDateEquipement + ", expectedDateEquipement=" + expectedDateEquipement
 				+ ", commentsEquipement=" + commentsEquipement + ", equipementTypeEquipement="
-				+ equipementType + ", stateTypeEquipement=" + stateType +",domainLocation "+domainLocation.toString()+ "]";
+				+ equipementType + ", stateTypeEquipement=" + stateType +",domainLocation "+domainLocation.toString()+ ",domainCollaborator "+domainCollaborator.toString()+"]";
 	}
 	
 }

@@ -5,7 +5,7 @@ import java.io.Serializable;
  * @author KAI15273
  *
  */
-public class DomainLocation implements Serializable{
+public class DomainLocation extends DomainBeanTrackable implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Long id;

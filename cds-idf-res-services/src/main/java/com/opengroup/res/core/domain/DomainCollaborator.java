@@ -29,6 +29,7 @@ public class DomainCollaborator extends DomainBeanTrackable implements Serializa
     private String emailOpen;
     private String buOpen;
     private List<DomainAutorisation> domainAuthorisationList = new ArrayList<DomainAutorisation>();
+    private List<DomainEquipement> domainEquipementList = new ArrayList<DomainEquipement>();
 
     /**
      * @param emailOpen
@@ -244,6 +245,16 @@ public class DomainCollaborator extends DomainBeanTrackable implements Serializa
     public void setAutorisationList(List<DomainAutorisation> domainAuthorisationList) {
         this.domainAuthorisationList = domainAuthorisationList;
     }
+    
+    
+
+	public List<DomainEquipement> getDomainEquipementList() {
+		return domainEquipementList;
+	}
+
+	public void setDomainEquipementList(List<DomainEquipement> domainEquipementList) {
+		this.domainEquipementList = domainEquipementList;
+	}
 
 	@Override
 	public String toString() {
