@@ -80,7 +80,7 @@ public interface EquipementServices {
 
 	DomainEquipement findOne(Long id) throws DomainException;
 	public DomainEquipement findEquipement(Long id) throws DomainException;
-	public List<DomainEquipement> fullListAll() throws DomainException;
+	public List<DomainEquipement> fullListAllWithoutCollab() throws DomainException;
 
 
 }

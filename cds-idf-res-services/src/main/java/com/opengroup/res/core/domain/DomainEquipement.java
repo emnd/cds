@@ -109,7 +109,36 @@ public class DomainEquipement extends DomainBeanTrackable implements Serializabl
 
 	    }
 	  
-	
+	public DomainEquipement( String stationNameEquipement, String serialNumberEquipement, String markEquipement, 
+			String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, 
+			Date expectedDateEquipement, String commentsEquipement, EquipementType equipementType,
+			StateType stateType,DomainLocation domainLocation,Long id) throws DomainException {
+		
+		  
+				this.stationNameEquipement = stationNameEquipement;
+		
+				this.serialNumberEquipement = serialNumberEquipement;
+			
+				this.markEquipement = markEquipement;
+		
+				this.modelEquipement = modelEquipement;
+		
+				this.attributionDateEquipement = attributionDateEquipement;
+			
+				this.returnDateEquipement = returnDateEquipement;
+		
+				this.purchaseDateEquipement = purchaseDateEquipement;
+			
+				this.expectedDateEquipement = expectedDateEquipement;
+		
+				this.commentsEquipement = commentsEquipement;
+		        this.equipementType= equipementType;
+		        this.stateType = stateType;
+				
+				this.domainLocation = domainLocation;
+				this.id=id;
+
+	    }
 
 	public DomainEquipement(Long id) {
 		this.id = id;

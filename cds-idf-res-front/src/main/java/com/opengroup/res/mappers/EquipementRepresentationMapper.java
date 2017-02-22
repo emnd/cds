@@ -31,7 +31,8 @@ public class EquipementRepresentationMapper extends AbstractFrontMapper<DomainEq
     public DomainEquipement toOneDomain(EquipementRepresentation representation) throws DomainException {
     	
     	DomainCollaborator domainCollaborator = representation.getCollaboratorRepresentation() != null ? collaboratorRepresentationMapper.toOneDomain(representation.getCollaboratorRepresentation()) : null;
-		return new DomainEquipement(representation.getStationNameEquipement(),
+		if(domainCollaborator != null){
+			return new DomainEquipement(representation.getStationNameEquipement(),
     			representation.getSerialNumberEquipement(),
     			representation.getMarkEquipement(),
     			representation.getModelEquipement(),
@@ -46,6 +47,23 @@ public class EquipementRepresentationMapper extends AbstractFrontMapper<DomainEq
     	    	domainCollaborator,
     			representation.getId()
     			);
+		}
+		else{
+    	return new DomainEquipement(representation.getStationNameEquipement(),
+    			representation.getSerialNumberEquipement(),
+    			representation.getMarkEquipement(),
+    			representation.getModelEquipement(),
+    			representation.getAttributionDateEquipement(),
+    			representation.getReturnDateEquipement(),
+    			representation.getPurchaseDateEquipement(),
+    			representation.getExpectedDateEquipement(),
+    	    	representation.getCommentsEquipement(),
+    	    	representation.getEquipementType(),
+    	    	representation.getStateType(),
+    	    	locationRepresentationMapper.toOneDomain(representation.getLocationRepresentation()),
+    			representation.getId()
+    			);
+    	}
     }
 
   
@@ -66,7 +84,10 @@ public class EquipementRepresentationMapper extends AbstractFrontMapper<DomainEq
         equipementRepresentation.setStateType(domain.getStateType());
         equipementRepresentation.setLocationRepresentation(locationRepresentationMapper.toOneRepresentation(domain.getDomainLocation()));
         DomainCollaborator domainCollaborator = (domain.getDomainCollaborator() != null) ? domain.getDomainCollaborator() : null;
-        equipementRepresentation.setCollaboratorRepresentation(collaboratorRepresentationMapper.toOneRepresentation(domainCollaborator));
+        if(domainCollaborator != null){
+        	 equipementRepresentation.setCollaboratorRepresentation(collaboratorRepresentationMapper.toOneRepresentation(domainCollaborator));
+        }
+       
         return equipementRepresentation;
     }
 

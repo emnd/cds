@@ -77,7 +77,7 @@ public class EquipementResController {
     @RequestMapping(value = "/services/list/", method = RequestMethod.GET)
     public List<EquipementRepresentation> test() throws DomainException
     {
-    	List<DomainEquipement> domainEquipements =  equipementServices.fullListAll();
+    	List<DomainEquipement> domainEquipements =  equipementServices.fullListAllWithoutCollab(); // 
     	List<EquipementRepresentation> equipementList = equipementRepresentationMapper.convertListDomainListToListRepresentation(domainEquipements);
     	
     	return equipementList;

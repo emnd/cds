@@ -197,7 +197,7 @@ public class EquipementServicesImpl implements EquipementServices {
 
     @Override
     @Transactional
-    public List<DomainEquipement> fullListAll() throws DomainException {
+    public List<DomainEquipement> fullListAllWithoutCollab() throws DomainException {
     	//System.out.println("je recupère la liste des equipements en entity");
     	List<Equipement> equipements = equipementRepository.findAllWithoutCollab();
     	//System.out.println(" le nombre equipements : "+equipements.size());
