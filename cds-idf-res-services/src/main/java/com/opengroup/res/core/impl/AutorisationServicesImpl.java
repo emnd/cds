@@ -107,7 +107,18 @@ public class AutorisationServicesImpl implements AutorisationServices {
     	Project existingProject = 
     			projectServices.findProject(domainProject.getProjectName(), domainProject.getPeriodStart(), domainProject.getPeriodEnd()); // verification si le projet existe
  
-    	project = (existingProject.getIdProject() != null) ? existingProject : projectMapper.toOneEntity(domainProject);
+    	Project existingProjectName = projectServices.findProject(domainProject.getProjectName());
+    	//project = (existingProject.getIdProject() != null) ? existingProject : projectMapper.toOneEntity(domainProject); // verification si le projet existe
+    	if(existingProject.getIdProject() != null)
+    	{
+    		project = existingProject; 
+    	}else if(existingProjectName.getIdProject() != null)
+    	{
+    		project = existingProjectName; 
+    	}else
+    	{
+    		project =  projectMapper.toOneEntity(domainProject);
+    	}
     	
     	System.out.println("project :"+project.toString());
     	

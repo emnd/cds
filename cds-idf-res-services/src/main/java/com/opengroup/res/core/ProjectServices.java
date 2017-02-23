@@ -54,6 +54,8 @@ public interface ProjectServices {
     public DomainProject findProject(Long id) throws DomainException ;
     
     public Project findProject(String projectName,Date periodStart, Date periodEnd) throws DomainException;
+    
+    Project findProject(String projectName) throws DomainException;
 
     /**
      * A generic creation api method
@@ -78,4 +80,6 @@ public interface ProjectServices {
      * @throws DomainException
      */
     <T extends DomainProject> void deleteProject(T typedProject) throws DomainException;
+
+	
 }

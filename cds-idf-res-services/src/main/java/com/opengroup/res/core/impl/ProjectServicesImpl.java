@@ -114,6 +114,17 @@ public class ProjectServicesImpl implements ProjectServices {
 		return project;
 	}
 
+    @Override
+    @Transactional
+    public Project findProject(String projectName) throws DomainException {  
+		Project project = new Project();
+		List<Project> projectList = projectRepository.findByNameProject(projectName);
+		for(Project proj : projectList)
+		{
+			project = proj;
+		}
+		return project;
+	}
     /**
      * Track an history log - Can be provide as an internal transactional service
      * @param now

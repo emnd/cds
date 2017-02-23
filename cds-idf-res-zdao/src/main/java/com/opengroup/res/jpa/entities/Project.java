@@ -79,7 +79,7 @@ public class Project implements Serializable, EntityBean{
 
 
 	public void setNameProject(String nameProject) {
-		 if (!nameProject.isEmpty()) this.nameProject = nameProject.toUpperCase();
+		if (!nameProject.isEmpty()) this.nameProject = nameProject.toUpperCase();
 	}
 
 	@Column(name="periodStart")
