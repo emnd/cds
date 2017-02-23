@@ -1,3 +1,5 @@
 {
-  "zmod-model.model.title":"Modèle de page"
+  "zmod-model.model.title":"Modèle de page",
+  "zmod-model.liste.demande" : "Mes demandes des accès au CDS"
+ 
 }

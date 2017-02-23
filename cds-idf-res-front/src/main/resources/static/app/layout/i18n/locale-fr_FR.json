@@ -6,5 +6,21 @@
   "app.layout.directives.sidebar.record.list": "Lister",
   "app.layout.directives.sidebar.record.control": "Contrôler",
   "app.layout.directives.sidebar.campaign": "Campagne",
-  "app.layout.directives.sidebar.campaign.initialize": "Initier"
+  "app.layout.directives.sidebar.campaign.initialize": "Initier",
+  "app.layout.directives.sidebar.Gestions.autorisations" : "Gestions des autorisations",
+  "app.layout.directives.sidebar.formulaire.demande": "Formulaire de demande d'acces",
+  "app.layout.directives.sidebar.liste.demande": "Liste des demandes",
+  "app.layout.directives.sidebar.Gestion.ressources": "Gestion des ressources",
+  "app.layout.directives.sidebar.liste.equipements": "Liste des équipements",
+  "app.layout.directives.sidebar.liste.localisations": "Liste des localisations",
+  "app.layout.directives.sidebar.liste.affectations": "Liste des affectations",
+  "app.layout.directives.header.profil":"Profil",
+  "app.layout.directives.header.configuration":"Configuration",
+  "app.layout.directives.header.deconnexion":"Déconnexion",
+  "app.layout.directives.login.identification" :"Veuillez vous Identifiez",
+  "app.layout.directives.login.nom.utilisateur" :"Login",
+  "app.layout.directives.login.mot.passe" : "Mot de passe",
+  "app.layout.directives.login.souvenir" : "Souvenez de moi",
+  "app.layout.directives.login.connexion" : "Connexion",
+  "zmod-model.liste.demande" : "Mes demandes des accès au CDS"
 }

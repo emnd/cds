@@ -201,5 +201,31 @@ var app = angular.module('app', [
        templateUrl:'/app/layout/ui-elements/grid.template.html',
        url:'/grid'
    })
+   	.state('dashboard.formulaire.acces',{
+   		templateUrl:'/app/layout/ui-elements/formulaire.demande.acces.template.html',
+        url:'/demandeAcces'
+   	})
+   	.state('dashboard.liste.demande',{
+   		templateUrl:'/app/layout/ui-elements/liste.demande.acces.template.html',
+        url:'/listeDemandes'
+   	})
+   	
+   	.state('dashboard.authorisation',{
+        url:'/gestion-des-autorisations/liste-des-demandes',
+        controller: 'AuthorisationController',
+        templateUrl:'/app/zmod-model/authorisation.template.html',
+        resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'app',
+              files:[
+              '/app/zmod-model/authorisation.module.js',
+              '/app/zmod-model/authorisation.controller.js'
+              ]
+            })
+          }
+        }
+      })
+   	
   }]);
 });
