@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h2 class="page-header">{{"formulaireDemandeAccesCds" | translate}}</h2>
+    </div>  
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               {{"formulaireCommpletezValidez" | translate}}
+            </div>
+
+            <!-- /.panel-body -->
+        </div>
+        <form name="formElement" class=" col-lg-12"> <!--col-lg-8 because it does not look very well taking all the screen-->
+   		 <div class="row form-group well">
+        <div class="col-sm-4">
+            <label for="loginOpen">  {{"loginOpen"| translate}} </label> <br>
+            <input type="text"  class = "form-control" id="loginOpen" required>
+        </div>
+        <div class="col-sm-4">
+            <label for="firstName">  {{"firstName"| translate}} </label> <br>
+            <input type="text"  class = "form-control" id="firstName" required>
+        </div>
+        <div class="col-sm-4">
+            <label for="lastName">  {{"lastName" | translate}} </label> <br>
+            <input type="text"   class = "form-control" id="lastName" required>
+        </div>
+        <div class="col-sm-4">
+            <label for="emailOpen"> {{"emailOpen" | translate}}</label> <br>
+            <input type="text"  class = "form-control" id="emailOpen" required>
+        </div>
+        
+        <!--Datepickers-->
+        <div class="col-sm-4">
+            <label for="startDate">  {{"startDate" | translate}} </label> <br>
+            <div class="input-group ">
+                <input type="date" class = "form-control"
+                       name = "startDate"
+                       id = "startDate"
+                       placeholder="jj/mm/aaaa"
+                       required/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" >
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+
+            </div> <!--/input-group-->
+        </div> <!--/col-md-x /col-sm-x -->
+        <div class="col-sm-4">
+            <label for="endDate">  {{"endDate" | translate}} </label> <br>
+            <div class="input-group ">
+                <input type="date" class = "form-control"
+                       name = "endDate"
+                       id = "endDate"
+                       placeholder="jj/mm/aaaa"
+                       required/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" >
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+            </div> <!--/input-group-->
+        </div> <!--/col-md-x /col-sm-x -->
+        <!--End period datepickers-->
+        <div class="col-sm-4">
+            <label for="projectName"> {{"projectName" | translate}}</label> <br>
+            <input type="text"  class = "form-control" id="projectName">
+        </div>
+
+        <div class="col-sm-8">
+            <label for="motive"> {{"motive"| translate}}</label> <br>
+            <textarea id="motive" rows="2"  class = "form-control"  maxlength="200"></textarea>
+        </div>
+
+        <div class="col-sm-4">
+
+            <div class="checkbox">
+                <label >
+                    <input type="checkbox"   id="equipment">
+                   {{"materiel"| translate}}
+                </label>
+            </div>  <!--/checkbox-->
+            <br />
+
+
+        </div>   <!--/col-md-x /col-sm-x /checkbox   for="{{'equipment-' + $index}}" class = "form-control"-->
+
+    </div>  <!--/row, /form-control, /well; end of section in ng-repeat-->
+
+    
+	
+    <input type="submit"  class="btn btn-success pull-right" value="{{'envoyer' | translate}}" > <!-- ngSubmit? -->
+
+    <br />
+    
+    <!--Error messages-->
+    <br />
+
+</form>
+
+</div>
+   
+</div>

@@ -22,5 +22,17 @@
   "app.layout.directives.login.mot.passe" : "Mot de passe",
   "app.layout.directives.login.souvenir" : "Souvenez de moi",
   "app.layout.directives.login.connexion" : "Connexion",
-  "zmod-model.liste.demande" : "Mes demandes des accès au CDS"
+  "app.layout.directives.formulaire.demande" : "Mes demandes d'accès au CDS",
+  "formulaireDemandeAccesCds":"Formulaire de demande d'accès au CDS",
+  "formulaireCommpletezValidez":"Complétetez le formulaire et validez",
+  "loginOpen":"* Identifiant Open",
+  "firstName":"* Prénom",
+  "lastName":"* Nom",
+  "emailOpen":"* Email",
+  "startDate":"* Date de début",
+  "endDate":"* Date de fin",
+  "projectName":"Projet",
+  "motive":"Motivation de la demande",
+  "materiel":"Matériel",
+  "envoyer":"Envoyer la demande"
 }

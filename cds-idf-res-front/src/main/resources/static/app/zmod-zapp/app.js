@@ -226,6 +226,23 @@ var app = angular.module('app', [
           }
         }
       })
+      
+      .state('dashboard.formulaireDeDemande',{
+        url:'/gestion-des-autorisations/formulaire-de-demande',
+        controller: 'FormulaireDeDemandeController',
+        templateUrl:'/app/layout/forms/formulaireDeDemande.template.html',
+        resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'app',
+              files:[
+              '/app/layout/forms/formulaireDeDemande.module.js',
+              '/app/layout/forms/formulaireDeDemande.controller.js'
+              ]
+            })
+          }
+        }
+      })
    	
   }]);
 });
