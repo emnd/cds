@@ -109,6 +109,8 @@ public class AutorisationServicesImpl implements AutorisationServices {
  
     	project = (existingProject.getIdProject() != null) ? existingProject : projectMapper.toOneEntity(domainProject);
     	
+    	System.out.println("project :"+project.toString());
+    	
     	if(project.getIdProject()== null)
     	{
     		projectRepository.save(project);   // creation du collaborator s'il n'existe pas

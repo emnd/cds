@@ -14,127 +14,71 @@
   FormulaireDeDemandeController.$inject = ['$rootScope', '$scope', '$timeout', '$q','$http', '$log', 'uiGridConstants','$uibModal'];
 
   function FormulaireDeDemandeController($rootScope, $scope, $timeout, $q, $http, $log, uiGridConstants,$uibModal) {
-    $rootScope.moduleLoaded = false;
+	  
+	  $rootScope.moduleLoaded = false;
+	  var self=$scope;
+	  
+	 // var user,deciderName,loginOpen,idAuthorisation,motive,periodEnd,periodStart,projectName,replyDate,requestDate,status,firstName,lastName, extendedDate,emailOpen,text;
+  //(self.loginOpen != null) && (self.firstName != null) && (self.lastName != null)  && (self.projectName != null) && (periodStart != null) && ) (periodEnd != null)
+	  $scope.submitForm = function() {
+	    	
+		  if($scope.loginOpen != null) // rajouter des + pour comparer deux dates
+			{ // a revoir les conditions
+				$http({
+					method : 'POST',
+					url : '/authorisation/',
+					data : 
+						{
+							"request": {
+						      "requestDate": new Date(),
+						      "replyDate": null,
+						      "applicant": "Moussa",
+						      "decider": ""
+						    },
+						    "collaborator": {
+						      "loginOpen": $scope.loginOpen,
+						      "lastName": $scope.lastName,
+						      "firstName": $scope.firstName,
+						      "emailOpen": $scope.emailOpen,
+						      "buOpen": $scope.buOpen
+						    },
+						    "project": {
+						      "projectName": $scope.projectName,
+						      "periodStart": $scope.periodStart,
+						      "periodEnd": $scope.periodEnd
+						    },
+						    "periodStart": $scope.periodStart,
+						    "periodEnd": $scope.periodEnd,
+						    "equipment": $scope.equipement,
+						    "motive": $scope.motive,
+						    "status": ""
+					  }
+				}).then(function successCallback(response) {
+					$scope.text=" Demande au CDS envoyé";
+					console.log($scope.text);
+					//alert($scope.text);
+					
+//					console.log(" extentedDate "+$scope.extendedDate+" emailOpen "+$scope.emailOpen);
+//					console.log( $scope.periodEnd + " " + $scope.extendedDate );
+					location.reload();  		// pour recharger la page courante
+				}, function errorCallback(response) {
+	
+				});
+			}
+			else{
+				$scope.text = self.text +" le statut "+self.status+" de la demande ou la date de prolongation ne permet pas la prolongation de votre demande";
+				console.log($scope.text);
+				//alert($scope.text);
+				
+//				console.log(vm.status=="Acceptée");
+//				console.log(+$scope.periodEnd > +$scope.requestDate);
+//				console.log("$scope.extentedDate is "+$scope.extendedDate);
+//				console.log("le scope est "+$scope.extendedDate);
+//				console.log( +$scope.periodEnd > +$scope.extendedDate );
+				//location.reload();  		// pour recharger la page courante
+			}
 
-    $scope.gridOptions = {
-        enableRowSelection: true,
-        enableSelectAll: true,
-        selectionRowHeaderWidth: 35,
-        rowHeight: 35,
-        columnWidth: 25,
-        showGridFooter:true,
-    columnDefs : [
-                  { name: 'date_de_la_demandeID', field:'request.id',width:"18%",visible:false},
-                  { name: 'date_de_la_demande', field:'request.requestDate',width:"18%"}, //for now, these are String
-                  { name: 'collaborateurID', field: 'collaborator.id',width:"20%",visible:false},
-                  { name: 'collaborateurLoginOpen', field: 'collaborator.loginOpen',width:"20%", visible:false},
-                  { name: 'collaborateurEmail', field: 'collaborator.emailOpen',width:"20%",visible:false},
-                  { name: 'Nom', field:'collaborator.firstName',width:"20%"},
-                  { name: 'Prénom', field:'collaborator.lastName',width:"20%"},
-                  { name: 'date de début', field:'periodStart',width:"10%"}, //for now, these are String
-                  { name: 'date de fin', field:'periodEnd',width:"10%"},
-                  { name: 'projetID' , field: 'project.id', visible:false},
-                  { name: 'projet' , field: 'project.projectName', cellTooltip: function(row) { return row.entity.projet; },width:"20%"},
-                  { name: 'statut', field: 'status',width:"10%"}
-                  
-                  ]
-             };
-
-    $scope.gridOptions.multiSelect = true;
-
-
-    
-  //REST resource for the current user
-    //We might have to wait for AuthService to load the user
-    var deferred= $q.defer();
-        //resolve the promise when user is loaded
-    var interval = setInterval(function() {
-              //if not undefined
-            //restURL = '/requestList/' + AuthService.userLogin();
-             deferred.resolve('/authorisations');
-         }, 50);
-    //... and then we load the table data
-    deferred.promise.then(function(restURL){
-            clearInterval(interval);    //not sure is very clean
-            $http.get(restURL)
-                .then(function(response) {
-                        //First function handles success
-                        $scope.gridOptions.data = response.data;
-                       //console.log("Mes données "+response.data+" \n"+restURL); // le 23/02/2017
-                    }, function(response) {
-                        //Second function handles error
-                        $scope.content = "Something went wrong";
-                          $timeout(function() {
-                            if($scope.gridApi.selection.selectRow){
-                             $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
-                     }
-                  });
-                });
-            }, function(){}    //do nothing for error
-    );
-    //TODO Using an event broadcast by the AuthService might be cleaner
-    
-  
-
-    $scope.info = {};
-
-    $scope.toggleMultiSelect = function() {
-      $scope.gridApi.selection.setMultiSelect(!$scope.gridApi.grid.options.multiSelect);
-    };
-
-    $scope.toggleModifierKeysToMultiSelect = function() {
-      $scope.gridApi.selection.setModifierKeysToMultiSelect(!$scope.gridApi.grid.options.modifierKeysToMultiSelect);
-    };
-
-    $scope.selectAll = function() {
-      $scope.gridApi.selection.selectAllRows();
-    };
-
-    $scope.clearAll = function() {
-      $scope.gridApi.selection.clearSelectedRows();
-    };
-
-    $scope.toggleRow1 = function() {
-      $scope.gridApi.selection.toggleRowSelection($scope.gridOptions.data[0]);
-    };
-
-    $scope.toggleFullRowSelection = function() {
-      $scope.gridOptions.enableFullRowSelection = !$scope.gridOptions.enableFullRowSelection;
-      $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.OPTIONS);
-    };
-
-    $scope.setSelectable = function() {
-      $scope.gridApi.selection.clearSelectedRows();
-
-      $scope.gridOptions.isRowSelectable = function(row){
-        if(row.entity.age > 30){
-          return false;
-        } else {
-          return true;
-        }
-      };
-      $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
-
-      $scope.gridOptions.data[0].age = 31;
-      $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
-    };
-
-    $scope.gridOptions.onRegisterApi = function(gridApi){
-      //set gridApi on scope
-      $scope.gridApi = gridApi;
-      gridApi.selection.on.rowSelectionChanged($scope,function(row){
-        var msg = 'row selected ' + row.isSelected;
-        $log.log(msg);
-      });
-
-      gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
-        var msg = 'rows changed ' + rows.length;
-        $log.log(msg);
-      });
-    };
-
-    $timeout(function(){
-        $rootScope.moduleLoaded = true;
-    }, 500);
+	   };
+	  
   };
 
