@@ -10,11 +10,15 @@ import com.opengroup.res.jpa.RequestRepository;
 //import com.opengroup.res.jpa.entities.AuditState;
 import com.opengroup.res.jpa.entities.HistoryLog;
 import com.opengroup.res.jpa.entities.Request;
+import com.opengroup.res.organization.UserServices;
+import com.opengroup.res.organization.domain.DomainEmployee;
+
 //import com.opengroup.res.jpa.entities.ParameterPK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +40,7 @@ public class RequestServicesImpl implements RequestServices {
 
     @Autowired
     private RequestMapper requestMapper;
+    
 
     @Override
     @Transactional

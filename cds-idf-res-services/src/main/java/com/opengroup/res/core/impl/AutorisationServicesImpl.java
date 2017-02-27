@@ -21,6 +21,7 @@ import com.opengroup.res.jpa.entities.Collaborator;
 import com.opengroup.res.jpa.entities.HistoryLog;
 import com.opengroup.res.jpa.entities.Project;
 import com.opengroup.res.jpa.entities.Request;
+import com.opengroup.res.organization.UserServices;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 
@@ -83,6 +84,9 @@ public class AutorisationServicesImpl implements AutorisationServices {
     
     @Autowired
     private RequestServices requestServices;
+    
+    @Autowired
+    private UserServices userServices;
 
     @Override
     @Transactional
@@ -104,28 +108,36 @@ public class AutorisationServicesImpl implements AutorisationServices {
     	}
     	
     	Project project = new Project();
-    	Project existingProject = 
-    			projectServices.findProject(domainProject.getProjectName(), domainProject.getPeriodStart(), domainProject.getPeriodEnd()); // verification si le projet existe
- 
-    	Project existingProjectName = projectServices.findProject(domainProject.getProjectName());
-    	//project = (existingProject.getIdProject() != null) ? existingProject : projectMapper.toOneEntity(domainProject); // verification si le projet existe
+    	Project existingProject = new Project();
+    	Project existingProjectName = new Project();
+    	try{
+    		existingProject = 
+        			projectServices.findProject(domainProject.getProjectName(), domainProject.getPeriodStart(), domainProject.getPeriodEnd()); // verification si le projet existe
+    	}catch(NullPointerException e){}
+    	
+    	try{
+    		 existingProjectName = projectServices.findProject(domainProject.getProjectName());
+    	}catch(NullPointerException e){}
+    	
     	if(existingProject.getIdProject() != null)
     	{
     		project = existingProject; 
+    		System.out.println("projectNamePeriods trouvé :"+project.toString());
     	}else if(existingProjectName.getIdProject() != null)
     	{
     		project = existingProjectName; 
+    		System.out.println("projectName trouvé :"+project.toString());
     	}else
     	{
     		project =  projectMapper.toOneEntity(domainProject);
+    		
+        		projectRepository.save(project);   // creation du project s'il n'existe pas
+        	
     	}
     	
     	System.out.println("project :"+project.toString());
     	
-    	if(project.getIdProject()== null)
-    	{
-    		projectRepository.save(project);   // creation du collaborator s'il n'existe pas
-    	}
+    	
 
     	domainCollaborator = collaboratorMapper.toOneDomain(collaborator); // transformation du collaborator crée en domainCollaborator
     	domainRequest = requestMapper.toOneDomain(request);  // transformation de la request créée en domainRequest

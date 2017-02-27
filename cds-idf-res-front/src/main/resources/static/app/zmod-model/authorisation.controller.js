@@ -15,6 +15,20 @@
 
   function AuthorisationController($rootScope, $scope, $timeout, $q, $http, $log, uiGridConstants,$uibModal) {
     $rootScope.moduleLoaded = false;
+    
+    var userInfos = []; // recuperation des informations de l'utilisateur courant
+	  
+	  $http({ 
+			method : 'GET',
+			url : '/userInfo'
+		}).then(function successCallback(response) {
+			$scope.userInfos = response.data;
+			console.log(" les infos users : "+$scope.userInfos);
+			console.log("UserName : "+$scope.userInfos[0]); // userName du LDAP
+			console.log("UserEmail : "+$scope.userInfos[1]); // userEmail du LDAP
+		}, function errorCallback(response) {
+
+		});
 
     $scope.gridOptions = {
         enableRowSelection: true,
@@ -24,14 +38,14 @@
         columnWidth: 25,
         showGridFooter:true,
     columnDefs : [
-                  { name: 'demandeID', field:'request.id',width:"18%",visible:false},
+                  { name: 'demandeID', field:'request.id',visible:false},
                   { name: 'date_de_la_demande', field:'request.requestDate',width:"18%"}, //for now, these are String
-                  { name: 'collaborateurID', field: 'collaborator.id',width:"20%",visible:false},
-                  { name: 'collaborateurLoginOpen', field: 'collaborator.loginOpen',width:"20%", visible:false},
-                  { name: 'collaborateurEmail', field: 'collaborator.emailOpen',width:"20%",visible:false},
-                  { name: 'Nom', field:'collaborator.firstName',width:"20%"},
-                  { name: 'Prénom', field:'collaborator.lastName',width:"20%"},
-                  { name: 'date de début', field:'periodStart',width:"10%"}, //for now, these are String
+                  { name: 'collaborateurID', field: 'collaborator.id',visible:false},
+                  { name: 'collaborateurLoginOpen', field: 'collaborator.loginOpen', visible:false},
+                  { name: 'collaborateurEmail', field: 'collaborator.emailOpen',visible:false},
+                  { name: 'Nom', field:'collaborator.firstName',width:"15%"},
+                  { name: 'Prénom', field:'collaborator.lastName',width:"15%"},
+                  { name: 'date de début', field:'periodStart',width:"12%"}, //for now, these are String
                   { name: 'date de fin', field:'periodEnd',width:"10%"},
                   { name: 'projetID' , field: 'project.id', visible:false},
                   { name: 'projet' , field: 'project.projectName', cellTooltip: function(row) { return row.entity.projet; },width:"20%"},
@@ -41,16 +55,6 @@
              };
 
     $scope.gridOptions.multiSelect = true;
-
-//    $http.get('/mocked-data/500_complex.json')
-//    .success(function(data) {
-//      $scope.gridOptions.data = data;
-//      $timeout(function() {
-//        if($scope.gridApi.selection.selectRow){
-//          $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
-//        }
-//      });
-//    });
     
   //REST resource for the current user
     //We might have to wait for AuthService to load the user
@@ -59,7 +63,7 @@
     var interval = setInterval(function() {
               //if not undefined
             //restURL = '/requestList/' + AuthService.userLogin();
-             deferred.resolve('/authorisations');
+             deferred.resolve('/requestList/'+$scope.userInfos[0]); // userName = $scope.userInfos[0] pour recuperer la liste des commandes de l'utilisateur courant
          }, 50);
     //... and then we load the table data
     deferred.promise.then(function(restURL){

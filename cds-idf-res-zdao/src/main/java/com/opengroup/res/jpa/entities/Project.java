@@ -128,6 +128,12 @@ public class Project implements Serializable, EntityBean{
 		this.authorisations = authorisations;
 	}
 
+	@Override
+	public String toString() {
+		return "Project [idProject=" + idProject + ", nameProject=" + nameProject + ", periodStart=" + periodStart
+				+ ", periodEnd=" + periodEnd + ", version=" + version + "]";
+	}
+
 
 //	@OneToMany(mappedBy = "project")
 //	public List<CustomerProject> getCustomerProject() {

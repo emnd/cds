@@ -18,6 +18,21 @@
 	  $rootScope.moduleLoaded = false;
 	  var self=$scope;
 	  
+	  var userInfos = []; // recuperation des informations de l'utilisateur courant
+	  
+	  $http({ 
+			method : 'GET',
+			url : '/userInfo'
+		}).then(function successCallback(response) {
+			$scope.userInfos = response.data;
+			console.log(" les infos users : "+$scope.userInfos);
+			console.log("UserName : "+$scope.userInfos[0]); // userName du LDAP
+			console.log("UserEmail : "+$scope.userInfos[1]); // userEmail du LDAP
+		}, function errorCallback(response) {
+
+		});
+	  
+	  
 	 // var user,deciderName,loginOpen,idAuthorisation,motive,periodEnd,periodStart,projectName,replyDate,requestDate,status,firstName,lastName, extendedDate,emailOpen,text;
   //(self.loginOpen != null) && (self.firstName != null) && (self.lastName != null)  && (self.projectName != null) && (periodStart != null) && ) (periodEnd != null)
 	  $scope.submitForm = function() {
@@ -32,9 +47,9 @@
 							"request": {
 						      "requestDate": new Date(),
 						      "replyDate": null,
-						      "applicant": "Moussa",
+						      "applicant": $scope.userInfos[0],
 						      "decider": "",
-						      "applicantEmail" :"moussa@moussa.com"
+						      "applicantEmail" :$scope.userInfos[1]
 						    },
 						    "collaborator": {
 						      "loginOpen": $scope.loginOpen,

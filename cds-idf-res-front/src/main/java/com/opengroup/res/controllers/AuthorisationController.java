@@ -20,6 +20,9 @@ import com.opengroup.res.model.AuthorisationRepresentation;
 import com.opengroup.res.model.CollaboratorRepresentation;
 import com.opengroup.res.model.ProjectRepresentation;
 import com.opengroup.res.model.RequestRepresentation;
+import com.opengroup.res.organization.UserServices;
+import com.opengroup.res.organization.domain.DomainEmployee;
+import com.opengroup.res.organization.domain.DomainUser;
 import com.opengroup.res.util.FrontException;
 
 
@@ -27,6 +30,7 @@ import com.opengroup.res.util.FrontException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -40,6 +44,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.http.HttpHeaders;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -88,12 +94,38 @@ public class AuthorisationController {
     
     @Autowired
     private ProjectMapper projectMapper;
+    
+    @Autowired
+    private UserServices userServices;
+    
+    String  userName,userEmail;
 
     /**
      *
      * @return
      * @throws DomainException
      */
+    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+    public List<String> master(Principal principal) { // listes des infos sur l'utilisateur courant
+    	try {
+            userServices.get(principal);
+            //System.out.println("principal");
+            //System.out.println(principal.getName());
+            DomainEmployee domainEmployee = userServices.get(principal.getName());
+            //System.out.println("domainEmployee");
+            userName = principal.getName(); // userName ou login  de l'utilisateur
+            //System.out.println(domainEmployee.getCoordinate().getEmail());
+            userEmail = domainEmployee.getCoordinate().getEmail(); // userEmail ou email de l'utilisateur courant
+            List<String> userInfo = new ArrayList<String>();
+            userInfo.add(userName);
+            userInfo.add(userEmail);
+            return userInfo;
+        } catch (Exception e) {
+            LOGGER.error("A problem occurs while controlling the authenticated user", e);
+            return null;
+        }
+    }
+    
    // @Secured("ROLE_CDSMANAGER")
     @RequestMapping(value = "/authorisations", method = RequestMethod.GET)
     public Set<AuthorisationRepresentation> list() throws FrontException {
@@ -295,4 +327,6 @@ public class AuthorisationController {
         List<DomainAutorisation> authorisations = autorisationServices.findAuthorisationByProject(projectName);
         return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisations);
     }
+    
+
 }
