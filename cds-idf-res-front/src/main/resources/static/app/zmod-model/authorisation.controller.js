@@ -24,7 +24,7 @@
         columnWidth: 25,
         showGridFooter:true,
     columnDefs : [
-                  { name: 'date_de_la_demandeID', field:'request.id',width:"18%",visible:false},
+                  { name: 'demandeID', field:'request.id',width:"18%",visible:false},
                   { name: 'date_de_la_demande', field:'request.requestDate',width:"18%"}, //for now, these are String
                   { name: 'collaborateurID', field: 'collaborator.id',width:"20%",visible:false},
                   { name: 'collaborateurLoginOpen', field: 'collaborator.loginOpen',width:"20%", visible:false},

@@ -33,7 +33,8 @@
 						      "requestDate": new Date(),
 						      "replyDate": null,
 						      "applicant": "Moussa",
-						      "decider": ""
+						      "decider": "",
+						      "applicantEmail" :"moussa@moussa.com"
 						    },
 						    "collaborator": {
 						      "loginOpen": $scope.loginOpen,
@@ -56,10 +57,6 @@
 				}).then(function successCallback(response) {
 					$scope.text=" Demande au CDS envoyé";
 					console.log($scope.text);
-					//alert($scope.text);
-					
-//					console.log(" extentedDate "+$scope.extendedDate+" emailOpen "+$scope.emailOpen);
-//					console.log( $scope.periodEnd + " " + $scope.extendedDate );
 					location.reload();  		// pour recharger la page courante
 				}, function errorCallback(response) {
 	
@@ -68,14 +65,6 @@
 			else{
 				$scope.text = self.text +" le statut "+self.status+" de la demande ou la date de prolongation ne permet pas la prolongation de votre demande";
 				console.log($scope.text);
-				//alert($scope.text);
-				
-//				console.log(vm.status=="Acceptée");
-//				console.log(+$scope.periodEnd > +$scope.requestDate);
-//				console.log("$scope.extentedDate is "+$scope.extendedDate);
-//				console.log("le scope est "+$scope.extendedDate);
-//				console.log( +$scope.periodEnd > +$scope.extendedDate );
-				//location.reload();  		// pour recharger la page courante
 			}
 
 	   };

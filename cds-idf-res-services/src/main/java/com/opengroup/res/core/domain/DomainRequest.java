@@ -26,6 +26,7 @@ public class DomainRequest extends DomainBeanTrackable implements Serializable {
     private Date requestDate ;
     private Date replyDate;
     private String applicant;
+    private String applicantEmail;
     private String decider;
     private List<DomainAutorisation> domainAuthorisationList = new ArrayList<DomainAutorisation>();
 
@@ -45,7 +46,7 @@ public class DomainRequest extends DomainBeanTrackable implements Serializable {
 
     }
 
-    public DomainRequest(String applicant,String decider,Date requestDate,Date replyDate,Long id) throws DomainException {
+    public DomainRequest(String applicant,String decider,Date requestDate,Date replyDate,String applicantEmail,Long id) throws DomainException {
 
         if (StringUtils.isEmpty(applicant)) {
             constraintsErrors.add("An applicant must be provided");
@@ -61,19 +62,20 @@ public class DomainRequest extends DomainBeanTrackable implements Serializable {
         this.requestDate = requestDate;
         this.id = id;
         this.replyDate = replyDate;
+        this.applicantEmail = applicantEmail;
 
     }
 
-    public static DomainRequest newInstance(String applicant, String decider, Date requestDate, Date replyDate,Long id) throws DomainException {
-        return new DomainRequest(applicant, decider, requestDate, replyDate,id);
+    public static DomainRequest newInstance(String applicant, String decider, Date requestDate, Date replyDate,String applicantEmail,Long id) throws DomainException {
+        return new DomainRequest(applicant, decider, requestDate, replyDate,applicantEmail,id);
     }
 
-    public static DomainRequest updateInstance(String applicant, String decider, Date requestDate, Date replyDate,/* List<Authorisation> authorisationList,*/ Long id) throws DomainException {
-        return new DomainRequest(applicant, decider, requestDate, replyDate/*, authorisationList*/,id);
+    public static DomainRequest updateInstance(String applicant, String decider, Date requestDate, Date replyDate,String applicantEmail, Long id) throws DomainException {
+        return new DomainRequest(applicant, decider, requestDate, replyDate,applicantEmail,id);
     }
 
-    public static DomainRequest deleteInstance(String applicant, String decider, Date requestDate, Date replyDate,/* List<Authorisation> authorisationList,*/ Long id) throws DomainException {
-        return new DomainRequest(applicant, decider, requestDate, replyDate/*, authorisationList*/,id);
+    public static DomainRequest deleteInstance(String applicant, String decider, Date requestDate, Date replyDate,String applicantEmail, Long id) throws DomainException {
+        return new DomainRequest(applicant, decider, requestDate, replyDate,applicantEmail,id);
     }
 
     /**
@@ -84,6 +86,7 @@ public class DomainRequest extends DomainBeanTrackable implements Serializable {
     public Date getReplyDate() { return replyDate; }
     public String getDecider() { return decider; }
     public String getApplicant() {return applicant; }
+    public String getApplicantEmail() {return applicantEmail; }
     public List<DomainAutorisation> getDomainAuthorisationList() { return domainAuthorisationList; }
     /**
      * setters
@@ -94,12 +97,13 @@ public class DomainRequest extends DomainBeanTrackable implements Serializable {
     public void setReplyDate(Date replyDate) { this.replyDate = replyDate;}
     public void setDecider(String decider) { this.decider = decider; }
     public void setApplicant(String applicant) { this.applicant = applicant; }
+    public void setApplicantEmail(String applicantEmail) { this.applicantEmail = applicantEmail; }
     public void setDomainAuthorisationList(List<DomainAutorisation> domainAuthorisationList) {     this.domainAuthorisationList = domainAuthorisationList;    }
 
 	@Override
 	public String toString() {
 		return "DomainRequest [id=" + id + ", requestDate=" + requestDate + ", replyDate=" + replyDate + ", applicant="
-				+ applicant + ", decider=" + decider + "]";
+				+ applicant + ", decider=" + decider +", applicantEmail="+applicantEmail +"]";
 	}
 
     

@@ -39,20 +39,20 @@ public class RequestServicesImpl implements RequestServices {
 
     @Override
     @Transactional
-    public void createRequest(String applicant, String decider, Date requestDate, Date replyDate) throws DomainException {
+    public void createRequest(String applicant, String decider, Date requestDate, Date replyDate,String applicantEmail) throws DomainException {
        Date reqDate = new Date();
         String dcd = "";
         Date repDate = null;
         Long id = null;
-        DomainRequest domainRequest = DomainRequest.newInstance(applicant,dcd ,reqDate , repDate, id);
+        DomainRequest domainRequest = DomainRequest.newInstance(applicant,dcd ,reqDate , repDate, applicantEmail,id);
         requestRepository.save(requestMapper.toOneEntity(domainRequest));
         //logTrackParameter(now,"DEFAULT CREATION MESSAGE", DomainHistoryLog.newParameterInstance(domainParameter));
     }
 
     @Override
     @Transactional
-    public void updateRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate) throws DomainException {
-        DomainRequest domainRequest = DomainRequest.updateInstance(applicant,decider ,requestDate , replyDate, id);
+    public void updateRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate,String applicantEmail) throws DomainException {
+        DomainRequest domainRequest = DomainRequest.updateInstance(applicant,decider ,requestDate , replyDate, applicantEmail,id);
         Request request = requestRepository.findOne(domainRequest.getId());
         if (request == null) {
             throw new DomainException("This request does not exist");
@@ -67,14 +67,15 @@ public class RequestServicesImpl implements RequestServices {
 
     @Override
     @Transactional
-    public void deleteRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate) throws DomainException {
-        DomainRequest domainRequest = DomainRequest.deleteInstance(applicant, decider, requestDate, replyDate, id);
+    public void deleteRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException {
+        DomainRequest domainRequest = DomainRequest.deleteInstance(applicant, decider, requestDate, replyDate, applicantEmail,id);
         Request request = new Request( domainRequest.getApplicant(),
                                  domainRequest.getDecider(),
                                  domainRequest.getRequestDate(),
                                  domainRequest.getReplyDate()
                     );
         request.setId(domainRequest.getId());
+        request.setApplicantEmail(domainRequest.getApplicantEmail());
 
         Request existingRequest = requestRepository.findOne(request.getId());
         if (existingRequest == null) {
@@ -94,6 +95,7 @@ public class RequestServicesImpl implements RequestServices {
 				request.getDecider(),
 				request.getRequestDate(), 
 				request.getReplyDate(), 
+				request.getApplicantEmail(),
 				request.getId()
 				);
 		domainRequest = requestMapper.toOneDomain(request);
@@ -110,6 +112,7 @@ public class RequestServicesImpl implements RequestServices {
 				request.getDecider(),
 				request.getRequestDate(), 
 				request.getReplyDate(), 
+				request.getApplicantEmail(),
 				request.getId()
 				);
 		domainRequest = requestMapper.toOneDomain(request);
@@ -142,16 +145,16 @@ public class RequestServicesImpl implements RequestServices {
 
     @Override
     public <T extends DomainRequest> void createRequest(T typedRequest) throws DomainException {
-        createRequest(typedRequest.getApplicant(),typedRequest.getDecider(), typedRequest.getRequestDate(),  typedRequest.getReplyDate());
+        createRequest(typedRequest.getApplicant(),typedRequest.getDecider(), typedRequest.getRequestDate(),  typedRequest.getReplyDate(), typedRequest.getApplicantEmail());
     }
 
     @Override
     public <T extends DomainRequest> void updateRequest(T typedRequest) throws DomainException {
-        updateRequest(typedRequest.getId(),typedRequest.getApplicant(),typedRequest.getDecider(), typedRequest.getRequestDate(), typedRequest.getReplyDate());
+        updateRequest(typedRequest.getId(),typedRequest.getApplicant(),typedRequest.getDecider(), typedRequest.getRequestDate(), typedRequest.getReplyDate(), typedRequest.getApplicantEmail());
     }
 
     @Override
     public <T extends DomainRequest> void deleteRequest(T typedRequest) throws DomainException {
-        deleteRequest(typedRequest.getId(),typedRequest.getApplicant(),typedRequest.getDecider(),typedRequest.getRequestDate(), typedRequest.getReplyDate() );
+        deleteRequest(typedRequest.getId(),typedRequest.getApplicant(),typedRequest.getDecider(),typedRequest.getRequestDate(), typedRequest.getReplyDate(), typedRequest.getApplicantEmail());
     }
 }

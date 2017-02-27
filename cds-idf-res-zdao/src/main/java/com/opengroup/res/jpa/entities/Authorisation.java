@@ -59,7 +59,7 @@ public class Authorisation implements Serializable , EntityBean{
     private String motive;
     @Column(name="status")
     private String status;
-
+    
     public Authorisation(){   }
 
 

@@ -21,7 +21,7 @@ public interface CRUDRequestInterface<T> {
      * @param replyDate
      * @throws DomainException
      */
-    void create(String applicant, String decider, Date requestDate, Date replyDate) throws DomainException;
+    void create(String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException;
 
     /**
      * @param applicant
@@ -30,7 +30,7 @@ public interface CRUDRequestInterface<T> {
      * @param replyDate
      * @throws DomainException
      */
-    void update(Long id, String applicant, String decider, Date requestDate, Date replyDate) throws DomainException;
+    void update(Long id, String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException;
 
 
     /**
@@ -40,7 +40,7 @@ public interface CRUDRequestInterface<T> {
      * @param replyDate
      * @throws DomainException
      */
-    void delete(Long id, String applicant, String decider, Date requestDate, Date replyDate) throws DomainException;
+    void delete(Long id, String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException;
 
     /**
      * List all requests of the system

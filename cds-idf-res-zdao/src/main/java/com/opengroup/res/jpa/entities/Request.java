@@ -51,6 +51,9 @@ public class Request implements Serializable , EntityBean{
      */
     @Column(name="applicant")
     private String applicant;
+    
+    @Column(name="applicantEmail")
+    private String applicantEmail;
     /**
      * The OpenID of the person that gave the last answer to this request. Should point, using an auxilliary table, to a AppUser
      * object which has a "decider" role.
@@ -89,6 +92,13 @@ public class Request implements Serializable , EntityBean{
     }
 
 
+    public Request(String applicant ,String decider, Date requestDate,  Date replyDate, String applicantEmail ) {
+        this.applicant = applicant;
+        this.decider = decider;
+        this.requestDate = requestDate;
+        this.replyDate = replyDate;
+        this.applicantEmail = applicantEmail;
+    }
 
     public Long getId() {
         return id;
@@ -132,6 +142,14 @@ public class Request implements Serializable , EntityBean{
         this.decider = decider;
     }
 
+    public String getApplicantEmail() {
+        return applicantEmail;
+    }
+
+    public void setApplicantEmail(String applicantEmail) {
+        this.applicantEmail = applicantEmail;
+    }
+    
     public List<Authorisation> getAuthorisations() {
         return authorisations;
     }
@@ -150,6 +168,7 @@ public class Request implements Serializable , EntityBean{
                 ", replyDate=" + replyDate +
                 ", applicant='" + applicant + '\'' +
                 ", decider='" + decider + '\'' +
+                ", applicantEmail='" + applicantEmail + '\'' +
                 ", authorisations=" + authorisations +
                 '}';
     }

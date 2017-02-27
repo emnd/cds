@@ -21,9 +21,10 @@ public interface RequestServices {
      * @param decider
      * @param requestDate
      * @param replyDate
+     * @param applicantEmail
      * @throws DomainException
      */
-    void createRequest(String applicant, String decider, Date requestDate, Date replyDate) throws DomainException;
+    void createRequest(String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException;
 
     /**
      * @param applicant
@@ -32,7 +33,7 @@ public interface RequestServices {
      * @param replyDate
      * @throws DomainException
      */
-    void updateRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate) throws DomainException;
+    void updateRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException;
 
 
     /**
@@ -42,7 +43,7 @@ public interface RequestServices {
      * @param replyDate
      * @throws DomainException
      */
-    void deleteRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate) throws DomainException;
+    void deleteRequest(Long id, String applicant, String decider, Date requestDate, Date replyDate, String applicantEmail) throws DomainException;
 
     /**
      * List all requests of the system

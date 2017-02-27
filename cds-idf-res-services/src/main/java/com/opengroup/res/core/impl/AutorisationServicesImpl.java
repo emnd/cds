@@ -174,7 +174,8 @@ public class AutorisationServicesImpl implements AutorisationServices {
         		domainAutorisation.getDomainRequest().getApplicant(), 
         		domainAutorisation.getDomainRequest().getDecider(), 
         		domainAutorisation.getDomainRequest().getRequestDate(),
-        		domainAutorisation.getDomainRequest().getReplyDate()
+        		domainAutorisation.getDomainRequest().getReplyDate(),
+        		domainAutorisation.getDomainRequest().getApplicantEmail()
         		);
         authorisation.setRequest(request);
         authorisation.setMotive(domainAutorisation.getMotive());

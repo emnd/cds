@@ -24,7 +24,7 @@ public class RequestRepresentationMapper extends AbstractFrontMapper<DomainReque
 
     @Override
     public DomainRequest toOneDomain(RequestRepresentation representation) throws DomainException {
-    	 return new DomainRequest(representation.getApplicant(), representation.getDecider(), representation.getRequestDate(), representation.getReplyDate(),representation.getId());
+    	 return new DomainRequest(representation.getApplicant(), representation.getDecider(), representation.getRequestDate(), representation.getReplyDate(),representation.getApplicantEmail(),representation.getId());
     }
 
     @Override
@@ -35,6 +35,7 @@ public class RequestRepresentationMapper extends AbstractFrontMapper<DomainReque
     	requestRepresentation.setDecider(domain.getDecider());
     	requestRepresentation.setRequestDate(domain.getRequestDate());
     	requestRepresentation.setReplyDate(domain.getReplyDate());
+    	requestRepresentation.setApplicantEmail(domain.getApplicantEmail());
         return requestRepresentation;
     }
     

@@ -19,6 +19,7 @@ public class RequestRepresentation implements RepresentationBean {
 	private Date replyDate ; // replyDate when request response send
 	private String applicant;  // applicant is the current user
 	private String decider;   // decider is the request responser
+	private String applicantEmail;
 	private List<AuthorisationRepresentation> authorisationRepresentationList = new ArrayList<AuthorisationRepresentation>();
 	
 	// getters and setters
@@ -52,6 +53,13 @@ public class RequestRepresentation implements RepresentationBean {
 	}
 	public void setDecider(String decider) {
 		this.decider = decider;
+	}
+	
+	public String getApplicantEmail() {
+		return applicantEmail;
+	}
+	public void setApplicantEmail(String applicantEmail) {
+		this.applicantEmail = applicantEmail;
 	}
 	public List<AuthorisationRepresentation> getAuthorisationRepresentationList() {
 		return authorisationRepresentationList;

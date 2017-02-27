@@ -26,15 +26,16 @@ public class RequestMapper extends AbstractDomainMapper<DomainRequest, Request> 
         String decider = entity.getDecider();
         Date requestDate = entity.getRequestDate();
         Date replyDate = entity.getReplyDate();
-       // List<Authorisation> authorisationList =
+      String applicantEmail = entity.getApplicantEmail();
 
-        return new DomainRequest(applicant,decider, requestDate, replyDate, id);
+        return new DomainRequest(applicant,decider, requestDate, replyDate, applicantEmail, id);
     }
 
     @Override
     public Request toOneEntity(DomainRequest domain) {
         Request request = new Request(domain.getApplicant(), domain.getDecider(), domain.getRequestDate(), domain.getReplyDate() );
         request.setId(domain.getId());
+        request.setApplicantEmail(domain.getApplicantEmail());
         return request;
     }
     

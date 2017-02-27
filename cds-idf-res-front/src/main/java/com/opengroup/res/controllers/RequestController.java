@@ -79,10 +79,11 @@ public class RequestController {
 					requestRepresentation.getDecider(), 
 					requestRepresentation.getRequestDate(), 
 					requestRepresentation.getReplyDate(), 
+					requestRepresentation.getApplicantEmail(),
 					requestRepresentation.getId()
 					);
 			
-			requestServices.createRequest(domainRequest.getApplicant(), domainRequest.getDecider(), domainRequest.getRequestDate(), domainRequest.getReplyDate());
+			requestServices.createRequest(domainRequest.getApplicant(), domainRequest.getDecider(), domainRequest.getRequestDate(), domainRequest.getReplyDate(),domainRequest.getApplicantEmail());
 			
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucBuilder.path("/request/{id}").buildAndExpand(requestRepresentation.getId()).toUri());
@@ -102,6 +103,7 @@ public class RequestController {
    				requestRepresentation.getDecider(), 
    				requestRepresentation.getRequestDate(), 
    				requestRepresentation.getReplyDate(),
+   				requestRepresentation.getApplicantEmail(),
    				requestRepresentation.getId()
    				);
    		System.out.println(domainRequest.toString());
@@ -110,7 +112,8 @@ public class RequestController {
    				requestRepresentation.getApplicant(), 
    				requestRepresentation.getDecider(), 
    				requestRepresentation.getRequestDate(), 
-   				requestRepresentation.getReplyDate()
+   				requestRepresentation.getReplyDate(),
+   				requestRepresentation.getApplicantEmail()
    				);
    		return new ResponseEntity<RequestRepresentation>(HttpStatus.NO_CONTENT);
    	}
@@ -130,6 +133,7 @@ public class RequestController {
 	   				requestRepresentation.getDecider(), 
 	   				requestRepresentation.getRequestDate(), 
 	   				requestRepresentation.getReplyDate(),
+	   				requestRepresentation.getApplicantEmail(),
 	   				requestRepresentation.getId()
 					);
 			System.out.println(domainRequest.toString());
@@ -138,7 +142,8 @@ public class RequestController {
 	   				requestRepresentation.getApplicant(), 
 	   				requestRepresentation.getDecider(), 
 	   				requestRepresentation.getRequestDate(), 
-	   				requestRepresentation.getReplyDate()
+	   				requestRepresentation.getReplyDate(),
+	   				requestRepresentation.getApplicantEmail()
 						);
 			currentRequestRepresentation = 
 					requestRepresentationMapper.toOneRepresentation(requestServices.findRequest(currentRequestRepresentation.getId()));
