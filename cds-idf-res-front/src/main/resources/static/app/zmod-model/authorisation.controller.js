@@ -17,6 +17,7 @@
     $rootScope.moduleLoaded = false;
     
     var userInfos = []; // recuperation des informations de l'utilisateur courant
+    var userName, userEmail;
 	  
 	  $http({ 
 			method : 'GET',
@@ -63,7 +64,7 @@
     var interval = setInterval(function() {
               //if not undefined
             //restURL = '/requestList/' + AuthService.userLogin();
-             deferred.resolve('/requestList/'+$scope.userInfos[0]); // userName = $scope.userInfos[0] pour recuperer la liste des commandes de l'utilisateur courant
+             deferred.resolve('/requestList/'+$scope.userInfos[0]); // userName = $scope.userInfos[0] pour recuperer la liste des demandes de l'utilisateur courant
          }, 50);
     //... and then we load the table data
     deferred.promise.then(function(restURL){

@@ -10,6 +10,7 @@
   "app.layout.directives.sidebar.Gestions.autorisations" : "Gestions des autorisations",
   "app.layout.directives.sidebar.formulaire.demande": "Formulaire de demande d'acces",
   "app.layout.directives.sidebar.liste.demande": "Liste des demandes",
+  "app.layout.directives.sidebar.toutes.demandes": "Toutes les demandes",
   "app.layout.directives.sidebar.Gestion.ressources": "Gestion des ressources",
   "app.layout.directives.sidebar.liste.equipements": "Liste des équipements",
   "app.layout.directives.sidebar.liste.localisations": "Liste des localisations",
@@ -34,5 +35,8 @@
   "projectName":"Projet",
   "motive":"Motivation de la demande",
   "materiel":"Matériel",
-  "envoyer":"Envoyer la demande"
+  "envoyer":"Envoyer la demande",
+  "statut.attente":"Attente",
+  "statut.acceptee" : "Acceptée",
+  "statut.refusee" :"Réfusée"
 }

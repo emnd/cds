@@ -227,6 +227,22 @@ var app = angular.module('app', [
         }
       })
       
+      .state('dashboard.authorisations',{
+        url:'/gestion-des-autorisations/toutes-les-demandes',
+        controller: 'AuthorisationsController',
+        templateUrl:'/app/zmod-model/authorisations.template.html',
+        resolve: {
+          loadMyFiles:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name:'app',
+              files:[
+              '/app/zmod-model/authorisations.module.js',
+              '/app/zmod-model/authorisations.controller.js'
+              ]
+            })
+          }
+        }
+      })
       .state('dashboard.formulaireDeDemande',{
         url:'/gestion-des-autorisations/formulaire-de-demande',
         controller: 'FormulaireDeDemandeController',

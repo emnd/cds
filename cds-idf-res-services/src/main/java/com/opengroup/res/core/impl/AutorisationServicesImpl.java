@@ -265,7 +265,7 @@ public class AutorisationServicesImpl implements AutorisationServices {
     	
         Authorisation authorisation = authorisationRepository.findOne(id);
         Request request = authorisation.getRequest();
-        request.setApplicant("applicant");
+        //request.setApplicant("user");
         request.setReplyDate(new Date()); //today
         authorisation.setStatus(decision);
         

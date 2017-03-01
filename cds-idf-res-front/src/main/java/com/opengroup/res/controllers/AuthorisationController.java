@@ -299,20 +299,20 @@ public class AuthorisationController {
         return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisationsToday);
     }
     
-    @RequestMapping(value = "/EnAttente", method = RequestMethod.PUT)
+    @RequestMapping(value = "/Attente", method = RequestMethod.PUT)
 	public void updateStatusEnAttente(@RequestParam Long id) throws DomainException,FrontException {
 		autorisationServices.updateStatus(id, "Attente");
 	}
     
     
-    @RequestMapping(value = "/acceptee", method = RequestMethod.PUT)
+    @RequestMapping(value = "/Acceptée", method = RequestMethod.PUT)
 	public void updateStatusAccepter(@RequestParam Long id) throws DomainException,FrontException {
 		autorisationServices.updateStatus(id, "Acceptée");
 	}
     
-    @RequestMapping(value = "/refusee", method = RequestMethod.PUT)
+    @RequestMapping(value = "/Réfusée", method = RequestMethod.PUT)
 	public void updateStatusRefuser(@RequestParam Long id)throws DomainException,FrontException {
-		autorisationServices.updateStatus(id, "Refusée");	
+		autorisationServices.updateStatus(id, "Réfusée");	
 	}
     
     
