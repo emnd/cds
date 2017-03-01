@@ -38,5 +38,6 @@
   "envoyer":"Envoyer la demande",
   "statut.attente":"Attente",
   "statut.acceptee" : "Acceptée",
-  "statut.refusee" :"Réfusée"
+  "statut.refusee" :"Réfusée",
+  "zmod-model.extend.title" : "Prolongation d'une demande"
 }

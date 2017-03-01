@@ -72,7 +72,7 @@ public interface AutorisationServices {
     public DomainAutorisation findAutorisation(Long id) throws DomainException;
     public List<DomainAutorisation> authorisationHistory() throws DomainException;  // liste des authorisations
     public List<DomainAutorisation> authorisationHistory(String applicantLogin) throws DomainException; // Liste des authorisations 
-    public void updateStatus(Long id, String decision) throws DomainException;
+    public void updateStatus(Long id, String decision, String decider) throws DomainException;
     public List<DomainAutorisation> activeAuthorisations(Date date) throws DomainException;
     public List<DomainAutorisation> findAuthorisationByProject(String projectName) throws DomainException;
     public List<DomainAutorisation> findAuthorisationByCollaborator(String loginOpen, String emailOpen) throws DomainException;

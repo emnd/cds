@@ -261,11 +261,11 @@ public class AutorisationServicesImpl implements AutorisationServices {
     
     @Override
     @Transactional
-    public void updateStatus(Long id, String decision) throws DomainException{
+    public void updateStatus(Long id, String decision, String decider) throws DomainException{
     	
         Authorisation authorisation = authorisationRepository.findOne(id);
         Request request = authorisation.getRequest();
-        //request.setApplicant("user");
+        request.setDecider(decider);
         request.setReplyDate(new Date()); //today
         authorisation.setStatus(decision);
         

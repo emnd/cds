@@ -765,3 +765,37 @@ input[class*='ng-invalid'].ng-touched{
 
 
 /*End added by Ion DANILA*/
+
+/* extend debut */
+
+/* MND15281*/
+
+.container{
+
+}
+
+/* dimension des input du formulaire de prolongation d'accès */
+.extend input, .locationEdit input, .equipementEdit input
+{
+	width: 40%;
+}
+
+/* dimension des textearea du formulaire de prolongation d'accès */
+.extend textarea.form-control,.locationEdit textarea.form-control,.equipementEdit textarea.form-control, .equipementEdit select.form-control
+{
+    width : 40%;
+    height : 10%;
+}
+
+/* dimension du button annuler du formulaire de prolongation d'accès */
+.extend .annuler,.equipementEdit .annuler,.locationEdit .annuler
+{
+	width: 10%;
+}
+
+/* redimension du modal le 20-01-2017 PAR MND15281*/
+div.my-modal > div.modal-dialog {
+  width: 1000px !important;
+}
+
+/* extend fin */

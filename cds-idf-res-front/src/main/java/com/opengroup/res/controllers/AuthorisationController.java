@@ -299,20 +299,20 @@ public class AuthorisationController {
         return authorisationRepresentationMapper.convertListDomainListToListRepresentation(authorisationsToday);
     }
     
-    @RequestMapping(value = "/Attente", method = RequestMethod.PUT)
-	public void updateStatusEnAttente(@RequestParam Long id) throws DomainException,FrontException {
-		autorisationServices.updateStatus(id, "Attente");
+    @RequestMapping(value = "/Attente/{id}:{decider}", method = RequestMethod.PUT) // le statut en attente
+	public void updateStatusEnAttente(@PathVariable Long id, @PathVariable String decider) throws DomainException,FrontException {
+		autorisationServices.updateStatus(id, "Attente",decider);
 	}
     
     
-    @RequestMapping(value = "/Acceptée", method = RequestMethod.PUT)
-	public void updateStatusAccepter(@RequestParam Long id) throws DomainException,FrontException {
-		autorisationServices.updateStatus(id, "Acceptée");
+    @RequestMapping(value = "/Acceptée/{id}:{decider}", method = RequestMethod.PUT) // le statut en acceptée
+	public void updateStatusAccepter(@PathVariable Long id, @PathVariable String decider) throws DomainException,FrontException {
+		autorisationServices.updateStatus(id, "Acceptée",decider);
 	}
     
-    @RequestMapping(value = "/Réfusée", method = RequestMethod.PUT)
-	public void updateStatusRefuser(@RequestParam Long id)throws DomainException,FrontException {
-		autorisationServices.updateStatus(id, "Réfusée");	
+    @RequestMapping(value = "/Refusée/{id}:{decider}", method = RequestMethod.PUT) // le statut en refusée
+	public void updateStatusRefuser(@PathVariable Long id, @PathVariable String decider)throws DomainException,FrontException {
+		autorisationServices.updateStatus(id, "Refusée",decider);	
 	}
     
     
