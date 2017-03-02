@@ -1,5 +1,5 @@
 <meta charset="UTF-8" />
-<div class="container" ng-controller="AuthorisationsController">
+<div class="container" ng-controller="AuthorisationController">
 	<fieldset id ="extend" class="extend">
 			<h3 >Prolongation de demande d'accès</h3>
 			<form method="post" ng-submit="save()" data-toggle="validator" role="form">
@@ -8,15 +8,15 @@
 				</div>
 				<div class="form-group">
 					<label for="lastName">Nom du collaborateur</label>
-					<input type="text" id="lastName" ng-model="lastName" value="{{lastName}}" readonly class="form-control" />
+					<input type="text" id="lastName" ng-model="lastName" value="{{lastName}}" readonly class="form-control" required />
 				</div>
 				<div class="form-group">
 					<label for="firstName">Prénom du collaborateur</label>
-					<input type="text" id="firstName" ng-model="firstName" value="{{firstName}}" readonly  class="form-control" />
+					<input type="text" id="firstName" ng-model="firstName" value="{{firstName}}"  readonly class="form-control" required />
 				</div>
 				<div class="form-group">
 					<label for="dteFinIni">Date de fin initiale</label>
-					<input type="date" id="dteFinIni" ng-model="periodEnd"  value="{{periodEnd |date:'yyyy-MM-dd'}}" readonly class="form-control" />
+					<input type="date" id="dteFinIni" ng-model="periodEnd"  value="{{periodEnd |date:'yyyy-MM-dd'}}" readonly class="form-control" required />
 				</div>
 				<div class="form-group">
 					<label for="extendedDate">Date de prolongation *</label>
@@ -24,7 +24,7 @@
 				</div>
 				<div class="form-group">
 					<label for="emailOpen">Email Open *</label>
-					<input id="emailOpen" type="text" ng-model="emailOpen" value="{{emailOpen}}" readonly class="form-control" required/>
+					<input id="emailOpen" type="text" ng-model="emailOpen" value="{{emailOpen}}" class="form-control"  readonly required/>
 				</div>
 				<div class="form-group">
 					<label for="projet">Projet</label>

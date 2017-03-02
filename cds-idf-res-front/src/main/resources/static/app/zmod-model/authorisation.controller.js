@@ -18,6 +18,8 @@
     
     var userInfos = []; // recuperation des informations de l'utilisateur courant
     var userName, userEmail;
+    
+    var applicant,applicantEmail,decider,firstName,lastName,id,motive,periodEnd,periodStart,projectName,replyDate,requestDate,status,firstName,lastName, extendedDate,emailOpen,loginOpen,text, buOpen;
 	  
 	  $http({ 
 			method : 'GET',
@@ -26,6 +28,7 @@
 			$scope.userInfos = response.data;
 			console.log(" les infos users : "+$scope.userInfos);
 			console.log("UserName : "+$scope.userInfos[0]); // userName du LDAP
+			self.userName = $scope.userInfos[0];
 			console.log("UserEmail : "+$scope.userInfos[1]); // userEmail du LDAP
 		}, function errorCallback(response) {
 
@@ -41,21 +44,138 @@
     columnDefs : [
                   { name: 'demandeID', field:'request.id',visible:false},
                   { name: 'date_de_la_demande', field:'request.requestDate',width:"18%"}, //for now, these are String
+                  { name: 'decideur', field:'request.decider',enableFiltering: false,width :40, visible:false},
+                  { name: 'nom_du_demandeur', field:'request.applicant',enableFiltering: false, width :40, visible:false },
                   { name: 'collaborateurID', field: 'collaborator.id',visible:false},
                   { name: 'collaborateurLoginOpen', field: 'collaborator.loginOpen', visible:false},
                   { name: 'collaborateurEmail', field: 'collaborator.emailOpen',visible:false},
                   { name: 'Nom', field:'collaborator.firstName',width:"15%"},
                   { name: 'Prénom', field:'collaborator.lastName',width:"15%"},
+                  { name: 'BuOpen', field:'collaborator.buOpen',width:"15%",visible:false},
+                  { name: 'LoginOpen', field:'collaborator.loginOpen',width:"15%",visible:false},
                   { name: 'date de début', field:'periodStart',width:"12%"}, //for now, these are String
                   { name: 'date de fin', field:'periodEnd',width:"10%"},
                   { name: 'projetID' , field: 'project.id', visible:false},
                   { name: 'projet' , field: 'project.projectName', cellTooltip: function(row) { return row.entity.projet; },width:"20%"},
-                  { name: 'statut', field: 'status',width:"10%"}
+                  { name: 'statut', field: 'status',width:"10%"},
+                  { name: 'Prolonger',field: 'id',cellTemplate: '/app/zmod-model/extend.button.template.html',enableFiltering: false,width:"15%"} 
                   
                   ]
              };
 
     $scope.gridOptions.multiSelect = true;
+    
+    // Debut de  la prolongation
+    $scope.extend = function(){
+   	 var ligne = $scope.row.entity;  // ligne d'une demande avec toutes les colonnnes (attributs)
+   	 console.log(ligne);
+   	 $scope.applicant = ligne.request.applicant;
+   	$scope.decider = ligne.request.decider;
+   	$scope.emailOpen = ligne.collaborator.emailOpen;
+   	$scope.firstName = ligne.collaborator.firstName; // le firsrtName du collaborateur
+   	$scope.lastName = ligne.collaborator.lastName; //// le lastName du collaborateur
+   	 
+   	$scope.id =  ligne.id;
+   	$scope.motive = ligne.motive;
+   	$scope.periodEnd= new Date(ligne.periodEnd);       // new Date() permet de recuperer la donnée en format date
+   	$scope.periodStart = new Date(ligne.periodStart);  // new Date() permet de recuperer la donnée en format date
+   	$scope.projectName = ligne.project.projectName;
+   	$scope.replyDate = new Date(ligne.request.replyDate);     // new Date() permet de recuperer la donnée en format date
+   	$scope.requestDate = new Date(ligne.request.requestDate);  // new Date() permet de recuperer la donnée en format date
+   	$scope.status = ligne.status;
+   	$scope.loginOpen = ligne.collaborator.emailOpen;
+   	$scope.buOpen= ligne.collaborator.buOpen;
+   	
+   	 
+   	console.log("demandeur : " +$scope.applicant+ "\n decider : "+$scope.decider+ 
+   			"\n firstName : " +$scope.firstName+"\n lastName : " +$scope.lastName+ "\n id : "+$scope.id+"\n motive : " +$scope.motive+
+   			"\n periodEnd :"+$scope.periodEnd+"\n periodStart : "+$scope.periodStart+ "\n projectName : "+$scope.projectName+
+   			"\n replyDate : "+$scope.replyDate+ "\n requestDate : "+$scope.requestDate+"\n status : "+ $scope.status+ "\n emailOpen :"+$scope.emailOpen);
+   	
+   	// ouverture du popup après click sur prolongation
+   	var $uibModalInstance = $uibModal.open({
+        templateUrl: '/app/zmod-model/extend.authorisation.template.html',
+        scope: $scope
+   	});
+   	
+   	 // pour l'annulation de la prolongation
+   	$scope.cancel = function() {
+   		console.log("Prolongation annulée !"); 
+   		$uibModalInstance.dismiss();
+   	      
+   	    };
+   	    
+   	    self.extendedDate= new Date($scope.extendedDate); // la date de prolongation recuperéé par $scope.extendedDate le 19/12/2016
+   	    console.log(" date de prolongation : "+self.extendedDate);
+   	    self.emailOpen = $scope.emailOpen;
+   	
+   };
+   
+   self.requestDate = new Date(); // la date du jour 
+   //$scope.emailOpen = self.firstName.toLowerCase()+"."+self.lastName.toLowerCase()+$scope.emailOpen;
+   // pour la validation de la prolongation
+   self.text=" Le statut de la demande et/ou la date de prolongation ne permet pas la prolongation de votre demande";
+   
+   $scope.save = function() {
+   	//console.log("je suis dans le save de la prolongation");
+			if( ($scope.status=="Acceptée") && ( (+$scope.periodEnd)  > (+$scope.requestDate) ) && ((+$scope.periodEnd) < (+$scope.extendedDate))) // rajouter des + pour comparer deux dates
+			{ // a revoir les conditions
+				$http({
+					method : 'POST',
+					url : '/authorisation/',
+					data : 
+						{
+							"request": {
+						      "requestDate": new Date(),
+						      "replyDate": null,
+						      "applicant": $scope.userInfos[0],
+						      "decider": "",
+						      "applicantEmail" :$scope.userInfos[1]
+						    },
+						    "collaborator": {
+						      "loginOpen": $scope.loginOpen,
+						      "lastName": $scope.lastName,
+						      "firstName": $scope.firstName,
+						      "emailOpen": $scope.emailOpen,
+						      "buOpen": $scope.buOpen
+						    },
+						    "project": {
+						      "projectName": $scope.projectName,
+						      "periodStart": $scope.periodStart,
+						      "periodEnd": $scope.periodEnd
+						    },
+						    "periodStart": $scope.periodEnd,
+						    "periodEnd": $scope.extendedDate,
+						    "equipment": $scope.equipement,
+						    "motive": $scope.motive,
+						    "status": ""
+					}
+				}).then(function successCallback(response) {
+					$scope.text=" Demande de prolongation envoyé";
+					console.log($scope.text);
+					//alert($scope.text);
+					
+					console.log(" extentedDate "+$scope.extendedDate+" emailOpen "+$scope.emailOpen);
+					console.log( $scope.periodEnd + " " + $scope.extendedDate );
+					location.reload();  		// pour recharger la page courante
+				}, function errorCallback(response) {
+	
+				});
+			}
+			else{
+				$scope.text = self.text +" le statut "+self.status+" de la demande ou la date de prolongation ne permet pas la prolongation de votre demande";
+				console.log($scope.text);
+				
+				console.log(self.status=="Acceptée");
+				console.log(+$scope.periodEnd > +$scope.requestDate);
+				console.log("$scope.extentedDate is "+$scope.extendedDate);
+				console.log("le scope est "+$scope.extendedDate);
+				console.log( +$scope.periodEnd > +$scope.extendedDate );
+				//location.reload();  		// pour recharger la page courante
+			}
+   		};
+    
+    // fin de la prolongation
     
   //REST resource for the current user
     //We might have to wait for AuthService to load the user
@@ -64,7 +184,7 @@
     var interval = setInterval(function() {
               //if not undefined
             //restURL = '/requestList/' + AuthService.userLogin();
-             deferred.resolve('/requestList/'+$scope.userInfos[0]); // userName = $scope.userInfos[0] pour recuperer la liste des demandes de l'utilisateur courant
+             deferred.resolve('/requestList/'+self.userName); // userName = $scope.userInfos[0] pour recuperer la liste des demandes de l'utilisateur courant
          }, 50);
     //... and then we load the table data
     deferred.promise.then(function(restURL){
