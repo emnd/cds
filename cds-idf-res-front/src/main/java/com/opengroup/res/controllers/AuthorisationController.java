@@ -188,7 +188,7 @@ public class AuthorisationController {
 					"Attente", 
 					domainProject);
 			
-			// pour l'envoi de la notification
+			// debut pour l'envoi de la notification
 			try {
 				autorisationServices.sendNotificationDemander(domainAutorisation.getDomainCollaborator().getFirstName(),
 				domainAutorisation.getDomainCollaborator().getLastName(), 
@@ -198,6 +198,17 @@ public class AuthorisationController {
 			catch (MailException e) {
 				System.out.println("Error mail: " + e.getMessage());
 			}
+			
+			try {
+				autorisationServices.sendNotificationDecider(domainAutorisation.getDomainCollaborator().getFirstName(),
+				domainAutorisation.getDomainCollaborator().getLastName(), 
+				domainAutorisation.getDomainCollaborator().getEmailOpen(), 
+				"moussa.ndiaye@open-groupe.com"); // pour le decideur à l'instant initialisé a "moussa.ndiaye@open-groupe.com"
+			}
+			catch (MailException e) {
+				System.out.println("Error mail: " + e.getMessage());
+			}
+			//fin envoi de mail
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucBuilder.path("/authorisation/{id}").buildAndExpand(authorisationRepresentation.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
