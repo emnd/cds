@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.mail.MailException;
+
 /**
  * Define the API to manipulate Autorisation
  *
@@ -99,4 +101,18 @@ public interface AutorisationServices {
      * @throws DomainException
      */
     <T extends DomainAutorisation> void deleteAutorisation(T typedAutorisation) throws DomainException;
+
+	void sendNotificationDecider(String firstName, String lastName, String loginOpen, String applicantEmail)
+			throws MailException;
+
+	void sendNotificationDemander(String firstName, String lastName, String emailOpen, String applicantEmail)
+			throws MailException;
+
+	void sendNotificationDemanderAccepted(String firstName, String lastName, String emailOpen, String applicantEmail)
+			throws MailException;
+
+	void sendNotificationDemanderRefused(String firstName, String lastName, String emailOpen, String applicantEmail)
+			throws MailException;
+	void sendNotificationDemanderWaited(String firstName, String lastName, String emailOpen, String applicantEmail)
+			throws MailException;
 }

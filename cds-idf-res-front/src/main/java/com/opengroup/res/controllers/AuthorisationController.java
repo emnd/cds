@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -186,8 +187,17 @@ public class AuthorisationController {
 					motive, 
 					"Attente", 
 					domainProject);
-	
 			
+			// pour l'envoi de la notification
+			try {
+				autorisationServices.sendNotificationDemander(domainAutorisation.getDomainCollaborator().getFirstName(),
+				domainAutorisation.getDomainCollaborator().getLastName(), 
+				domainAutorisation.getDomainCollaborator().getEmailOpen(), 
+				domainAutorisation.getDomainRequest().getApplicantEmail()); // pour le demandeur et pour le collaborateur
+			}
+			catch (MailException e) {
+				System.out.println("Error mail: " + e.getMessage());
+			}
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucBuilder.path("/authorisation/{id}").buildAndExpand(authorisationRepresentation.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -302,17 +312,55 @@ public class AuthorisationController {
     @RequestMapping(value = "/Attente/{id}:{decider}", method = RequestMethod.PUT) // le statut en attente
 	public void updateStatusEnAttente(@PathVariable Long id, @PathVariable String decider) throws DomainException,FrontException {
 		autorisationServices.updateStatus(id, "Attente",decider);
+		DomainAutorisation domainAutorisation = autorisationServices.findAutorisation(id);
+		try{
+			autorisationServices.sendNotificationDemanderWaited(domainAutorisation.getDomainCollaborator().getFirstName(),
+					domainAutorisation.getDomainCollaborator().getLastName(), 
+					domainAutorisation.getDomainCollaborator().getEmailOpen(), 
+					domainAutorisation.getDomainRequest().getApplicantEmail()
+					);
+		}
+		catch (MailException e) {
+			System.out.println("Error mail: " + e.getMessage());
+		}
+		
 	}
     
     
     @RequestMapping(value = "/Acceptée/{id}:{decider}", method = RequestMethod.PUT) // le statut en acceptée
 	public void updateStatusAccepter(@PathVariable Long id, @PathVariable String decider) throws DomainException,FrontException {
 		autorisationServices.updateStatus(id, "Acceptée",decider);
+		// pour l'envoi de la notification
+		DomainAutorisation domainAutorisation = autorisationServices.findAutorisation(id);
+		try{
+			autorisationServices.sendNotificationDemanderAccepted(domainAutorisation.getDomainCollaborator().getFirstName(),
+					domainAutorisation.getDomainCollaborator().getLastName(), 
+					domainAutorisation.getDomainCollaborator().getEmailOpen(), 
+					domainAutorisation.getDomainRequest().getApplicantEmail()
+					);
+		}
+		catch (MailException e) {
+			System.out.println("Error mail: " + e.getMessage());
+		}
+		
 	}
     
     @RequestMapping(value = "/Refusée/{id}:{decider}", method = RequestMethod.PUT) // le statut en refusée
 	public void updateStatusRefuser(@PathVariable Long id, @PathVariable String decider)throws DomainException,FrontException {
-		autorisationServices.updateStatus(id, "Refusée",decider);	
+		autorisationServices.updateStatus(id, "Refusée",decider);
+		// pour l'envoi de la notification
+		DomainAutorisation domainAutorisation = autorisationServices.findAutorisation(id);
+		try{
+			autorisationServices.sendNotificationDemanderRefused(domainAutorisation.getDomainCollaborator().getFirstName(),
+					domainAutorisation.getDomainCollaborator().getLastName(), 
+					domainAutorisation.getDomainCollaborator().getEmailOpen(), 
+					domainAutorisation.getDomainRequest().getApplicantEmail()
+					);
+		}
+		catch (MailException e) {
+			System.out.println("Error mail: " + e.getMessage());
+		}
+		
 	}
     
     

@@ -26,6 +26,9 @@ import com.opengroup.res.organization.UserServices;
 import ch.qos.logback.core.net.SyslogOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,8 +88,12 @@ public class AutorisationServicesImpl implements AutorisationServices {
     @Autowired
     private RequestServices requestServices;
     
+    private String autoEmail = "noreply@open-groupe.com";
+    
     @Autowired
-    private UserServices userServices;
+	private JavaMailSender javaMailSender;
+    
+  
 
     @Override
     @Transactional
@@ -354,6 +361,118 @@ public class AutorisationServicesImpl implements AutorisationServices {
     public Set<DomainAutorisation> listAll() throws DomainException {
         return new HashSet<>(autorisationMapper.toDomains(authorisationRepository.findAll()));
     }
+    
+    // debut notification d'email
+    @Override
+    public void sendNotificationDecider(String firstName, String lastName, String loginOpen, String deciderEmail) throws MailException{
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setTo(deciderEmail);
+		mail.setFrom(autoEmail);
+		mail.setSubject("Demande d'autorisation au centre de service");
+		mail.setText("Bonjour, vous avez une demande d'accès au centre de service pour le collaborateur : " + firstName + " "+ lastName +" "+ loginOpen );
+		
+		javaMailSender.send(mail);
+		
+		
+	}
+    @Override
+	public void sendNotificationDemander(String firstName, String lastName, String emailOpen, String applicantEmail) throws MailException{
+		SimpleMailMessage mail = new SimpleMailMessage();
+		String[] emails = {emailOpen,applicantEmail};
+		
+		for(int i=0; i<emails.length; i++)
+		{
+			mail.setTo(emails[i]);
+			mail.setFrom(autoEmail);
+			mail.setSubject("Demande d'autorisation au centre de service : Envoyée");
+			if(emails[i] == emailOpen)
+			{
+				mail.setText("Bonjour, "+firstName +" "+ lastName+" "+  ", votre demande d'accès au centre de service a été envoyée");
+			}
+			else
+			{
+				mail.setText("Bonjour, votre demande d'accès au centre de service a été envoyée pour "+firstName +" "+ lastName);
+			}
+			
+			javaMailSender.send(mail);
+		}
+		
+		
+	}
+	
+    @Override
+	public void sendNotificationDemanderAccepted(String firstName,String lastName ,String emailOpen, String applicantEmail) throws MailException{
+		SimpleMailMessage mail = new SimpleMailMessage();
+		String[] emails = {emailOpen,applicantEmail};
+		
+		for(int i=0; i<emails.length; i++)
+		{
+			mail.setTo(emails[i]);
+			mail.setFrom(autoEmail);
+			mail.setSubject("Demande d'autorisation au centre de service : Acceptée");
+			if(emails[i] == emailOpen)
+			{
+				mail.setText("Bonjour "+firstName +" "+ lastName+" "+  ", votre demande d'accès au centre de service a été acceptée");
+			}
+			else
+			{
+				mail.setText("Bonjour, votre demande d'accès au centre de service a été acceptée pour "+firstName +" "+ lastName);
+			}
+			
+			javaMailSender.send(mail);
+		}
+		
+		
+	}
+	
+    @Override
+	public void sendNotificationDemanderRefused(String firstName,String lastName ,String emailOpen, String applicantEmail) throws MailException{
+		SimpleMailMessage mail = new SimpleMailMessage();
+		String[] emails = {emailOpen,applicantEmail};
+		
+		for(int i=0; i<emails.length; i++)
+		{
+			mail.setTo(emails[i]);
+			mail.setFrom(autoEmail);
+			mail.setSubject("Demande d'autorisation au centre de service : Refusée");
+			if(emails[i] == emailOpen)
+			{
+				mail.setText("Bonjour "+firstName +" "+ lastName+" "+  ", votre demande d'accès au centre de service a été refusée");
+			}
+			else
+			{
+				mail.setText("Bonjour, votre demande d'accès au centre de service a été refusée pour "+firstName +" "+ lastName);
+			}
+			
+			javaMailSender.send(mail);
+		}	
+	}
+    
+    @Override
+	public void sendNotificationDemanderWaited(String firstName,String lastName ,String emailOpen, String applicantEmail) throws MailException{
+		SimpleMailMessage mail = new SimpleMailMessage();
+		String[] emails = {emailOpen,applicantEmail};
+		
+		for(int i=0; i<emails.length; i++)
+		{
+			mail.setTo(emails[i]);
+			mail.setFrom(autoEmail);
+			mail.setSubject("Demande d'autorisation au centre de service : En attente");
+			if(emails[i] == emailOpen)
+			{
+				mail.setText("Bonjour "+firstName +" "+ lastName+" "+  ", votre demande d'accès au centre de service est mise en attente");
+			}
+			else
+			{
+				mail.setText("Bonjour, votre demande d'accès au centre de service est mise en attente pour "+firstName +" "+ lastName);
+			}
+			
+			javaMailSender.send(mail);
+		}
+		
+		
+	}
+    // fin notification d'email
 
     @Override
     public <T extends DomainAutorisation> void createAutorisation(T typedAutorisation) throws DomainException {
