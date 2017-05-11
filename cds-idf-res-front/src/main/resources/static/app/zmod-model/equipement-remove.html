@@ -1,0 +1,37 @@
+<meta charset="UTF-8" />
+<div class="container" ng-controller="EquipementController">
+	<fieldset id ="equipementRemove" class="equipementRemove">
+		<h3 >Suppression de l'equipement</h3>
+			<form method="post" ng-submit="equipementDelete()" data-toggle="validator" role="form">
+				
+				<button   class="btn btn-primary" data-toggle="modal" data-target="#myExtendModal">Valider </button>&nbsp;&nbsp;&nbsp;
+				<input type="reset"  class="btn btn-secondary annuler"  ng-click="cancel()" value="Annuler" readonly />
+				</div>
+				
+				<!-- debut le 03/01/2017 -->
+		<div class="modal fade" id="myExtendModal" role="dialog" ng-if="idEq != null">
+    		<div class="modal-dialog">
+    
+      <!-- Modal content-->
+      			<div class="modal-content">
+        			<div class="modal-header">
+          				<button type="button" class="close" data-dismiss="modal">&times;</button>
+          				<h4 class="modal-title">Confirmation de suppression</h4>
+        			</div>
+       			 	<div class="modal-body">
+         			 	<span>Vous êtes sûr de supprimer l'équipement</span>
+
+        			</div>
+        			<div class="modal-footer">
+          				<button type="button" class="btn btn-default" data-dismiss="modal"  ng-click="cancel()">Close</button>
+       				 </div>
+      			</div>
+      
+    		</div>
+ 		 </div>
+		<!-- fin le 03/01/2017 -->
+				
+			</form>
+		</fieldset>
+		
+</div>

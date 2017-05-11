@@ -21,10 +21,10 @@ import com.opengroup.res.util.AbstractDomainMapper;
  */
 @Component
 public class EquipementMapper extends AbstractDomainMapper<DomainEquipement, Equipement> {
-	
+
 	@Autowired
 	private LocationMapper locationMapper;
-	
+
 	@Autowired
 	private CollaboratorMapper collaboratorMapper;
 
@@ -33,7 +33,7 @@ public class EquipementMapper extends AbstractDomainMapper<DomainEquipement, Equ
 		if (equipement == null) {
 			return null;
 		}
-		
+
 		Long id = equipement.getId();
 		String stationName = equipement.getStationName();
 		String serialNumber = equipement.getSerialNumber();
@@ -48,24 +48,23 @@ public class EquipementMapper extends AbstractDomainMapper<DomainEquipement, Equ
 		StateType stateType = DomainEquipement.StateType.valueOf(equipement.getStateType());
 		DomainLocation domainLocation = locationMapper.toOneDomain(equipement.getLocation());
 		DomainCollaborator domainCollaborator = (equipement.getCollaborator()!=null) ? collaboratorMapper.toOneDomain(equipement.getCollaborator()): null;
-		
-
+		//DomainCollaborator domainCollaborator = collaboratorMapper.toOneDomain(equipement.getCollaborator());
 		DomainEquipement domainEquipement = new DomainEquipement(stationName,serialNumber,mark,model,attributeDate,returnDate,purchaseDate, expectedDate,comments, equipementType,stateType,domainLocation,domainCollaborator,id);
-		
-		
+
+
 		return domainEquipement;
 
 	}
-	
 
-	
+
+
 	public Equipement toOneEntity(DomainEquipement domainEquipement) {
 		//Date now = new Date();
 
 		Equipement equipement = new Equipement();
 
-		
-        equipement.setId(domainEquipement.getId());
+
+		equipement.setId(domainEquipement.getId());
 		equipement.setStationName(domainEquipement.getStationNameEquipement());
 		equipement.setSerialNumber(domainEquipement.getSerialNumberEquipement());
 		equipement.setMark(domainEquipement.getMarkEquipement());
@@ -84,7 +83,7 @@ public class EquipementMapper extends AbstractDomainMapper<DomainEquipement, Equ
 		return equipement;
 	}
 
-	
+
 	public List<Equipement> convertDomainListToEntityList(List<DomainEquipement> listDomain) {
 
 		if (listDomain == null) {
@@ -101,9 +100,9 @@ public class EquipementMapper extends AbstractDomainMapper<DomainEquipement, Equ
 
 		return listEntity;
 	}
-    
-    
-    public List<DomainEquipement> convertEntityListToDomainList(List<Equipement> listEntity) throws DomainException {
+
+
+	public List<DomainEquipement> convertEntityListToDomainList(List<Equipement> listEntity) throws DomainException {
 
 		if (listEntity == null) {
 
@@ -119,5 +118,61 @@ public class EquipementMapper extends AbstractDomainMapper<DomainEquipement, Equ
 
 		return listDomain;
 	}
+
+
+	//mapper wth out Collaborator
+
+	public DomainEquipement toOneDomainWithoutCollab(Equipement equipement) throws DomainException {
+
+		if (equipement == null) {
+			return null;
+		}
+
+		DomainEquipement domainEquipement = new DomainEquipement(
+				equipement.getStationName(),
+				equipement.getSerialNumber(),
+				equipement.getMark(),
+				equipement.getModel(),
+				equipement.getAttributionDate(),
+				equipement.getReturnDate(),
+				equipement.getPurchaseDate(),
+				equipement.getExpectedDate(),
+				equipement.getComments(),
+				DomainEquipement.EquipementType.valueOf(equipement.getEquipmentType().toString()),
+				DomainEquipement.StateType.valueOf(equipement.getStateType()),
+				locationMapper.toOneDomain(equipement.getLocation()),
+				equipement.getId()
+
+		);
+		//System.out.println("Mon domaine collaborator à partir entity dans toOneDomain:"+domainEquipement.getDomainCollaborator().toString());
+		return domainEquipement;
+
+	}
+
+
+
+	public Equipement toOneEntityWithoutCollab(DomainEquipement domainEquipement) {
+		//Date now = new Date();
+
+		Equipement equipement = new Equipement();
+
+
+		equipement.setId(domainEquipement.getId());
+		equipement.setStationName(domainEquipement.getStationNameEquipement());
+		equipement.setSerialNumber(domainEquipement.getSerialNumberEquipement());
+		equipement.setMark(domainEquipement.getMarkEquipement());
+		equipement.setModel(domainEquipement.getModelEquipement());
+		equipement.setAttributionDate(domainEquipement.getAttributionDateEquipement());
+		equipement.setReturnDate(domainEquipement.getReturnDateEquipement());
+		equipement.setPurchaseDate(domainEquipement.getPurchaseDateEquipement());
+		equipement.setExpectedDate(domainEquipement.getExpectedDateEquipement());
+		equipement.setComments(domainEquipement.getCommentsEquipement());
+		equipement.setEquipmentType(domainEquipement.getEquipementType().toString());
+		equipement.setStateType(domainEquipement.getStateType().toString());
+		equipement.setLocation(locationMapper.toOneEntity(domainEquipement.getDomainLocation()));
+		return equipement;
+	}
+
+
 
 }

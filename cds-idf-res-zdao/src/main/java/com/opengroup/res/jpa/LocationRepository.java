@@ -16,12 +16,12 @@ import com.opengroup.res.jpa.entities.Location;
 public interface LocationRepository extends CrudRepository <Location, Long>
 {
 
- @Query("SELECT l FROM Location l WHERE "
-  + "LOWER(l.name) = LOWER(?1) "
-  + "AND LOWER(l.block) = LOWER(?2) "
-	+ "AND LOWER(l.place) = LOWER(?3) "
-)
-	List<Location> findByNameAndBlockAndPlace(String nameLocation,String blockLocation, String place);
- 
- List<Location> findAll();
+    @Query("SELECT l FROM Location l WHERE "
+            + "LOWER(l.name) = LOWER(?1) "
+            + "AND LOWER(l.block) = LOWER(?2) "
+            + "AND LOWER(l.place) = LOWER(?3) "
+    )
+    List<Location> findByNameAndBlockAndPlace(String nameLocation,String blockLocation, String place);
+
+    List<Location> findAll();
 }

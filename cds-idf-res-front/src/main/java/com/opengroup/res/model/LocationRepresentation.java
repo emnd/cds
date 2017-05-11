@@ -11,7 +11,7 @@ import com.opengroup.res.util.RepresentationBean;
  * @since 1.0.0
  */
 public class LocationRepresentation implements RepresentationBean {
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	private Long id;
 	private String nameLocation;
 	private String blockLocation;
@@ -41,11 +41,11 @@ public class LocationRepresentation implements RepresentationBean {
 	public void setPlaceLocation(String placeLocation) {
 		this.placeLocation = placeLocation;
 	}
-	public static long getSerialversionuid() {
+	/*public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	
-	
+	}*/
+
+
 	public List<EquipementRepresentation> getEquipementRepresentationList() {
 		return equipementRepresentationList;
 	}
@@ -53,8 +53,8 @@ public class LocationRepresentation implements RepresentationBean {
 	public void setEquipementRepresentationList(List<EquipementRepresentation> equipementRepresentationList) {
 		this.equipementRepresentationList = equipementRepresentationList;
 	}
-	
-	
+
+
 
 
 }

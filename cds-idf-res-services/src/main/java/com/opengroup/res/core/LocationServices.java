@@ -14,37 +14,37 @@ import java.util.Set;
  * @since 1.0.0
  */
 public interface LocationServices {
-	
+
     /**
      * Create and store a new parameter in the system, with the initial state and the owner of the creation step
      *
-     * @param context
-     * @param code
-     * @param value
-     * @param userId
+     * @param nameLocation
+     * @param blockLocation
+     * @param placeLocation
+     * @param id
      * @throws DomainException
      */
     void createLocation(String nameLocation, String blockLocation, String placeLocation) throws DomainException;
 
     /**
-     * @param context
-     * @param code
-     * @param value
-     * @param userId
+     * @param nameLocation
+     * @param blockLocation
+     * @param placeLocation
      * @throws DomainException
      */
     void updateLocation( String nameLocation, String blockLocation, String placeLocation,Long id) throws DomainException;
 
 
     /**
-     * @param context
-     * @param code
-     * @param userId
+     * @param nameLocation
+     * @param blockLocation
+     * @param placeLocation
+     * @param id
      * @throws DomainException
      */
     void deleteLocation(Long id) throws DomainException;
 
-    
+
     public DomainLocation findLocation(Long id) throws DomainException;
     /**
      * List all parameters of the system
@@ -56,7 +56,7 @@ public interface LocationServices {
 
     /**
      * A generic creation api method
-     * @param typedParameter
+     * @param typedLocation
      * @param <T> A specialized parameter
      * @throws DomainException
      */
@@ -64,7 +64,7 @@ public interface LocationServices {
 
     /**
      * A generic update api method
-     * @param typedParameter
+     * @param typedLocation
      * @param <T> A specialized parameter
      * @throws DomainException
      */
@@ -72,15 +72,15 @@ public interface LocationServices {
 
     /**
      * A generic delete api method
-     * @param typedParameter
+     * @param typedLocation
      * @param <T> A specialized parameter
      * @throws DomainException
      */
     <T extends DomainLocation> void deleteLocation(T typedLocation) throws DomainException;
-    
-    
-	DomainLocation findOne(Long id) throws DomainException;
 
-	Location findLocation(String name, String block, String place) throws DomainException;
-	public List<DomainLocation> fullListAll() throws DomainException;
+
+    DomainLocation findOne(Long id) throws DomainException;
+
+    Location findLocation(String name, String block, String place) throws DomainException;
+    public List<DomainLocation> fullListAll() throws DomainException;
 }

@@ -4,6 +4,7 @@ package com.opengroup.res.jpa.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ import com.opengroup.res.util.EntityBean;
 public class Equipement implements Serializable, EntityBean {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -41,14 +42,14 @@ public class Equipement implements Serializable, EntityBean {
 	private Date purchaseDate;
 	private Date expectedDate;
 	private String comments;
-    private String equipmentType;
+	private String equipmentType;
 	private String stateType;
 
-	
+
 	private int version;
 
 	private Location location;
-	
+
 	private Collaborator collaborator;
 
 	public Equipement() {
@@ -56,10 +57,19 @@ public class Equipement implements Serializable, EntityBean {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Equipement(String stationName, String serialNumber, String mark, String model, Date attributionDate,
-			Date returnDate, Date purchaseDate, Date expectedDate, String comments, String equipmentType,
-			String stateType, Location location,Collaborator collaborator) {
+
+
+	public Equipement(Long id) {
 		super();
+		this.id = id;
+	}
+
+
+
+	public Equipement(String stationName, String serialNumber, String mark, String model, Date attributionDate,
+					  Date returnDate, Date purchaseDate, Date expectedDate, String comments, String equipmentType,
+					  String stateType, Location location,Collaborator collaborator) {
+
 		this.stationName = stationName;
 		this.serialNumber = serialNumber;
 		this.mark = mark;
@@ -71,7 +81,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.comments = comments;
 		this.equipmentType = equipmentType;
 		this.stateType = stateType;
-	
+
 		this.location = location;
 		this.collaborator = collaborator;
 	}
@@ -155,7 +165,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.expectedDate = expectedDate;
 	}
 
-	
+
 	public String getComments() {
 		return comments;
 	}
@@ -165,8 +175,8 @@ public class Equipement implements Serializable, EntityBean {
 	}
 
 
-	
-	
+
+
 
 
 	public String getEquipmentType() {
@@ -188,19 +198,19 @@ public class Equipement implements Serializable, EntityBean {
 	public int getVersion() {
 		return version;
 	}
-	
-	
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-		
+
 	}
 
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
-	
-	@ManyToOne
+
+
+	@ManyToOne//(cascade=CascadeType.ALL)
 	@JoinColumn(name = "equipement_location_id")
 	public Location getLocation() {
 		return location;
@@ -209,8 +219,8 @@ public class Equipement implements Serializable, EntityBean {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
-	@ManyToOne
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "equipement_collaborator_id")
 	public Collaborator getCollaborator() {
 		return collaborator;
@@ -227,5 +237,5 @@ public class Equipement implements Serializable, EntityBean {
 				+ ", purchaseDate=" + purchaseDate + ", expectedDate=" + expectedDate + ", comments=" + comments
 				+ ", equipmentType=" + equipmentType + ", stateType=" + stateType +",location= "+location.toString()+ ",collaborator= "+collaborator.toString()+"]";
 	}
-	
+
 }

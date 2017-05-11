@@ -37,103 +37,103 @@ public class LocationResController {
 
     @Autowired
     private LocationRepresentationMapper locationRepresentationMapper;
-    
+
     @Autowired
     private LocationMapper locationMapper;
 
-    
+
     @Autowired
     private  LocationRepository locationRepository;
-    
+
     /**
      *
      * @return
      * @throws DomainException
      */
-  //methode get
+    //methode get
     @RequestMapping(value = "/services/location/", method = RequestMethod.GET)
     public ResponseEntity<List<LocationRepresentation>> listAll() throws DomainException {
-    
-    List<LocationRepresentation> locationRepresentation = locationRepresentationMapper.toRepresentations(locationServices.listAll());
-    if (locationRepresentation == null) {
-    return new ResponseEntity<List<LocationRepresentation>>(HttpStatus.NO_CONTENT);
-    } else {
-    return new ResponseEntity<List<LocationRepresentation>>(locationRepresentation, HttpStatus.OK);
-    }
+
+        List<LocationRepresentation> locationRepresentation = locationRepresentationMapper.toRepresentations(locationServices.listAll());
+        if (locationRepresentation == null) {
+            return new ResponseEntity<List<LocationRepresentation>>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<List<LocationRepresentation>>(locationRepresentation, HttpStatus.OK);
+        }
     }
 
-   //methode get by id 
+    //methode get by id
     @RequestMapping(value = "/services/location/{id}", method = RequestMethod.GET)
     public ResponseEntity<LocationRepresentation> get(@PathVariable("id") Long id) throws DomainException {
-    	DomainLocation domaineLocation = locationServices.findOne(id);
-		if (domaineLocation == null) {
-			return new ResponseEntity<LocationRepresentation>(HttpStatus.NOT_FOUND);
-		} else {
-			LocationRepresentation locationRepresentation = locationRepresentationMapper.toOneRepresentation(domaineLocation);
-			return new ResponseEntity<LocationRepresentation>(locationRepresentation, HttpStatus.OK);
-		
-	}
+        DomainLocation domaineLocation = locationServices.findOne(id);
+        if (domaineLocation == null) {
+            return new ResponseEntity<LocationRepresentation>(HttpStatus.NOT_FOUND);
+        } else {
+            LocationRepresentation locationRepresentation = locationRepresentationMapper.toOneRepresentation(domaineLocation);
+            return new ResponseEntity<LocationRepresentation>(locationRepresentation, HttpStatus.OK);
+
+        }
     }
-    
+
     //methode delete
     @RequestMapping(value = "/services/location/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<LocationRepresentation> delete(@PathVariable("id") Long id) throws DomainException {
-    LocationRepresentation locationRepresentation = locationRepresentationMapper.toOneRepresentation(locationServices.findOne(id));
-    if (locationRepresentation == null) {
-    return new ResponseEntity<LocationRepresentation>(HttpStatus.NOT_FOUND);
+        LocationRepresentation locationRepresentation = locationRepresentationMapper.toOneRepresentation(locationServices.findOne(id));
+        if (locationRepresentation == null) {
+            return new ResponseEntity<LocationRepresentation>(HttpStatus.NOT_FOUND);
+        }
+        locationServices.deleteLocation(id);
+        return new ResponseEntity<LocationRepresentation>(HttpStatus.NO_CONTENT);
     }
-    locationServices.deleteLocation(id);
-    return new ResponseEntity<LocationRepresentation>(HttpStatus.NO_CONTENT);
+
+
+    // methode post
+
+
+
+    @RequestMapping(value = "/services/location/", method = RequestMethod.POST)
+    public ResponseEntity<Void> create(@RequestBody LocationRepresentation locationRepresentation, UriComponentsBuilder ucBuilder) throws DomainException {
+        if(locationRepresentation.getId() != null && locationServices.findLocation(locationRepresentation.getId()) != null )
+        {
+            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+        }
+        else {
+            //DomainLocation domainLocation = locationRepresentationMapper.toOneDomain(locationRepresentation);
+
+
+            DomainLocation domainLocation = DomainLocation.newCreatedStateInstance(locationRepresentation.getNameLocation(),
+                    locationRepresentation.getBlockLocation(),
+                    locationRepresentation.getPlaceLocation(),
+                    locationRepresentation.getId());
+
+            //System.out.println(domainLocation);
+            locationServices.createLocation(locationRepresentation.getNameLocation(),
+                    locationRepresentation.getBlockLocation(),
+                    locationRepresentation.getPlaceLocation()
+            );
+            // locationRepository.save(locationMapper.toOneEntity(domainLocation));
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(ucBuilder.path("/services/location/{id}").buildAndExpand(locationRepresentation.getId()).toUri());
+            return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        }
+
     }
 
-    
-  // methode post  
-  
-
-	
-@RequestMapping(value = "/services/location/", method = RequestMethod.POST)
-public ResponseEntity<Void> create(@RequestBody LocationRepresentation locationRepresentation, UriComponentsBuilder ucBuilder) throws DomainException {
-	if(locationRepresentation.getId() != null && locationServices.findLocation(locationRepresentation.getId()) != null )
-	{
-		return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-	}
-	else {
-	//DomainLocation domainLocation = locationRepresentationMapper.toOneDomain(locationRepresentation);
-	 
-	
-    DomainLocation domainLocation = DomainLocation.newCreatedStateInstance(locationRepresentation.getNameLocation(),
-    		locationRepresentation.getBlockLocation(), 
-    		locationRepresentation.getPlaceLocation(),
-    		locationRepresentation.getId());
-	
-	//System.out.println(domainLocation);
-	 locationServices.createLocation(locationRepresentation.getNameLocation(),
-	    		locationRepresentation.getBlockLocation(), 
-	    		locationRepresentation.getPlaceLocation()
-	    		);
-	// locationRepository.save(locationMapper.toOneEntity(domainLocation));
-	 
-	 HttpHeaders headers = new HttpHeaders();
-	 	headers.setLocation(ucBuilder.path("/services/location/{id}").buildAndExpand(locationRepresentation.getId()).toUri());
-	 	return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-		}
-	
-}
-
-  //methose put
+    //methose put
     @RequestMapping(value = "/services/location/{id}", method = RequestMethod.PUT)
     public ResponseEntity<LocationRepresentation> update(@PathVariable("id") Long id, @RequestBody LocationRepresentation locationRepresentation) throws DomainException {
-    DomainLocation domainLocationRepresentation = locationServices.findOne(id);
-    if (domainLocationRepresentation == null) {
-    return new ResponseEntity<LocationRepresentation>(HttpStatus.NOT_FOUND);
-    } else {
-     		
- 
-    locationServices.updateLocation(locationRepresentation.getNameLocation(),
-    		locationRepresentation.getBlockLocation(), 
-    		locationRepresentation.getPlaceLocation(),
-    		locationRepresentation.getId());
-    return new ResponseEntity<LocationRepresentation>(HttpStatus.OK);
-    }
+        DomainLocation domainLocationRepresentation = locationServices.findOne(id);
+        if (domainLocationRepresentation == null) {
+            return new ResponseEntity<LocationRepresentation>(HttpStatus.NOT_FOUND);
+        } else {
+
+
+            locationServices.updateLocation(locationRepresentation.getNameLocation(),
+                    locationRepresentation.getBlockLocation(),
+                    locationRepresentation.getPlaceLocation(),
+                    locationRepresentation.getId());
+            return new ResponseEntity<LocationRepresentation>(HttpStatus.OK);
+        }
     }
 }

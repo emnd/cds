@@ -27,18 +27,18 @@ public class EquipementRepresentation implements RepresentationBean {
 
 	private EquipementType equipementType;
 	private StateType stateType;
-	
+
 	private LocationRepresentation locationRepresentation;
 	private CollaboratorRepresentation collaboratorRepresentation;
 
 
 	public Long getId() {
-			return id;
-		}
+		return id;
+	}
 
-		public void setId(Long id) {
-			this.id = id;
-		}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getStationNameEquipement() {
 		return stationNameEquipement;
@@ -114,7 +114,7 @@ public class EquipementRepresentation implements RepresentationBean {
 
 
 
-	
+
 
 	public EquipementType getEquipementType() {
 		return equipementType;
@@ -148,8 +148,8 @@ public class EquipementRepresentation implements RepresentationBean {
 		this.collaboratorRepresentation = collaboratorRepresentation;
 	}
 
-	
 
-	
-	
+
+
+
 }

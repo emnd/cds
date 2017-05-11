@@ -37,7 +37,7 @@ public class DomainCollaborator extends DomainBeanTrackable implements Serializa
      * @param lastName
      * @param firstName
      * @param buOpen
-     * @param autorisationList
+     * @param domainAuthorisationList
      */
     public DomainCollaborator(String loginOpen, String lastName,String firstName, String emailOpen, String buOpen) throws DomainException {
 
@@ -238,9 +238,9 @@ public class DomainCollaborator extends DomainBeanTrackable implements Serializa
     }
 
     /**
-     * Sets new AutorisationList.
+     * Sets new domainAutorisationList.
      *
-     * @param AutorisationList New value of domainAutorisationList.
+     * @param domainAutorisationList New value of domainAutorisationList.
      */
     public void setAutorisationList(List<DomainAutorisation> domainAuthorisationList) {
         this.domainAuthorisationList = domainAuthorisationList;

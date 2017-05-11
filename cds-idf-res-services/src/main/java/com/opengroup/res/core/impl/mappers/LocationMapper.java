@@ -17,43 +17,43 @@ import com.opengroup.res.jpa.entities.Location;
 import com.opengroup.res.jpa.entities.Parameter;
 import com.opengroup.res.util.AbstractDomainMapper;
 /**
- * 
+ *
  * A parameter mapper
  */
 @Component
 public class LocationMapper extends AbstractDomainMapper<DomainLocation, Location> {
-	
-public DomainLocation toOneDomain(Location location) throws DomainException {
-        
-    	if(location == null){
+
+	public DomainLocation toOneDomain(Location location) throws DomainException {
+
+		if(location == null){
 			return null;
 		}
-		
-    	DomainLocation domainLocation= new DomainLocation(location.getBlock(),location.getName(),location.getPlace(),location.getId());
-        return  domainLocation;
-    	
-    }
 
-  
-    public Location toOneEntity(DomainLocation domainLocation) {
-       // Date now = new Date();
-        
-        Location location = new Location();
-        
-        		
-        location.setId(domainLocation.getId());
-            
-       location.setBlock(domainLocation.getBlockLocation());
-        location.setName(domainLocation.getNameLocation());
-        location.setPlace(domainLocation.getPlaceLocation());
-       
-		
-        return location;
-    }
+		DomainLocation domainLocation= new DomainLocation(location.getBlock(),location.getName(),location.getPlace(),location.getId());
+		return  domainLocation;
+
+	}
 
 
-    
-	 
+	public Location toOneEntity(DomainLocation domainLocation) {
+		// Date now = new Date();
+
+		Location location = new Location();
+
+
+		location.setId(domainLocation.getId());
+
+		location.setBlock(domainLocation.getBlockLocation());
+		location.setName(domainLocation.getNameLocation());
+		location.setPlace(domainLocation.getPlaceLocation());
+
+
+		return location;
+	}
+
+
+
+
 	public List<Location> convertDomainListToEntityList(List<DomainLocation> listDomain) {
 
 		if (listDomain == null) {
@@ -70,9 +70,9 @@ public DomainLocation toOneDomain(Location location) throws DomainException {
 
 		return listEntity;
 	}
-    
-    
-    public List<DomainLocation> convertEntityListToDomainList(List<Location> listEntity) throws DomainException {
+
+
+	public List<DomainLocation> convertEntityListToDomainList(List<Location> listEntity) throws DomainException {
 
 		if (listEntity == null) {
 

@@ -23,24 +23,24 @@ import com.opengroup.res.util.mappers.AbstractFrontMapper;
 @Component
 public class LocationRepresentationMapper extends AbstractFrontMapper<DomainLocation, LocationRepresentation> {
 
-     public DomainLocation toOneDomain(LocationRepresentation representation) throws DomainException {
-    
-        return new DomainLocation(representation.getNameLocation(),representation.getBlockLocation(),representation.getPlaceLocation(),representation.getId());
-    }
+	public DomainLocation toOneDomain(LocationRepresentation representation) throws DomainException {
 
-    public LocationRepresentation toOneRepresentation(DomainLocation domain){
-    	LocationRepresentation locationRepresentation = new LocationRepresentation();
-    	locationRepresentation.setId(domain.getId());
-    	locationRepresentation.setPlaceLocation(domain.getPlaceLocation());
-    	locationRepresentation.setNameLocation(domain.getNameLocation());
-    	locationRepresentation.setBlockLocation(domain.getBlockLocation());
-        return locationRepresentation;
-    }
-    
-   
-    public List<DomainLocation> convertListRepresentationToListDomainList(List<LocationRepresentation> representationList) throws DomainException
-    {
-    	if (representationList == null) {
+		return new DomainLocation(representation.getNameLocation(),representation.getBlockLocation(),representation.getPlaceLocation(),representation.getId());
+	}
+
+	public LocationRepresentation toOneRepresentation(DomainLocation domain){
+		LocationRepresentation locationRepresentation = new LocationRepresentation();
+		locationRepresentation.setId(domain.getId());
+		locationRepresentation.setPlaceLocation(domain.getPlaceLocation());
+		locationRepresentation.setNameLocation(domain.getNameLocation());
+		locationRepresentation.setBlockLocation(domain.getBlockLocation());
+		return locationRepresentation;
+	}
+
+
+	public List<DomainLocation> convertListRepresentationToListDomainList(List<LocationRepresentation> representationList) throws DomainException
+	{
+		if (representationList == null) {
 
 			return null;
 		}
@@ -53,11 +53,11 @@ public class LocationRepresentationMapper extends AbstractFrontMapper<DomainLoca
 		}
 
 		return listDomain;
-    }
-    
-    public List<LocationRepresentation> convertListDomainListToListRepresentation(List<DomainLocation> domainList) throws DomainException
-    {
-    	if (domainList == null) {
+	}
+
+	public List<LocationRepresentation> convertListDomainListToListRepresentation(List<DomainLocation> domainList) throws DomainException
+	{
+		if (domainList == null) {
 
 			return null;
 		}
@@ -70,7 +70,7 @@ public class LocationRepresentationMapper extends AbstractFrontMapper<DomainLoca
 		}
 
 		return listRepresentation;
-    }
+	}
 
-    
+
 }

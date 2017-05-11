@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ import com.opengroup.res.util.EntityBean;
 
 /**
  * Data-model class for a "Location", the location where the "equipement" and "collaborator" are present
- * 
+ *
  * @author KAI15273.
  */
 @Entity
@@ -27,7 +28,7 @@ import com.opengroup.res.util.EntityBean;
 public class Location implements Serializable, EntityBean {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -35,20 +36,20 @@ public class Location implements Serializable, EntityBean {
 	private String name;
 	private String block;
 	private String place;
-	
+
 	private List<Equipement> equipments = new ArrayList<Equipement>();
-	
+
 	public Location() {
 		super();
 	}
 
 	public Location(String name, String block, String place) {
-	super();
-	this.name = name;
-	this.block = block;
-	this.place = place;
-}
-	
+		super();
+		this.name = name;
+		this.block = block;
+		this.place = place;
+	}
+
 	@Id
 	@GeneratedValue
 	public Long getId() {
@@ -95,9 +96,9 @@ public class Location implements Serializable, EntityBean {
 		this.place = place;
 	}
 
-	
-	
-	
+
+
+
 	@OneToMany(mappedBy="location")
 	public List<Equipement> getEquipments() {
 		return equipments;
@@ -105,6 +106,6 @@ public class Location implements Serializable, EntityBean {
 
 	public void setEquipments(List<Equipement> equipments) {
 		this.equipments = equipments;
-	}	
+	}
 
 }

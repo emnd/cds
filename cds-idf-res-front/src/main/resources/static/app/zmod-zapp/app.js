@@ -259,6 +259,42 @@ var app = angular.module('app', [
           }
         }
       })
+
+      //equipement
+         .state('dashboard.equipement',{
+              url:'/Gestion-des-ressources/Liste-des-equipements',
+              controller: 'EquipementController',
+              templateUrl:'/app/zmod-model/equipement.template.html',
+              resolve: {
+                loadMyFiles:function($ocLazyLoad) {
+                  return $ocLazyLoad.load({
+                    name:'app',
+                    files:[
+                    '/app/zmod-model/equipement.module.js',
+                    '/app/zmod-model/equipement.controller.js'
+                    ]
+                  })
+                }
+              }
+            })
+
+         //AjoutEquipement
+            .state('dashboard.AjoutEquipement',{
+              url:'/Gestion-des-ressources/formulaire-equipement',
+              controller: 'AjoutEquipementController',
+              templateUrl:'/app/layout/forms/form.ajout.equipement.html',
+              resolve: {
+                loadMyFiles:function($ocLazyLoad) {
+                  return $ocLazyLoad.load({
+                    name:'app',
+                    files:[
+                    '/app/layout/forms/form.ajout.equipement.module.js',
+                    '/app/layout/forms/form.ajout.equipement.controller.js'
+                    ]
+                  })
+                }
+              }
+            })
    	
   }]);
 });
