@@ -68,6 +68,7 @@ public class EquipementServicesImpl implements EquipementServices {
 
 	@Override
 	@Transactional
+	// with collaborator
 	public void createEquipement(String stationNameEquipement, String serialNumberEquipement, String markEquipement,
 								 String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement,
 								 Date expectedDateEquipement, String commentsEquipement, DomainEquipement.EquipementType equipementTypeEquipement,
@@ -317,9 +318,9 @@ public class EquipementServicesImpl implements EquipementServices {
 
 	/**
 	 * Track an history log - Can be provide as an internal transactional service
-	 * @param now
-	 * @param message
-	 * @param domainHistoryLog
+	 * @param
+	 * @param
+	 * @param
 	 */
  /*   private void logTrackEquipement(Date now, String message, DomainHistoryLog domainHistoryLog) {
         HistoryLog historyLog = new HistoryLog(domainHistoryLog.getDynRootContextName(),

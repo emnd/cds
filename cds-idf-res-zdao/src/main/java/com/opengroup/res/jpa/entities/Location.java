@@ -99,7 +99,7 @@ public class Location implements Serializable, EntityBean {
 
 
 
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location",cascade=CascadeType.ALL)
 	public List<Equipement> getEquipments() {
 		return equipments;
 	}
