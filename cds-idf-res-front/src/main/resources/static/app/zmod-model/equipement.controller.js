@@ -123,10 +123,11 @@
 	    	 vm.expectedDate = new Date(ligne.expectedDateEquipement);
 	    	 vm.comments = ligne.commentsEquipement; // commentaire sur le pc
 	    	 vm.equipementType = ligne.equipementType; // le type de pc "desktop ou laptop"
-	    	 vm.stateType = ligne.stateType; // le statut "disponible ou alloue"
-	    	
+	    	 vm.stateType = ligne.stateType; // lelocationRepresentation statut "disponible ou alloue"
+
 	    	
 	    	// vm.locationRepresentation = ligne.locationRepresentation ? ligne.locationRepresentation : null; // verification si equipement a été localisé ou pas
+	    	vm.idLoc = (ligne.locationRepresentation != null) ? ligne.locationRepresentation.id : null;
 	         vm.nameLocation = (ligne.locationRepresentation != null) ? ligne.locationRepresentation.nameLocation : null;
 	    	 vm.blockLocation = (ligne.locationRepresentation != null) ? ligne.locationRepresentation.blockLocation : null;
 	    	 vm.placeLocation = (ligne.locationRepresentation != null) ? ligne.locationRepresentation.placeLocation : null;
@@ -144,7 +145,7 @@
 	    	 
 	    	console.log("idEquipement : "+vm.idEq+"\n serialNumber : "+vm.serialNumber+"\n"+vm.mark+"\n"+vm.stationName+"\n"+vm.model+"\n"
 	    			+vm.comments+"\n"+ligne.equipementType+"\n"+ligne.stateType+"\n"+vm.purchaseDate+"\n"
-	    			+vm.attributionDate+"\n"+vm.returnDate+"\n"+vm.nameLocation+"\n"+vm.blockLocation+"\n"+vm.placeLocation
+	    			+vm.attributionDate+"\n"+vm.returnDate+"\n"+vm.nameLocation+"\n"+vm.blockLocation+"\n"+vm.placeLocation+"\n idLocation : "+vm.idLoc
 	    			+"\n"+vm.expectedDate+"\n"+vm.lastName+"\n"+vm.firstName+"\n"+vm.buOpen+"\n"+vm.emailOpen+"\n"+$scope.loginOpen+"\n"+vm.idCollab);
 	    	
 	     	// ouverture du popup après click sur modifier
@@ -195,6 +196,7 @@
 	    	$scope.adresseUrl = '/services/equipement/'+ $scope.idEq;
 	    	$scope.adresseUrlWithOutCollab= '/services/equipementWithOutCollab/'+ $scope.idEq;
 	    	console.log("adressUrl : "+$scope.adresseUrl);
+	    	console.log("id location : "+$scope.idLoc);
 	       if( $scope.idEq && $scope.stationName) 
 			{
 	    	   if($scope.lastName && $scope.firstName && $scope.buOpen && $scope.emailOpen && $scope.loginOpen)

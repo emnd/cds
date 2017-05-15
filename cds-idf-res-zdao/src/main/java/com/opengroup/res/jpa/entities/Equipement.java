@@ -220,7 +220,7 @@ public class Equipement implements Serializable, EntityBean {
 		this.location = location;
 	}
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne//(cascade=CascadeType.ALL)
 	@JoinColumn(name = "equipement_collaborator_id")
 	public Collaborator getCollaborator() {
 		return collaborator;

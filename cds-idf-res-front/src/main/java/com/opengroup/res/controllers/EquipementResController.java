@@ -178,7 +178,7 @@ public class EquipementResController {
     public ResponseEntity<EquipementRepresentation> update(@PathVariable("id") Long id, @RequestBody EquipementRepresentation equipementRepresentation) throws DomainException
     {
         System.out.println("je modifie avec un colaborator");
-        DomainEquipement domainEquipementRepresentation = equipementServices.findOne(id);
+        DomainEquipement domainEquipementRepresentation = equipementServices.findEquipement(id);
         if (domainEquipementRepresentation == null) {
             return new ResponseEntity<EquipementRepresentation>(HttpStatus.NOT_FOUND);
         } else {
@@ -227,7 +227,7 @@ public class EquipementResController {
     //Methode PUT with out Collab
     @RequestMapping(value = "/services/equipementWithOutCollab/{id}", method = RequestMethod.PUT)
     public ResponseEntity<EquipementRepresentation> updateWithOutCollab(@PathVariable("id") Long id, @RequestBody EquipementRepresentation equipementRepresentation) throws DomainException {
-        DomainEquipement domainEquipementRepresentation = equipementServices.findOne(id);
+        DomainEquipement domainEquipementRepresentation = equipementServices.findEquipement(id);
         if (domainEquipementRepresentation == null) {
             return new ResponseEntity<EquipementRepresentation>(HttpStatus.NOT_FOUND);
         } else {

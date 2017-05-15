@@ -95,6 +95,11 @@ public class EquipementServicesImpl implements EquipementServices {
 			collaboratorRepository.save(collaborator);   // creation du collaborator s'il n'existe pas
 		}
 
+
+		collaborator=collaboratorServices.findCollaborator(collaborator.getLoginOpen(),collaborator.getEmailOpen());
+
+
+
 		Location location = new Location();
 		Location existingLocation = locationServices.findLocation(domainLocation.getNameLocation(), domainLocation.getBlockLocation(), domainLocation.getPlaceLocation()); // recherche du collaborateur en base sinon l'inserer
 
@@ -104,6 +109,8 @@ public class EquipementServicesImpl implements EquipementServices {
 		{
 			locationRepository.save(location);   // creation du collaborator s'il n'existe pas
 		}
+
+		location=locationServices.findLocation(location.getName(), location.getBlock(), location.getPlace());
 
 		domainLocation = locationMapper.toOneDomain(location);
 		domainCollaborator = collaboratorMapper.toOneDomain(collaborator); // transformation du collaborator crée en domainCollaborator
@@ -154,7 +161,7 @@ public class EquipementServicesImpl implements EquipementServices {
 
 			//equipement.setCollaborator(collaboratorMapper.toOneEntity(domainEquipement.getDomainCollaborator()));
 			System.out.println("Je suis le collaborator : "+collab.toString());
-			//equipement.setCollaborator(collab);
+		//	equipement.setCollaborator(collab);
 		}
 
 		else
@@ -169,6 +176,7 @@ public class EquipementServicesImpl implements EquipementServices {
 				System.out.println("login existant : "+domainCollaborator.getLoginOpen()+" id : "+domainCollaborator.getId());
 				collab = collabExisting;
 				//equipement.setCollaborator(collab);
+				collaboratorServices.updateCollaborator(domainCollaborator.getId(),domainCollaborator.getLoginOpen(),domainCollaborator.getFirstName(),domainCollaborator.getLastName(),domainCollaborator.getEmailOpen(),domainCollaborator.getBuOpen());
 			}
 
 			else

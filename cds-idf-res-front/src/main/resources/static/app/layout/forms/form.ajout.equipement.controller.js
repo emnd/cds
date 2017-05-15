@@ -152,6 +152,7 @@ else{
 					 },
 					  "collaboratorRepresentation":
 					  {
+					    "id": null,
 			  			"loginOpen":$scope.loginOpen,
 			  			"lastName":$scope.lastName,
 			  			"firstName":$scope.firstName,

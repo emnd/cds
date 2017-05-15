@@ -395,8 +395,8 @@ public class DomainEquipement extends DomainBeanTrackable implements Serializabl
 
 
 
-	@Override
-	public String toString() {
+
+/*	public String toString() {
 		return "DomainEquipement [idEquipement=" + id + ", stationNameEquipement=" + stationNameEquipement
 				+ ", serialNumberEquipement=" + serialNumberEquipement + ", markEquipement=" + markEquipement
 				+ ", modelEquipement=" + modelEquipement + ", attributionDateEquipement=" + attributionDateEquipement
@@ -404,6 +404,6 @@ public class DomainEquipement extends DomainBeanTrackable implements Serializabl
 				+ purchaseDateEquipement + ", expectedDateEquipement=" + expectedDateEquipement
 				+ ", commentsEquipement=" + commentsEquipement + ", equipementTypeEquipement="
 				+ equipementType + ", stateTypeEquipement=" + stateType +",domainLocation "+domainLocation.toString()+ ",domainCollaborator "+domainCollaborator.toString()+"]";
-	}
+	}*/
 
 }

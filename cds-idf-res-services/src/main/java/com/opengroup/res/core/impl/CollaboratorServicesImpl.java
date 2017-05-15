@@ -66,6 +66,7 @@ public class CollaboratorServicesImpl implements CollaboratorServices {
         if (collaborator == null) {
             throw new DomainException("This collaborator does not exist");
 
+
         }
         collaborator.setId(domainCollaborator.getId());
         collaborator.setLoginOpen(domainCollaborator.getLoginOpen());
