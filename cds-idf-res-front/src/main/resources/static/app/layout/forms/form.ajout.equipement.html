@@ -1,131 +1,139 @@
-<meta charset="UTF-8" />
 <div class="container" ng-controller="AjoutEquipementController" >
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">{{"formulaireHeader" | translate}}</h1>
     </div>  
-    <!-- /.col-lg-12 -->
-</div>
 
-<!-- /.row -->
+</div> -->
+</br>
+
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-            {{"formulairePanelHeader" | translate}}
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <form method="post" ng-submit="AjoutEquipementFormSave()">
-                            <div class="form-group">
-                            <!--  <label for="idEq">Id</label> -->
-                                <input class="form-control" type="hidden" id="idEq" ng-model="idEq" value="idEq"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="stationNameEquipement">{{"StationName"|translate}}</label>
-					            <input type="text" class="form-control" id="stationNameEquipement" ng-model="stationName"  value="stationName" required/>
-                            </div>
-                             <div class="form-group">
-                                <label for="serialNumberEquipement">{{"SerialNumber"|translate}}</label>
-					            <input type="text" class="form-control" id="serialNumberEquipement" ng-model="serialNumber" value="serialNumber"/>
-                            </div>
-                             <div class="form-group">
-                                <label for="markEquipement">{{"Mark"|translate}}</label>
-					            <input type="text" class="form-control" id="markEquipement" ng-model="mark" value="mark"/>
-                            </div>
-                             <div class="form-group">
-                                <label for="modelEquipement">{{"Model" | translate}}</label>
-					            <input type="text" class="form-control" id="modelEquipement" ng-model="model" value="model"/>
-                            </div>
-                             <div class="form-group">
-                                <label for="attributionDateEquipement">{{"AttributionDate" | translate}}</label>
-					            <input type="date" class="form-control" id="attributionDateEquipement" placeholder="jj/mm/aaaa" ng-model="attributionDate" value="attributionDate"/>
-                            </div>
-                             <div class="form-group">
-                                <label for="returnDateEquipement">{{"ReturnDate"|translate}}</label>
-					            <input type="date" class="form-control" id="returnDateEquipement" placeholder="jj/mm/aaaa" ng-model="returnDate" value="returnDate"/>
-                            </div>
-                   
-                            
-                             <div class="form-group">
-                                <label for="purchaseDateEquipement">{{"PurchaseDate"|translate}}</label>
-					            <input type="date" class="form-control" id="purchaseDateEquipement" placeholder="jj/mm/aaaa" ng-model="purchaseDate" value="purchaseDate"/>
-                            </div>
-                             <div class="form-group">
-                                <label for="expectedDateEquipement">{{"ExpectedDate"|translate}}</label>
-					            <input type="date" class="form-control" id="expectedDateEquipement" placeholder="jj/mm/aaaa" ng-model="expectedDate" value="exceptedDate"/>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="commentsEquipement">{{"Comments"|translate}}</label>
-					            <input type="text" class="form-control" id="commentsEquipement" ng-model="comments" value="Equipement"/>
-                            </div>
-                            
-                             <div class="form-group">
-                                <label for="equipementType">{{"EquipementType"|translate}}</label>
-                             <select  id="equipementType" ng-model="equipementType" ng-options="equipementType as equipementType for equipementType in equipementTypes"  class="form-control"></select>
- 					
-                            </div>
-                            <div class="form-group">
-                                <label for="stateType">{{"StateType"|translate}}</label>
-                            <select  id="stateType" ng-model="stateType" ng-options="stateType as stateType for stateType in stateTypes" class="form-control" ></select>
-				                                         
-                            </div>
-                            
-                             <div class="form-group">
-<!--                              <label for="idLoc">locationId</label>  -->
-					         <input type="hidden"  class="form-control" id="idLoc" ng-model="idLoc" value="idLoc"/>
-                            </div>
-                             <div class="form-group">
-                             <label for="nameLocation">{{"NameLocation"|translate}}</label>
-					         <input type="text"  class="form-control" id="nameLocation" ng-model="nameLocation" value="nameLocation"/>
-                            </div>   
-                     
-                            <div class="form-group">
-                             <label for="blockLocation">{{"BlockLocation"|translate}}</label>
-					         <input type="text"  class="form-control" id="blockLocation" ng-model="blockLocation" value="blockLocation"/>
-                            </div>
-                            <div class="form-group">
-                             <label for="placeLocation">{{"PlaceLocation"|translate}}</label>
-					         <input type="text"  class="form-control" id="placeLocation" ng-model="placeLocation" value="placeLocation"/>
-                            </div>
-                            <div class="form-group">
-<!--                              <label for="collaboratorRepresentation.id">collaboratorId</label>   -->
-					         <input type="hidden"  class="form-control" id="idCollab" ng-model="idCollab" value="idCollab"/>
-                            </div>
-                              <div class="form-group">
-                             <label for="loginOpen">{{"LoginOpen"|translate}}</label>
-					         <input type="text"  class="form-control" id="loginOpen" ng-model="loginOpen" value="loginOpen"/>
-                            </div>
-                             <div class="form-group">
-                             <label for="lastName">{{"LastName"|translate}}</label>
-					         <input type="text"  class="form-control" id="lastName" ng-model="lastName" value="lastName"/>
-                            </div>
-                            <div class="form-group">
-                             <label for="firstName">{{"FirstName"|translate}}</label>
-					         <input type="text"  class="form-control" id="firstName" ng-model="firstName" value="firstName"/>
-                            </div>
-                            <div class="form-group">
-                             <label for="emailOpen">{{"EmailOpen"|translate}}</label>
-					         <input type="text"  class="form-control" id="emailOpen" ng-model="emailOpen" value="emailOpen"/>
-                            </div>
-                             <div class="form-group">
-                             <label for="buOpen">{{"BuOpen"|translate}}</label>
-					         <input type="text"  class="form-control" id="buOpen" ng-model="buOpen" value="buOpen"/>
-                            </div>
-                
-                            <input type="submit" value="Valider" class="btn btn-default"  />
-                        </form>
-                    </div>
-                    <!-- /.col-lg-6 (nested) -->
-                </div>
-                <!-- /.row (nested) -->
-            </div>
-            <!-- /.panel-body -->
+       <div class="row form-group well">
+           <center><h4><B> {{"formulairePanelHeader" | translate}} </B></h4></center>
         </div>
-        <!-- /.panel -->
-    </div>
-    <!-- /.col-lg-12 -->
-</div>
-</div>
+     <form method="post" name="formElement" class=" col-lg-12" ng-submit="AjoutEquipementFormSave()">
+
+          
+		<div class="row form-group well">
+           <!--  <label for="idEq">Id</label> -->
+               <input class="form-control" type="hidden" id="idEq" ng-model="idEq" value="idEq"/>
+		  <div class="col-sm-4">
+		  <label for="stationNameEquipement">{{"StationName"|translate}}</label>
+		  <input type="text" class="form-control" id="stationNameEquipement" ng-model="stationName"  value="stationName" required/>
+		  </div>
+		  <div class="col-sm-4">
+		  <label for="serialNumberEquipement">{{"SerialNumber"|translate}}</label>
+		  <input type="text" class="form-control" id="serialNumberEquipement" ng-model="serialNumber" value="serialNumber"/>
+		  </div>
+		  <div class="col-sm-4">
+		  <label for="markEquipement">{{"Mark"|translate}}</label>
+		  <input type="text" class="form-control" id="markEquipement" ng-model="mark" value="mark"/>
+		  </div>
+		   <div class="col-sm-4">
+		  <label for="modelEquipement">{{"Model" | translate}}</label>
+		  <input type="text" class="form-control" id="modelEquipement" ng-model="model" value="model"/>
+		  </div>
+		 <div class="col-sm-4">
+		 <label for="equipementType">{{"EquipementType"|translate}}</label>
+	     <select  id="equipementType" ng-model="equipementType" ng-options="equipementType as equipementType for equipementType in equipementTypes"  class="form-control"></select>
+         </div>
+		 <div class="col-sm-4">
+		 <label for="stateType">{{"StateType"|translate}}</label>
+		 <select  id="stateType" ng-model="stateType" ng-options="stateType as stateType for stateType in stateTypes" class="form-control" ></select>
+		 </div>
+		
+		</div>
+		
+		<div class="row form-group well">
+            
+		  <div class="col-sm-4">
+		  <label for="attributionDateEquipement">{{"AttributionDate" | translate}}</label>
+		  <input type="date" class="form-control" id="attributionDateEquipement" placeholder="jj/mm/aaaa" ng-model="attributionDate" value="attributionDate"/>
+		  </div>
+		  <div class="col-sm-4">
+		  <label for="returnDateEquipement">{{"ReturnDate"|translate}}</label>
+		  <input type="date" class="form-control" id="returnDateEquipement" placeholder="jj/mm/aaaa" ng-model="returnDate" value="returnDate"/>
+		  </div>			
+          <div class="col-sm-4">
+		  <label for="purchaseDateEquipement">{{"PurchaseDate"|translate}}</label>
+		  <input type="date" class="form-control" id="purchaseDateEquipement" placeholder="jj/mm/aaaa" ng-model="purchaseDate" value="purchaseDate"/>
+		  </div>
+		  <div class="col-sm-4">
+		 <label for="expectedDateEquipement">{{"ExpectedDate"|translate}}</label>
+		 <input type="date" class="form-control" id="expectedDateEquipement" placeholder="jj/mm/aaaa" ng-model="expectedDate" value="exceptedDate"/>
+		</div>
+		</div>
+	
+		
+		<div class="row form-group well">			
+		<div>
+	<!--<label for="idLoc">locationId</label>  -->
+		<input type="hidden"  class="form-control" id="idLoc" ng-model="idLoc" value="idLoc"/>
+		</div>
+		<div class="col-sm-4">
+	    <label for="nameLocation">{{"NameLocation"|translate}}</label>
+		<input type="text"  class="form-control" id="nameLocation" ng-model="nameLocation" value="nameLocation"/>
+		</div>   
+						 
+		<div class="col-sm-4">
+		<label for="blockLocation">{{"BlockLocation"|translate}}</label>
+		<input type="text"  class="form-control" id="blockLocation" ng-model="blockLocation" value="blockLocation"/>
+		</div>
+		<div class="col-sm-4">
+		<label for="placeLocation">{{"PlaceLocation"|translate}}</label>
+		<input type="text"  class="form-control" id="placeLocation" ng-model="placeLocation" value="placeLocation"/>
+		</div>
+		</div>
+		
+		<div class="row form-group well">	
+		<div>
+	<!-- <label for="collaboratorRepresentation.id">collaboratorId</label>   -->
+        <input type="hidden"  class="form-control" id="idCollab" ng-model="idCollab" value="idCollab"/>
+		</div>
+        <div class="col-sm-4">
+	    <label for="loginOpen">{{"LoginOpen"|translate}}</label>
+		<input type="text"  class="form-control" id="loginOpen" ng-model="loginOpen" value="loginOpen"/>
+		</div>
+	    <div class="col-sm-4">
+		<label for="lastName">{{"LastName"|translate}}</label>
+		<input type="text"  class="form-control" id="lastName" ng-model="lastName" value="lastName"/>
+		</div>
+		<div class="col-sm-4">
+		<label for="firstName">{{"FirstName"|translate}}</label>
+	    <input type="text"  class="form-control" id="firstName" ng-model="firstName" value="firstName"/>
+		</div>
+		<div class="col-sm-4">
+		<label for="emailOpen">{{"EmailOpen"|translate}}</label>
+		<input type="text"  class="form-control" id="emailOpen" ng-model="emailOpen" value="emailOpen"/>
+		</div>
+		<div class="col-sm-4">
+	    <label for="buOpen">{{"BuOpen"|translate}}</label>
+		<input type="text"  class="form-control" id="buOpen" ng-model="buOpen" value="buOpen"/>
+		</div>
+		
+		</div>
+	
+		
+		<div class="row form-group well">		 				
+		<div class="col-sm-8">
+		<label for="commentsEquipement">{{"Comments"|translate}}</label>
+		<textarea class="form-control"  id="commentsEquipement" nrows="2"  maxlength="200" g-model="comments" value="Equipement"></textarea>
+		</div>
+	
+		</div>
+	
+	
+        <input type="submit" value="Valider" class="btn btn-success pull-right"  />
+        <br />
+    
+        <!--Error messages-->
+        <br />
+		
+		</form>
+        
+		
+       </div>
+           
+   </div>
+ </div>        

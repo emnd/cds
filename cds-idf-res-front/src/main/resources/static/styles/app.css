@@ -780,12 +780,6 @@ input[class*='ng-invalid'].ng-touched{
 	width: 40%;
 }
 
-/* dimension des textearea du formulaire de prolongation d'accès */
-.extend textarea.form-control,.locationEdit textarea.form-control,.equipementEdit textarea.form-control, .equipementEdit select.form-control
-{
-    width : 40%;
-    height : 10%;
-}
 
 /* dimension du button annuler du formulaire de prolongation d'accès */
 .extend .annuler,.equipementEdit .annuler,.locationEdit .annuler
@@ -797,5 +791,37 @@ input[class*='ng-invalid'].ng-touched{
 div.my-modal > div.modal-dialog {
   width: 1000px !important;
 }
+
+.extend input, .locationEdit input, .equipementEdit input
+{
+	width: 60%;
+}
+
+/* dimension des textearea du formulaire de prolongation d'accès */
+.extend textarea.form-control,.locationEdit textarea.form-control,.equipementEdit textarea.form-control, .equipementEdit select.form-control
+{
+    width : 60%;
+    height : 10%;
+}
+
+
+
+div.modal-dialog
+{
+	width : 75% !important;
+}
+
+.equipementEditForm
+{
+	margin-right :10% ;
+	margin-left : -10%;
+}
+
+.valider
+{
+	width : 10% !important;
+}
+
+
 
 /* extend fin */
