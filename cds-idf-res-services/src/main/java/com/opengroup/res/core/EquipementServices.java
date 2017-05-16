@@ -43,14 +43,7 @@ public interface EquipementServices {
     void updateEquipementWithOutCollab(Long id, String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, DomainEquipement.EquipementType equipementTypeEquipement, DomainEquipement.StateType stateTypeEquipement, DomainLocation domainLocation) throws DomainException;
 
 
-    /**
-     * @param stationNameEquipement
-     * @param serialNumberEquipement
-     * @param markEquipement
-     * @param markEquipement
-     * @param modelEquipement
-     * @throws DomainException
-     */
+    /**/
     void deleteEquipement(Long id/*, String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, DomainEquipement.EquipementType equipementTypeEquipement, DomainEquipement.StateType stateTypeEquipement, DomainLocation domainLocation,DomainCollaborator domainCollaborator*/) throws DomainException;
     //  void deleteEquipementWithOutCollab(Long id, String stationNameEquipement, String serialNumberEquipement, String markEquipement, String modelEquipement, Date attributionDateEquipement, Date returnDateEquipement, Date purchaseDateEquipement, Date expectedDateEquipement, String commentsEquipement, DomainEquipement.EquipementType equipementTypeEquipement, DomainEquipement.StateType stateTypeEquipement, DomainLocation domainLocation)  throws DomainException;
     /**

@@ -240,7 +240,7 @@ public class DomainCollaborator extends DomainBeanTrackable implements Serializa
     /**
      * Sets new domainAutorisationList.
      *
-     * @param domainAutorisationList New value of domainAutorisationList.
+     * @param
      */
     public void setAutorisationList(List<DomainAutorisation> domainAuthorisationList) {
         this.domainAuthorisationList = domainAuthorisationList;
