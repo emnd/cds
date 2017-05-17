@@ -22,6 +22,7 @@ import com.opengroup.res.model.ProjectRepresentation;
 import com.opengroup.res.model.RequestRepresentation;
 import com.opengroup.res.organization.UserServices;
 import com.opengroup.res.organization.domain.DomainEmployee;
+import com.opengroup.res.organization.domain.DomainRole;
 import com.opengroup.res.organization.domain.DomainUser;
 import com.opengroup.res.util.FrontException;
 
@@ -100,7 +101,10 @@ public class AuthorisationController {
     private UserServices userServices;
     
     String  userName,userEmail;
+    // le 17-05-2017
+	Set<String> userRoles;
 
+	// le 17-05-2017
     /**
      *
      * @return
@@ -117,6 +121,19 @@ public class AuthorisationController {
             userName = principal.getName(); // userName ou login  de l'utilisateur
             //System.out.println(domainEmployee.getCoordinate().getEmail());
             userEmail = domainEmployee.getCoordinate().getEmail(); // userEmail ou email de l'utilisateur courant
+			// le 17-05-2017
+			DomainUser domainUser = userServices.get(principal);
+
+			Set<DomainRole> domainRole = domainUser.getRoles();
+			for(DomainRole dmR : domainRole)
+			{
+				System.out.println("Rôle : "+dmR.name());
+				//userRoles.add(dmR.name());
+
+			}
+			//domainUser = DomainUser.newInstance(domainEmployee.getIdentity(),domainEmployee.getJob(),domainEmployee.getCoordinate(),(List<String>)userRoles);
+			//System.out.println("taille des roles : "+domainUser.getRoles().size());
+			// le 17-05-2017
             List<String> userInfo = new ArrayList<String>();
             userInfo.add(userName);
             userInfo.add(userEmail);
@@ -127,7 +144,7 @@ public class AuthorisationController {
         }
     }
     
-   // @Secured("ROLE_CDSMANAGER")
+   @Secured("ROLE_CDSMANAGER")
     @RequestMapping(value = "/authorisations", method = RequestMethod.GET)
     public Set<AuthorisationRepresentation> list() throws FrontException {
         Set<AuthorisationRepresentation> authorisations;

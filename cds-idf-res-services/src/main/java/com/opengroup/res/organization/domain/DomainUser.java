@@ -49,11 +49,11 @@ public final class DomainUser extends DomainEmployee {
         }
 
         if (!this.roles.contains(DomainRole.ROLE_APPLICATION) 
-        	/*|| 	!this.roles.contains(DomainRole.ROLE_ADMIN)
-        	||	!this.roles.contains(DomainRole.ROLE_CDSMANAGER)
+        	//|| 	!this.roles.contains(DomainRole.ROLE_ADMIN)
+        	/*||	!this.roles.contains(DomainRole.ROLE_CDSMANAGER)
         	||  !this.roles.contains(DomainRole.ROLE_DP)
         	|| 	!this.roles.contains(DomainRole.ROLE_ATTRIBUTE)
-        	||	!this.roles.contains(DomainRole.ROLE_USER) */
+        	||	!this.roles.contains(DomainRole.ROLE_USER)*/
         		) {
             constraintsErrors.add("No roles for user");
         }
