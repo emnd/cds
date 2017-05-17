@@ -160,20 +160,20 @@ public class EquipementServicesImpl implements EquipementServices {
 					collab.getFirstName(), collab.getLastName(), collab.getEmailOpen(), collab.getBu());
 
 			//equipement.setCollaborator(collaboratorMapper.toOneEntity(domainEquipement.getDomainCollaborator()));
-			System.out.println("Je suis le collaborator : "+collab.toString());
+			//System.out.println("Je suis le collaborator : "+collab.toString());
 		//	equipement.setCollaborator(collab);
 		}
 
 		else
 		{
-			System.out.println("Je suis le collaborator à affecter : "+domainCollaborator.getLoginOpen());
+			//System.out.println("Je suis le collaborator à affecter : "+domainCollaborator.getLoginOpen());
 
 			Collaborator collabExisting = collaboratorServices.findCollaborator(domainCollaborator.getLoginOpen(), domainCollaborator.getEmailOpen()) != null ?collaboratorServices.findCollaborator(domainCollaborator.getLoginOpen(), domainCollaborator.getEmailOpen()): new Collaborator();
 			//DomainCollaborator domainCollabExisting = collaboratorMapper.toOneDomain(collabExisting);
 
 			if(collabExisting.getId() != null)
 			{
-				System.out.println("login existant : "+domainCollaborator.getLoginOpen()+" id : "+domainCollaborator.getId());
+				//System.out.println("login existant : "+domainCollaborator.getLoginOpen()+" id : "+domainCollaborator.getId());
 				collab = collabExisting;
 				//equipement.setCollaborator(collab);
 				collaboratorServices.updateCollaborator(domainCollaborator.getId(),domainCollaborator.getLoginOpen(),domainCollaborator.getFirstName(),domainCollaborator.getLastName(),domainCollaborator.getEmailOpen(),domainCollaborator.getBuOpen());
@@ -189,7 +189,7 @@ public class EquipementServicesImpl implements EquipementServices {
 						domainEquipement.getDomainCollaborator().getBuOpen());
 				collab = collaboratorServices.findCollaborator(domainCollaborator.getLoginOpen(), domainCollaborator.getEmailOpen());
 				equipement.setCollaborator(collab);
-				System.out.println("login bonjour Macron!! : "+collab.getLoginOpen()+" "+collab.getEmailOpen());
+				//System.out.println("login bonjour Macron!! : "+collab.getLoginOpen()+" "+collab.getEmailOpen());
 
 			}
 

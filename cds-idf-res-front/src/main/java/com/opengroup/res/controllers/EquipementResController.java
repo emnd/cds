@@ -143,7 +143,7 @@ public class EquipementResController {
             //System.out.println("collaboratorRepresentation "+collaboratorRepresentation.getId()+" "+collaboratorRepresentation.getEmailOpen()+" "+collaboratorRepresentation.getFirstName());
 
             DomainCollaborator domainCollaborator = collaboratorRepresentationMapper.toOneDomain(collaboratorRepresentation);
-            System.out.println("domainLocation :"+domainLocation.toString());
+
 
             DomainEquipement domainEquipement = DomainEquipement.newCreatedStateInstance(equipementRepresentation.getStationNameEquipement(),equipementRepresentation.getSerialNumberEquipement(),
                     equipementRepresentation.getMarkEquipement(),equipementRepresentation.getModelEquipement(),
@@ -177,7 +177,7 @@ public class EquipementResController {
     @RequestMapping(value = "/services/equipement/{id}", method = RequestMethod.PUT)
     public ResponseEntity<EquipementRepresentation> update(@PathVariable("id") Long id, @RequestBody EquipementRepresentation equipementRepresentation) throws DomainException
     {
-        System.out.println("je modifie avec un colaborator");
+
         DomainEquipement domainEquipementRepresentation = equipementServices.findEquipement(id);
         if (domainEquipementRepresentation == null) {
             return new ResponseEntity<EquipementRepresentation>(HttpStatus.NOT_FOUND);
@@ -187,14 +187,11 @@ public class EquipementResController {
             DomainLocation domainLocation = locationRepresentationMapper.toOneDomain(locationRepresentation);
 
             CollaboratorRepresentation collaboratorRepresentation = equipementRepresentation.getCollaboratorRepresentation();
-            System.out.println("l'id du collaborateur : "+collaboratorRepresentation.getId());
             DomainCollaborator domainCollaborator = collaboratorRepresentationMapper.toOneDomain(collaboratorRepresentation);
-
-            System.out.println("login open : "+domainCollaborator.getLoginOpen());
 
             if(collaboratorRepresentation.getId() != null)
             {
-                System.out.println("Id non null : "+domainCollaborator.getId());
+
                 equipementServices.updateEquipement(equipementRepresentation.getId(), equipementRepresentation.getStationNameEquipement(),equipementRepresentation.getSerialNumberEquipement(),
                         equipementRepresentation.getMarkEquipement(),equipementRepresentation.getModelEquipement(),
                         equipementRepresentation.getAttributionDateEquipement(), equipementRepresentation.getReturnDateEquipement(),
@@ -204,7 +201,7 @@ public class EquipementResController {
             }
             else
             {
-                System.out.println("Id null collaborator non lié à equipement : "+domainCollaborator.getId());
+
 //
 //			equipementServices.updateEquipementWithOutCollab(equipementRepresentation.getId(), equipementRepresentation.getStationNameEquipement(),equipementRepresentation.getSerialNumberEquipement(),
 //		    		equipementRepresentation.getMarkEquipement(),equipementRepresentation.getModelEquipement(),
