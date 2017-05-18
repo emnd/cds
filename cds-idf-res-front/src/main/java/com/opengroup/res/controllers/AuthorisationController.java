@@ -134,8 +134,7 @@ public class AuthorisationController {
             userInfo.add(userName);
             userInfo.add(userEmail);
             // le 18-05-2017
-            for(String roles:userRoles)
-			{
+            for(String roles:userRoles) {
 				userInfo.add(roles);
 			}
 			// le 18-05-2017

@@ -18,7 +18,9 @@
     
     var userInfos = []; // recuperation des informations de l'utilisateur courant
     var userName, userEmail;
-    
+    //le 18-05-2017
+    $scope.userRoles = []; /* les roles de l'utilisateur courant*/
+    //le 18-05-2017
     var applicant,applicantEmail,decider,firstName,lastName,id,motive,periodEnd,periodStart,projectName,replyDate,requestDate,status,firstName,lastName, extendedDate,emailOpen,loginOpen,text, buOpen;
 	  
 	  $http({ 
@@ -30,6 +32,20 @@
 			console.log("UserName : "+$scope.userInfos[0]); // userName du LDAP
 			self.userName = $scope.userInfos[0];
 			console.log("UserEmail : "+$scope.userInfos[1]); // userEmail du LDAP
+			// le 18-05-2017
+			/* recuperation des  rôles de l'utilisateur courant*/
+			$scope.role;
+			for(var i=0; i<$scope.userInfos.length; i++)
+			{
+			    if( (i > 2) )
+			    {
+                    $scope.role = $scope.userInfos[i];
+                    $scope.userRoles.push($scope.role);
+			    }
+			}
+			console.log("les Roles : ");
+			console.log($scope.userRoles);
+			// le 18-05-2017
 		}, function errorCallback(response) {
 
 		});
