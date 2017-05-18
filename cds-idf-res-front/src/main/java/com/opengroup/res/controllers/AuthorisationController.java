@@ -102,7 +102,7 @@ public class AuthorisationController {
     
     String  userName,userEmail;
     // le 17-05-2017
-	Set<String> userRoles;
+	Set<String> userRoles= new HashSet<String>();
 
 	// le 17-05-2017
     /**
@@ -113,33 +113,36 @@ public class AuthorisationController {
     @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
     public List<String> master(Principal principal) { // listes des infos sur l'utilisateur courant
     	try {
-            userServices.get(principal);
-            //System.out.println("principal");
-            //System.out.println(principal.getName());
             DomainEmployee domainEmployee = userServices.get(principal.getName());
-            //System.out.println("domainEmployee");
             userName = principal.getName(); // userName ou login  de l'utilisateur
-            //System.out.println(domainEmployee.getCoordinate().getEmail());
             userEmail = domainEmployee.getCoordinate().getEmail(); // userEmail ou email de l'utilisateur courant
 			// le 17-05-2017
 			DomainUser domainUser = userServices.get(principal);
 
 			Set<DomainRole> domainRole = domainUser.getRoles();
+			String role="";
 			for(DomainRole dmR : domainRole)
 			{
-				System.out.println("Rôle : "+dmR.name());
-				//userRoles.add(dmR.name());
-
+				if(!dmR.name().equals("ROLE_APPLICATION"))
+				{
+					role = dmR.name();
+				}
+				userRoles.add(role);
 			}
-			//domainUser = DomainUser.newInstance(domainEmployee.getIdentity(),domainEmployee.getJob(),domainEmployee.getCoordinate(),(List<String>)userRoles);
-			//System.out.println("taille des roles : "+domainUser.getRoles().size());
 			// le 17-05-2017
             List<String> userInfo = new ArrayList<String>();
             userInfo.add(userName);
             userInfo.add(userEmail);
+            // le 18-05-2017
+            for(String roles:userRoles)
+			{
+				userInfo.add(roles);
+			}
+			// le 18-05-2017
             return userInfo;
         } catch (Exception e) {
             LOGGER.error("A problem occurs while controlling the authenticated user", e);
+			e.printStackTrace();
             return null;
         }
     }
