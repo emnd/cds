@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.http.HttpMethod;
 
 /**
  * This is where we configure the web application server instance and authentication policy
@@ -39,12 +40,39 @@ public class WebApplicationInitializer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        /*http.authorizeRequests()
+               .antMatchers("/app/layout/pages/login.template.html").anonymous()
+               .anyRequest()
+               .authenticated()
+               .and()
+                .formLogin()
+                .loginPage("/app/layout/pages/login*")
+                .defaultSuccessUrl("/dashbord/#gestion-des-autorisations/liste-des-demandes")
+                .failureUrl("/app/layout/pages/login.template.html?error=true")
+                .and()
+                .logout().logoutSuccessUrl("/app/layout/pages/login.template.html")
+              //.csrf()
+              .disable()   // à rajouter pour le post
+                .httpBasic();
+       /* http.csrf().disable() // disable csrf for our requests.
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers(HttpMethod.POST,"/login").permitAll()
+                .anyRequest().authenticated();*/
+       /* http.authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf().disable()   // à rajouter pour le post
-                .httpBasic();
+                .formLogin().loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll().and().httpBasic();*/
+        http
+                .httpBasic().and()
+                .authorizeRequests()
+                .antMatchers("/login").permitAll().anyRequest()
+                .authenticated();
     }
 
     /**

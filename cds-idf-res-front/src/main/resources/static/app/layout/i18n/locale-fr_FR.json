@@ -68,7 +68,11 @@
    "LastName": "Nom",
   "FirstName":  "Prénom",
    "EmailOpen":  "Email OPEN",
-   "BuOpen": "Nom Bu"
+   "BuOpen": "Nom Bu",
+  "sidebar.user" :"ROLE_USER",
+  "sidebar.cdsManager" :"ROLE_CDSMANAGER",
+  "sidebar.attribute" :"ROLE_ATTRIBUTE"
+
   
 
  

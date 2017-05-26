@@ -1,42 +1,52 @@
 <meta charset="UTF-8" />
 <div class="container" ng-controller="AuthorisationsController">
-	<fieldset id ="extend" class="extend">
+	<fieldset id ="extend" class="extend modal-dialog modal-lg">
 			<h3 >Prolongation de demande d'accès</h3>
 			<form method="post" ng-submit="save()" data-toggle="validator" role="form">
-				<div class="form-group">
-					<input type="hidden" id="id"  ng-model="id"  value="id" />
+				<div class="row form-group well extendEditForm">
+					<div class="form-group">
+						<input type="hidden" id="id"  ng-model="id"  value="id" />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="lastName">Nom du collaborateur</label>
+						<input type="text" id="lastName" ng-model="lastName" value="{{lastName}}" readonly class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="firstName">Prénom du collaborateur</label>
+						<input type="text" id="firstName" ng-model="firstName" value="{{firstName}}"  readonly class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="emailOpen">Email Open *</label>
+						<input id="emailOpen" type="text" ng-model="emailOpen" value="{{emailOpen}}" class="form-control"  readonly required/>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="lastName">Nom du collaborateur</label>
-					<input type="text" id="lastName" ng-model="lastName" value="{{lastName}}" readonly class="form-control" />
+				<div class="row form-group well extendEditForm">
+					<div class="form-group col-sm-4">
+						<label for="dteFinIni">Date de fin initiale</label>
+						<input type="date" id="dteFinIni" ng-model="periodEnd"  value="{{periodEnd |date:'yyyy-MM-dd'}}" readonly class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="extendedDate">Date de prolongation *</label>
+						<input id="extendedDate" type="date" ng-model="extendedDate" value="{{extendedDate |date:'yyyy-MM-dd'}}"  class="form-control" required />
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="firstName">Prénom du collaborateur</label>
-					<input type="text" id="firstName" ng-model="firstName" value="{{firstName}}" readonly  class="form-control" />
+				<div class="row form-group well extendEditForm">
+					<div class="form-group col-sm-4">
+						<label for="projet">Projet</label>
+						<input id="projet" type="text" ng-model="projectName"  value="{{projectName}}" class="form-control" />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="motivation">Motivation de la demande</label>
+						<textarea id="motivation" ng-model="motive"  class="form-control">{{motive}}</textarea>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="dteFinIni">Date de fin initiale</label>
-					<input type="date" id="dteFinIni" ng-model="periodEnd"  value="{{periodEnd |date:'yyyy-MM-dd'}}" readonly class="form-control" />
-				</div>
-				<div class="form-group">
-					<label for="extendedDate">Date de prolongation *</label>
-					<input id="extendedDate" type="date" ng-model="extendedDate" value="{{extendedDate |date:'yyyy-MM-dd'}}"  class="form-control" required />
-				</div>
-				<div class="form-group">
-					<label for="emailOpen">Email Open *</label>
-					<input id="emailOpen" type="text" ng-model="emailOpen" value="{{emailOpen}}" readonly class="form-control" required/>
-				</div>
-				<div class="form-group">
-					<label for="projet">Projet</label>
-					<input id="projet" type="text" ng-model="projectName"  value="{{projectName}}" class="form-control" />
-				</div>
-				<div class="form-group">
-					<label for="motivation">Motivation de la demande</label>
-					<textarea id="motivation" ng-model="motive"  class="form-control">{{motive}}</textarea>
-				</div>
-				<div class="from-group"></div>
-				<button   class="btn btn-primary" data-toggle="modal" data-target="#myExtendModal">Valider </button>&nbsp;&nbsp;&nbsp;
-				<input type="reset"  class="btn btn-secondary annuler"  ng-click="cancel()" value="Annuler" readonly />
+				<div class="row form-group well extendEditForm">
+					<div class="from-group col-sm-4">
+						<button   class="btn btn-primary" data-toggle="modal" data-target="#myExtendModal">Valider </button>
+					<!--</div>
+					<div class="from-group col-sm-4"> -->
+						<button  class="btn btn-secondary"  ng-click="cancel()">Annuler</button>
+					</div>
 				</div>
 				
 				<!-- debut le 03/01/2017 -->

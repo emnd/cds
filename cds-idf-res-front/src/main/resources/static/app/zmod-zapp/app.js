@@ -72,9 +72,26 @@ var app = angular.module('app', [
       events:true,
     });
 
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/login');
 
     $stateProvider
+        .state('login', {
+                    url :'/login',
+                    templateUrl: '/app/layout/pages/login.template.html',
+                    controller:'LoginCtrl',
+
+                         resolve: {
+                                      loadMyFiles:function($ocLazyLoad) {
+                                        return $ocLazyLoad.load({
+                                          name:'app',
+                                          files:[
+                                          '/app/core/login.controller.js'
+                                          ]
+                                        })
+                                      }
+                                    }
+                })
+
       .state('dashboard', {
         url:'/dashboard',
         templateUrl: '/app/core/main.html',
@@ -169,10 +186,10 @@ var app = angular.module('app', [
         templateUrl:'/app/layout/pages/blank.template.html',
         url:'/blank'
     })
-      .state('login',{
+     /* .state('login',{
         templateUrl:'/app/layout/pages/login.template.html',
         url:'/login'
-    })
+    })*/
       .state('dashboard.table',{
         templateUrl:'/app/layout/tables/table.template.html',
         url:'/table'
