@@ -76,21 +76,19 @@ var app = angular.module('app', [
 
     $stateProvider
         .state('login', {
-                    url :'/login',
-                    templateUrl: '/app/layout/pages/login.template.html',
-                    controller:'LoginCtrl',
-
-                         resolve: {
-                                      loadMyFiles:function($ocLazyLoad) {
-                                        return $ocLazyLoad.load({
-                                          name:'app',
-                                          files:[
-                                          '/app/core/login.controller.js'
-                                          ]
-                                        })
-                                      }
-                                    }
+          url :'/login',
+          templateUrl: '/app/layout/pages/login.template.html',
+          controller:'LoginCtrl',
+          resolve: {
+            loadMyFiles:function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                        name:'app',
+                        files:
+                        ['/app/core/login.controller.js']
                 })
+            }
+          }
+    })
 
       .state('dashboard', {
         url:'/dashboard',

@@ -37,7 +37,7 @@
             $scope.role;
             for(var i=0; i<$scope.userInfos.length; i++)
             {
-            	 if( (i > 2) )
+            	 if( (i > 1) )
             	{
                     $scope.role = $scope.userInfos[i];
                     $scope.userRoles.push($scope.role);

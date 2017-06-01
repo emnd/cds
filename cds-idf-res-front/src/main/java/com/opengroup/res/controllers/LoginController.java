@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
+import java.util.Base64;
 import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import java.util.List;
@@ -44,29 +46,25 @@ public class LoginController {
         try{
             Person person = ldapUser.getPerson(username);
             System.out.println("Email : "+person.getEmail());
-            list.add(person.getEmail());
+
+            System.out.println("commonName : "+person.getCommonName());
+            String pwd = person.getUserPassword();
+            System.out.println("userPassword : "+person.getUserPassword());
+            char charAscii = password.charAt(0);
+            int pwdEncod = (int) charAscii;
+            System.out.println("Password saisi : "+password+" codé en ASCII : "+pwdEncod);
+            if(person.getUserPassword().equals(Integer.toString(pwdEncod)))
+            {
+                System.out.println("OK");
+                list.add(username);
+                list.add(password);
+                list.add(person.getEmail());
+            }
+            else
+            {    System.out.println("KO");}
+
         }
         catch(ZdaoException e) {e.printStackTrace();}
-        Hashtable env = new Hashtable();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://10.170.23.196:389");
-        env.put(Context.SECURITY_AUTHENTICATION,"user");
-        env.put(Context.SECURITY_PRINCIPAL, "ou=groups"); //cn=application,ou=groups
-        env.put(Context.SECURITY_CREDENTIALS, "1");
-
-        DirContext dirContext = null;
-
-        try {
-           dirContext = new InitialDirContext(env);
-            System.out.println("connected");
-            //Object objet =  dirContext.lookup("cn=user,ou=groups");
-            //System.out.println("champ = "+objet.toString());
-           dirContext.close();
-        } catch (NamingException e) {
-            System.err.println("Erreur lors de l'acces au serveur LDAP" + e);
-            e.printStackTrace();
-        }
-
 
 
         return list;

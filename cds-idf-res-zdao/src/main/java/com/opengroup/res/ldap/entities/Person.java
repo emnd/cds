@@ -39,6 +39,9 @@ public final class Person implements Serializable {
     @Attribute(name = "mail")
     private String email;
 
+    @Attribute(name="userPassword")
+    private String userPassword;
+
     /**
      * Gets givenName.
      *
@@ -146,4 +149,8 @@ public final class Person implements Serializable {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
+
+    public void setUserPassword(String userPassword){ this.userPassword = userPassword; }
+    public String getUserPassword() { return userPassword; }
 }

@@ -71,8 +71,14 @@ public class WebApplicationInitializer extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll().anyRequest()
-                .authenticated();
+                .antMatchers("/login").permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf()
+                .disable()
+
+        ;
     }
 
     /**

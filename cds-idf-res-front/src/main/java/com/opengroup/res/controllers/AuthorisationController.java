@@ -120,14 +120,15 @@ public class AuthorisationController {
 			DomainUser domainUser = userServices.get(principal);
 
 			Set<DomainRole> domainRole = domainUser.getRoles();
-			String role="";
+			//String role="";
 			for(DomainRole dmR : domainRole)
 			{
 				if(!dmR.name().equals("ROLE_APPLICATION"))
 				{
-					role = dmR.name();
+					//role = dmR.name();
+					userRoles.add(dmR.name());
 				}
-				userRoles.add(role);
+
 			}
 			// le 17-05-2017
             List<String> userInfo = new ArrayList<String>();
