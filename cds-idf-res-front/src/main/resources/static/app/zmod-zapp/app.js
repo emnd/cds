@@ -310,6 +310,27 @@ var app = angular.module('app', [
                 }
               }
             })
+
+            // le 06-06-2017 pdf
+            .state('dashboard.equipement-apercu', {
+               url:'/Gestion-des-ressources/equipement-apercu/:obj',
+               controller:'PdfController',
+               templateUrl:'/app/zmod-model/equipement-apercu.html',
+               resolve: {
+                 loadMyFiles:function($ocLazyLoad) {
+                    return $ocLazyLoad.load({
+                       name:'app',
+                       files:[
+                        '/app/zmod-model/equipement-apercu.module.js',
+                        '/app/zmod-model/pdf.controller.js'
+                       ]
+                    }),
+                    $ocLazyLoad.load({files : ['app/libs/jquery-3.1.1.min.js']})
+
+                 }
+               }
+            })
+            // le 06-06-2017 pdf
    	
   }]);
 });

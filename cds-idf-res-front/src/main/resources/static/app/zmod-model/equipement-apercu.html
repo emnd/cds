@@ -1,0 +1,54 @@
+<meta charset="UTF-8" />
+
+<div class="container" ng-controller="PdfController" id="pdfdiv">
+
+    <div id="myTableau">
+        <h2><em> Fiche DSI de prêt et de restitution de matériel </em></h2>
+
+
+        <table id="reference"  class="table-bordered">
+            <thead>
+            <tr>
+                <th  width=20%><img src="..\..\images\myOpen-logo.png"></th>
+                <th width=60%><h3>PRET DE MATERIEL</h3></th>
+                <th width=20%>DATE</th>
+            </tr>
+            </thead>
+
+        </table>
+        </br>
+
+        <table id="reference2"  class="table-bordered">
+            <thead>
+            <tr>
+                <th ><h2 align="right">Nom Prénom : {{firstName}}  {{lastName}}</h2></th>
+                <th ><h2 align="right">Nom Prénom : {{firstName}}  {{lastName}}</h2></th>
+                <th ><h2 align="right">Nom Prénom : {{firstName}}  {{lastName}}</h2></th>
+
+            </tr>
+            </thead>
+                <tr>
+                    <td>{{lastName}}</td>
+                    <td>{{loginOpen}}</td>
+                    <td>{{loginOpen}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <h5>Dans le cadre de votre mission, nous mettons à votre disposition le matériel suivant :</h5>
+
+        <br>
+        <p>
+            Ces outils sont à usage <b>strinctement professionnel</b>.Ils doivent impérativement être
+            <br/> restitués lors de votre départ de la societé OPEN.
+        </p>
+
+
+        	<a  id="telecharger" href="javascript:genPDF()"> Télécharger le PDF </a>
+    </div>
+
+
+
+
+</div>
+

@@ -10,6 +10,8 @@ requirejs.config({
         'ngLocaleFR': '/webjars/angularjs/1.5.8/i18n/angular-locale_fr-fr',
         'uiGrid' : '/webjars/ui-grid/3.2.5/ui-grid.min',
         '$' : '/webjars/jquery/3.1.1/jquery.min',
+        'jsPdf' : 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug',
+        'pdfGenerator' : '/app/libs/pdfGenerator',
         'slimScroll': '/webjars/slimScroll/1.3.3/jquery.slimscroll.min',
         'bootstrap' : '/webjars/bootstrap/3.3.7/js/bootstrap.min',
         'uiSelect' : '/webjars/angular-ui-select/0.19.6/dist/select.min',
@@ -35,6 +37,16 @@ requirejs.config({
         $ : {
             'exports' : '$'
         },
+        //
+        jsPdf : {
+          'exports' : 'jsPdf',
+          'deps' : ['$']
+        },
+        pdfGenerator : {
+           'exports' : 'pdfGenerator',
+           'deps' : ['jsPdf']
+        },
+        //
         slimScroll : {
             'exports': 'slimscroll',
             'deps':['angular','$']
@@ -126,7 +138,7 @@ requirejs.config({
             'deps':['angular', 'uiRouter', '$', 'ocLazyLoad', 'uiBootstrap', 'ngLoadingBar', 'ngResource',
                     'ngAnimate', 'ngTouch', 'ngSanitize','uiSelect','uiGrid','angularTranslate',
                     'angularTranslateLoaderStaticFiles', 'angularTranslateStorageLocal', 'angularTranslateHandlerLog',
-                    'angularTranslateLoaderUrl', 'ngLocaleFR', 'uiBootstrapTpls', 'slimScroll']
+                    'angularTranslateLoaderUrl', 'ngLocaleFR', 'uiBootstrapTpls', 'slimScroll', 'pdfGenerator', 'jsPdf']
         }
     }
 });

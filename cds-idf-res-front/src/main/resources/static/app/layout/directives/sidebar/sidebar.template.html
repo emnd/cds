@@ -1,9 +1,9 @@
-<div class="navbar-default sidebar" role="navigation">
+<div class="navbar-default sidebar" role="navigation" >
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav in" id="side-menu">
             <li class="sidebar-search ng-isolate-scope">
                 <div class="input-group custom-search-form">
-                    <input class="form-control" placeholder=" {{'app.layout.directives.sidebar.search-bar' | translate}}" type="text">
+                    <input class="form-control" placeholder=" {{'app.layout.directives.sidebar.search-bar' | translate}} " type="text">
                     <span class="input-group-btn">
 							<button class="btn btn-default" type="button">
 								<i class="fa fa-search"></i>
@@ -13,7 +13,7 @@
             </li>
 
             <!-- Moussa NDIAYE -->
-            <li ng-class="{active: collapseVar==8}" class="ng-binding" ng-if="(AuthorisationController.userR = 'ROLE_USER') || (AuthorisationsController.userR = 'ROLE_USER')">
+            <li ng-class="{active: collapseVar==8}" class="ng-binding">
                 <a href="" ng-click="check(8)">
                     <i class="fa fa-lock" aria-hidden="true"></i>&nbsp;&nbsp;{{"app.layout.directives.sidebar.Gestions.autorisations"| translate}}<span class="fa arrow"></span>
                 </a>
@@ -29,7 +29,7 @@
 
             </li>
 
-            <li class="ng-binding" ng-class="{active: collapseVar==2}" ng-if="(AuthorisationController.attributeR ='ROLE_ATTRIBUTE') || (AuthorisationsController.attributeR ='ROLE_ATTRIBUTE')">
+            <li class="ng-binding" ng-class="{active: collapseVar==2}">
                 <a href="" ng-click="check(2)">
                     <i class="fa fa-bank" aria-hidden="true"></i>&nbsp;&nbsp;{{"app.layout.directives.sidebar.Gestion.ressources" | translate}}
                     <span class="fa arrow"></span>

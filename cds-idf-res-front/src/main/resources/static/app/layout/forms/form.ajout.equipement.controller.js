@@ -9,9 +9,9 @@
 angular.module('app').controller('AjoutEquipementController', AjoutEquipementController); 
     
 	  
-	  AjoutEquipementController.$inject = ['$rootScope', '$scope', '$timeout', '$q' ,'$http', '$log', 'uiGridConstants','$uibModal'];
+	  AjoutEquipementController.$inject = ['$rootScope', '$scope', '$timeout', '$q' ,'$http', '$log', 'uiGridConstants','$uibModal','$state','$stateParams'];
 
-	  function AjoutEquipementController($rootScope, $scope, $timeout,$q ,$http, $log, uiGridConstants,$uibModal) {
+	  function AjoutEquipementController($rootScope, $scope, $timeout,$q ,$http, $log, uiGridConstants,$uibModal,$state,$stateParams) {
 	    $rootScope.moduleLoaded = false;
 	    var self=$scope;
 	    var stateTypes =[];
@@ -165,6 +165,26 @@ else{
 		  $scope.text="Equipement Ajouté";
 		  console.log($scope.text);
 		 // location.reload();
+		 // le 06-06-2017
+		 $scope.object =
+		 {
+		  firstName : $scope.firstName,
+		  lastName : $scope.lastName,
+		  loginOpen : $scope.loginOpen,
+		  emailOpen : $scope.emailOpen,
+		  buOpen : $scope.buOpen,
+		  name :$scope.stationName,
+		  serialNumber :$scope.serialNumber,
+		  mark : $scope.mark,
+		  model : $scope.model,
+          attributionDate: new Date($scope.attributionDate),
+          comments :$scope.comments,
+          type :$scope.equipementType
+
+		 };
+         $scope.obj = JSON.stringify($scope.object); // parsage en String de l'objet
+         $state.go('dashboard.equipement-apercu', {obj : $scope.obj});
+		 // le 06-06-2017
 	  }, function errorCallback(reponse){
 		  
 	  });

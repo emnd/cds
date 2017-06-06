@@ -2,6 +2,7 @@ package com.opengroup.res.controllers;
 
 import com.opengroup.res.ldap.LdapUserRepository;
 import com.opengroup.res.organization.UserServices;
+import com.opengroup.res.organization.domain.DomainUser;
 import com.opengroup.res.util.ZdaoConfiguration;
 import com.opengroup.res.util.ZdaoConfigurationImpl;
 import com.opengroup.res.util.ZdaoException;
@@ -46,7 +47,6 @@ public class LoginController {
         try{
             Person person = ldapUser.getPerson(username);
             System.out.println("Email : "+person.getEmail());
-
             System.out.println("commonName : "+person.getCommonName());
             String pwd = person.getUserPassword();
             System.out.println("userPassword : "+person.getUserPassword());

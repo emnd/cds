@@ -21,6 +21,7 @@
     //le 18-05-2017
     $scope.userRoles = []; /* les roles de l'utilisateur courant*/
     $scope.userR , $scope.attributeR, $scope.cdsManagerR;
+    // var userR , attributeR, cdsManagerR;
     //le 18-05-2017
     var applicant,applicantEmail,decider,firstName,lastName,id,motive,periodEnd,periodStart,projectName,replyDate,requestDate,status,firstName,lastName, extendedDate,emailOpen,loginOpen,text, buOpen;
 	  
@@ -46,19 +47,26 @@
 			}
 			console.log("les Roles : ");
 			console.log($scope.userRoles);
-			if($scope.userRoles.lenght == 1)
+			if($scope.userRoles.length == 1)
 			{
 			    $scope.userR = $scope.userRoles[0];
 			    $scope.attributeR = $scope.userRoles[0];
+			    console.log("userR :"+$scope.userR+"\n"+"attributeR :"+$scope.attributeR+"\n");
 			}
-			else
+			if($scope.userRoles.length >= 2)
 			{
 			    $scope.userR = $scope.userRoles[0];
 			    $scope.attributeR = $scope.userRoles[1];
 			    $scope.cdsManagerR = $scope.userRoles[2];
+			    console.log("userR :"+$scope.userR+"\n"+"attributeR :"+$scope.attributeR+"\n");
 			}
-
-			console.log("userR :"+$scope.userR+"\n"+"attributeR :"+$scope.attributeR+"\n"+"cdsManagerR :"+$scope.cdsManagerR+"\n")
+			if($scope.userRoles.length == 3)
+            {
+            	$scope.userR = $scope.userRoles[0];
+            	$scope.attributeR = $scope.userRoles[1];
+            	$scope.cdsManagerR = $scope.userRoles[2];
+            	console.log("userR :"+$scope.userR+"\n"+"attributeR :"+$scope.attributeR+"\n"+"cdsManagerR :"+$scope.cdsManagerR+"\n");
+            }
 			// le 18-05-2017
 		}, function errorCallback(response) {
 
