@@ -14,7 +14,7 @@ angular.module('app').controller('PdfController', PdfController);
 	  function PdfController($stateParams,$scope, $rootScope)
 	  {
         var firstName, lastName, loginOpen,  buOpen, emailOpen; // collaborator
-        var name, serialNumber, mark, model, attributionDate, comments, type; // equipement
+        var name, serialNumber, mark, model, attributionDate, expectedDate, comments, type; // equipement
         var data, objet;
         $scope.data = $stateParams.obj; // recuperation des données envoyées depuis form.ajout.equipement.controller.js
 
@@ -33,6 +33,7 @@ angular.module('app').controller('PdfController', PdfController);
         $scope.mark = $scope.objet.mark;
         $scope.model = $scope.objet.model;
         $scope.attributionDate = $scope.objet.attributionDate;
+        $scope.expectedDate = $scope.objet.expectedDate;
         $scope.comments = $scope.objet.comments;
         $scope.type = $scope.objet.type;
 

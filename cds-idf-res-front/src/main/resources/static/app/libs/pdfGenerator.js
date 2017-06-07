@@ -22,14 +22,10 @@ function genPDF(){
             function(dispose) {
                 // dispose: object with X, Y of the last line add to the PDF
                 //          this allow the insertion of new lines after html
-                 pdf.save('TestPdf.pdf');
-             }
+                var mois = new Date().getMonth()+1;
+             pdf.save('pret_Materiel_Pdf_'+new Date().getDate()+'_'+mois+'_'+new Date().getFullYear()+'_'+new Date().getHours()+'_'+new Date().getMinutes()+'.pdf');
+            }
         );
 
 	}
 
-	$('#telecharger').click(function() {
-	      console.log( " Are you ready!" );
-	      genPDF();
-	      console.log( " yes, I'm ready!" );
-	    });

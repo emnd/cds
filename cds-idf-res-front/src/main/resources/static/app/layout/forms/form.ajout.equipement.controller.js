@@ -18,7 +18,7 @@ angular.module('app').controller('AjoutEquipementController', AjoutEquipementCon
 	    var equipementTypes = [];
 	    
 	    var idEq,serialNumber,mark,stationName,model,equipementType,stateType,purchaseDate,
-	    attributionDate,expectedDate,comments, returnDate, comments,idLoc, idCollab, emailOpen, loginOpen, firstName, lastName,buOpen; 
+	    attributionDate,expectedDate,comments, returnDate,idLoc, idCollab, emailOpen, loginOpen, firstName, lastName,buOpen;
 	 
        $http({
 			method : 'GET',
@@ -71,10 +71,10 @@ angular.module('app').controller('AjoutEquipementController', AjoutEquipementCon
 				  console.log($scope.text);
 			});
 		 
-if($scope.loginOpen == null && $scope.lastName == null && $scope.firstName== null && $scope.emailOpen == null && $scope.buOpen== null){
+        if($scope.loginOpen == null && $scope.lastName == null && $scope.firstName== null && $scope.emailOpen == null && $scope.buOpen== null){
 
 	
-	$http({
+	    $http({
 		  
 		  	method : 'POST',
 			 url : '/services/equipementWithOutCollab/',
@@ -116,8 +116,8 @@ if($scope.loginOpen == null && $scope.lastName == null && $scope.firstName== nul
 		  
 	  });
 
-}
-else{
+    }
+    else{
 	self.loginOpen = $scope.loginOpen;
 	  self.firstName = $scope.firstName;
 	  self.emailOpen = $scope.emailOpen;
@@ -178,9 +178,12 @@ else{
 		  mark : $scope.mark,
 		  model : $scope.model,
           attributionDate: new Date($scope.attributionDate),
+          expectedDate : new Date($scope.expectedDate),
           comments :$scope.comments,
           type :$scope.equipementType
 		 };
+		 console.log("Date de retour prévue : "+new Date($scope.expectedDate));
+		 console.log("Commentaires : "+$scope.comments);
          $scope.obj = JSON.stringify($scope.object); // parsage en String de l'objet JSON
          $state.go('dashboard.equipement-apercu', {obj : $scope.obj});
 		 // le 06-06-2017
@@ -188,12 +191,12 @@ else{
 		  
 	  });
 
-}		  			
+    }
 		
 	  
-	  }
+   }
 	
 	  
 	 
-	  }
+ }
   
