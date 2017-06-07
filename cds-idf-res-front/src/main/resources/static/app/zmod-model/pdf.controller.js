@@ -19,7 +19,7 @@ angular.module('app').controller('PdfController', PdfController);
         $scope.data = $stateParams.obj; // recuperation des données envoyées depuis form.ajout.equipement.controller.js
 
 	    console.log("Dans pdf controller: ");
-	    $scope.objet = JSON.parse($scope.data); // parsage en JSON
+	    $scope.objet = JSON.parse($scope.data); // parsage en JSON de l'objet string
 	    console.log($scope.data);
 	    console.log($scope.objet);
 	    $scope.firstName = $scope.objet.firstName;

@@ -2,51 +2,105 @@
 
 <div class="container" ng-controller="PdfController" id="pdfdiv">
 
-    <div id="myTableau">
-        <h2><em> Fiche DSI de prêt et de restitution de matériel </em></h2>
+    <style>
 
+			body{
+				font-size:120%;
+			}
+			h2{text-align:center;}
+			table {
+				width:100%;
+				border: 2;
+			}
+			th, td {
+				colspan:4;
+				width:20%;
+			}
+			td {
+				text-align: center;
+			}
+			tr {
+				rowspan:4;
+			}
+			#myTableau {
+				margin-left:2%;
+				margin-right:5%;
+			}
+		</style>
+    <div id="myTableau">
+        <img src="..\..\images\myOpen-logo.png">
+        <h2><em> Fiche DSI de prêt et de restitution de matériel </em></h2>
 
         <table id="reference"  class="table-bordered">
             <thead>
             <tr>
-                <th  width=20%><img src="..\..\images\myOpen-logo.png"></th>
-                <th width=60%><h3>PRET DE MATERIEL</h3></th>
-                <th width=20%>DATE</th>
+                <th >Nom Prénom</th>
+                <th >Identifiant</th>
+                <th>BU</th>
+                <th>Email</th>
             </tr>
             </thead>
+            <tbody>
+            <td>{{(firstName | uppercase)+' '+(lastName | uppercase)}}</td>
+            <td>{{(loginOpen | uppercase)}}</td>
+            <td>{{(buOpen | uppercase)}}</td>
+            <td>{{(emailOpen | uppercase)}}</td>
 
-        </table>
-        </br>
-
-        <table id="reference2"  class="table-bordered">
-            <thead>
-            <tr>
-                <th ><h2 align="right">Nom Prénom : {{firstName}}  {{lastName}}</h2></th>
-                <th ><h2 align="right">Nom Prénom : {{firstName}}  {{lastName}}</h2></th>
-                <th ><h2 align="right">Nom Prénom : {{firstName}}  {{lastName}}</h2></th>
-
-            </tr>
-            </thead>
-                <tr>
-                    <td>{{lastName}}</td>
-                    <td>{{loginOpen}}</td>
-                    <td>{{loginOpen}}</td>
-                </tr>
             </tbody>
         </table>
-        <br>
         <h5>Dans le cadre de votre mission, nous mettons à votre disposition le matériel suivant :</h5>
+        <table id="monTableau"  class="table-bordered">
 
-        <br>
+            <thead>
+
+            <tr>
+
+                <th> Matériel</th>
+
+                <th> Marque</th>
+
+                <th> Date Prêt </th>
+
+                <th> Date restitution </th>
+
+                <th>Divers</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+                <td>{{(serialNumber | uppercase) +' '+(name | uppercase)+' '+(model |uppercase)}}</td >
+
+                <td>{{(mark| uppercase)}}</td>
+
+                <td>{{attributionDate | date:'dd-MM-yyyy'}}  </td>
+
+                <td>{{expectedDate | date:'dd-MM-yyyy'}}</td>
+
+                <td>{{comments}}</td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+        <h4>Engagement du collaborateur</h4>
         <p>
-            Ces outils sont à usage <b>strinctement professionnel</b>.Ils doivent impérativement être
-            <br/> restitués lors de votre départ de la societé OPEN.
+            Ces matériels vous sont confiés et sont sous votre responsabilité. ils sont à <b>usage professionnel</b>.
+            <br/>Ils doivent impérativement être restitués lors de votre départ de la societé.
         </p>
-
-
-        	<a  id="telecharger" href="javascript:genPDF()"> Télécharger le PDF </a>
+        <p>
+            Concernat les matériels mobiles et/ou nomades, vous êtes autorisés à sortir les informations<br/>et données enregistrées sur ces matériels dans le cadre de votre mission.<br/>Cependant,
+            <b>vous vous engagez à vous conformer aux pratiques de sécurité en vigueur </b>et notamment à respecter la Charte
+            informatique et le Mémento des bonnes pratiques de sécurité,<br/>disponible sur l'intranet dans l'onglet « Sécurité ».
+        </p>
+        <a  id="telecharger" href="javascript:genPDF()"> Télécharger le PDF </a>
     </div>
-
 
 
 

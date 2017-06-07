@@ -180,9 +180,8 @@ else{
           attributionDate: new Date($scope.attributionDate),
           comments :$scope.comments,
           type :$scope.equipementType
-
 		 };
-         $scope.obj = JSON.stringify($scope.object); // parsage en String de l'objet
+         $scope.obj = JSON.stringify($scope.object); // parsage en String de l'objet JSON
          $state.go('dashboard.equipement-apercu', {obj : $scope.obj});
 		 // le 06-06-2017
 	  }, function errorCallback(reponse){
